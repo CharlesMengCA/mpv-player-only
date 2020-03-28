@@ -2,10 +2,10 @@
 
 set -x #echo on
 
-add_ffmpeg_option () {
+add_option () {
 
-	if ! grep -- "$1" packages/ffmpeg.cmake; then
-		sed -i "/-pkg-config-flags=--static/a \        $1" packages/ffmpeg.cmake
+	if ! grep -- "$3" packages/$1.cmake; then
+		sed -i "/$2/a \        $3" packages/$1.cmake
 	fi
 }
 
@@ -20,12 +20,15 @@ git clone https://github.com/shinchiro/mpv-winbuild-cmake.git
 
 cd mpv-winbuild-cmake/
 
-add_ffmpeg_option "--disable-programs" 
-add_ffmpeg_option "--disable-doc" 
-add_ffmpeg_option "--disable-debug" 
-add_ffmpeg_option "--disable-encoders"
+add_option ffmpeg -pkg-config-flags=--static --disable-programs
+add_option ffmpeg -pkg-config-flags=--static --disable-doc
+add_option ffmpeg -pkg-config-flags=--static --disable-debug
+add_option ffmpeg -pkg-config-flags=--static --disable-encoders
  
 sed -i "/--enable-vapoursynth/d" packages/mpv.cmake
+
+add_option mpv --enable-static-build --disable-debug-build
+
 
 mkdir build64
 cd build64
