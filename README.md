@@ -2,7 +2,8 @@
 Cloned from https://github.com/shinchiro/mpv-winbuild-cmake with encoders disabled to get smaller binaries 
 
 Download and Install VirtualBox v6.0.18 (v6.1.4 not work well with Arch Linux)
-  https://www.virtualbox.org/wiki/Download_Old_Builds_6_0
+
+https://www.virtualbox.org/wiki/Download_Old_Builds_6_0
 
 Unzip VM ArchLinux.7z to a folder.
 
