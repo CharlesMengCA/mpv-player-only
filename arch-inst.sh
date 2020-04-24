@@ -61,5 +61,7 @@ chmod +x /mnt/root/part2.sh
 
 arch-chroot /mnt /root/part2.sh
 
+rm /mnt/root/part2.sh
+
 # mount -t vboxsf -o gid=vboxsf LinuxFolder /root/mpv
 
