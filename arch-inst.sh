@@ -47,7 +47,7 @@ pacman -S --noconfirm --needed xfce4 lxdm mousepad
 systemctl enable lxdm
 
 #virtualbox configure
-pacman -S --noconfirm --needed virtualbox-guest-modules-arch virtualbox-guest-utils
+pacman -S --noconfirm --needed virtualbox-guest-utils
 
 systemctl enable vboxservice.service
 
