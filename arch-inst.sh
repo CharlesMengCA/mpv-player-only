@@ -15,7 +15,7 @@ genfstab /mnt >> /mnt/etc/fstab
 cat <<EOF > /mnt/root/part2.sh
 #!/bin/bash
 
-timedatectl set-timezone "America/Toronto"
+timedatectl set-timezone America/Toronto
 
 sed -i 's/#en_US\.UTF-8/en_US.UTF-8/' /etc/locale.gen
 
@@ -51,7 +51,7 @@ pacman -S --noconfirm --needed virtualbox-guest-utils
 
 systemctl enable vboxservice.service
 
-echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
+#echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
 passwd
