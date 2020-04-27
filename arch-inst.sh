@@ -42,7 +42,7 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # xfce desktop
-pacman -S --noconfirm --needed lxdm xfce4-panel xfdesktop4 xfwm4 xfce4-settings xfce4-session xfce4-terminal thunar arc-gtk-theme adwaita-icon-theme mousepad
+pacman -S --noconfirm --needed lxdm xfce4-panel xfce4-session xfce4-settings xfce4-terminal thunar xfwm4 xfdesktop arc-gtk-theme mousepad
 
 systemctl enable lxdm
 
