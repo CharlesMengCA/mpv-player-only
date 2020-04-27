@@ -15,7 +15,7 @@ genfstab /mnt >> /mnt/etc/fstab
 cat <<EOF > /mnt/root/part2.sh
 #!/bin/bash
 
-timedatectl set-timezone America/Toronto
+ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 sed -i 's/#en_US\.UTF-8/en_US.UTF-8/' /etc/locale.gen
 
@@ -42,7 +42,7 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # xfce desktop
-pacman -S --noconfirm --needed xfce4 lxdm mousepad
+pacman -S --noconfirm --needed lxdm xfce4-panel xfdesktop4 xfwm4 xfce4-settings xfce4-session xfce4-terminal thunar arc-gtk-theme adwaita-icon-theme mousepad
 
 systemctl enable lxdm
 
