@@ -2,6 +2,12 @@
 
 set -x #echo on
 
+# find the best mirrors
+pacman -Syy
+pacman -S reflector
+reflector -c "CA" -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+
+# start install
 echo -e "n\np\n1\n\n\nw" | fdisk /dev/sda
 
 mkfs.ext4 /dev/sda1
@@ -42,7 +48,10 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # xfce desktop
-pacman -S --noconfirm --needed lxdm xfce4-panel xfce4-session xfce4-settings xfce4-terminal thunar xfwm4 xfdesktop arc-gtk-theme mousepad
+#pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal arc-gtk-theme mousepad
+
+#lxde
+pacman -S --noconfirm --needed lxappearance lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal openbox pcmanfm leafpad
 
 systemctl enable lxdm
 
