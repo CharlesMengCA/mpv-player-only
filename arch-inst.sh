@@ -4,7 +4,7 @@ set -x #echo on
 
 # find the best mirrors
 pacman -Syy
-pacman -S reflector
+pacman -S --noconfirm --needed reflector
 reflector -c "CA" -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # start install
