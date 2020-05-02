@@ -50,15 +50,15 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # xfce desktop
 pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal arc-gtk-theme mousepad
 
-xfconf-query -c xfce4-panel -p /panels/panel-1/position -s "p=10;x=0;y=0"
-xfconf-query -c xfce4-panel -p /panels -t int -s 1 -a
-
-sed -i 's/# session=/usr/bin/startlxde/session=/usr/bin/startxfce4/' /etc/lxdm/lxdm.conf
-
 #lxde
 #pacman -S --noconfirm --needed lxappearance lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal openbox pcmanfm leafpad
 
 systemctl enable lxdm
+
+xfconf-query -c xfce4-panel -p /panels/panel-1/position -s "p=10;x=0;y=0"
+xfconf-query -c xfce4-panel -p /panels -t int -s 1 -a
+
+sed -i 's/# session=\/usr\/bin\/startlxde/session=\/usr\/bin\/startxfce4/' /etc/lxdm/lxdm.conf
 
 #virtualbox configure
 pacman -S --noconfirm --needed virtualbox-guest-utils
