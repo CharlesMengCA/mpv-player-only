@@ -72,7 +72,7 @@ systemctl enable vboxservice.service
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
-passwd
+#passwd
 EOF
 
 chmod +x /mnt/root/part2.sh
@@ -86,6 +86,7 @@ xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@val
 			/mnt/etc/xdg/xfce4/panel/default.xml
 
 xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
+xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /etc/xdg/xfce4/panel/default.xml
 
 # mount -t vboxsf -o gid=vboxsf LinuxFolder /root/mpv
 
