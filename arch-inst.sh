@@ -53,12 +53,6 @@ pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-ses
 # configure panels
 cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
 
-xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@value" \
-			-v "p=10;x=0;y=0" \
-			/etc/xdg/xfce4/panel/default.xml
-
-xml ed --inplace -d "//property[@name='panel-2']" /etc/xdg/xfce4/panel/default.xml
-
 # Defaut Theme: Arc
 sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
 	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
@@ -78,13 +72,7 @@ systemctl enable vboxservice.service
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
-# use following command to generate hashed value of your root password
-# openssl passwd -1 clear-text-password98
-
-usermod -p '$1$UYmVAOsQ$1Mofon8HXPRImRa5ze8xQ1' root
-
-useradd -m admin
-
+passwd
 EOF
 
 chmod +x /mnt/root/part2.sh
@@ -92,6 +80,12 @@ chmod +x /mnt/root/part2.sh
 arch-chroot /mnt /root/part2.sh
 
 rm /mnt/root/part2.sh
+
+xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@value" \
+			-v "p=10;x=0;y=0" \
+			/mnt/etc/xdg/xfce4/panel/default.xml
+
+xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
 
 # mount -t vboxsf -o gid=vboxsf LinuxFolder /root/mpv
 
