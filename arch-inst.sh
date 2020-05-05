@@ -86,7 +86,7 @@ xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@val
 			/mnt/etc/xdg/xfce4/panel/default.xml
 
 xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
-xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /etc/xdg/xfce4/panel/default.xml
+xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
 
 # mount -t vboxsf -o gid=vboxsf LinuxFolder /root/mpv
 
