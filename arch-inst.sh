@@ -4,7 +4,7 @@ set -x #echo on
 
 # find the best mirrors
 pacman -Syy
-pacman -S --noconfirm --needed reflector
+pacman -S --noconfirm --needed reflector xmlstarlet
 reflector -c "CA" -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # start install
@@ -50,6 +50,19 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # xfce desktop
 pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal arc-gtk-theme mousepad
 
+# configure panels
+cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
+
+xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@value" \
+			-v "p=10;x=0;y=0" \
+			/etc/xdg/xfce4/panel/default.xml
+
+xml ed --inplace -d "//property[@name='panel-2']" /etc/xdg/xfce4/panel/default.xml
+
+# Defaut Theme: Arc
+sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
+	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+
 #lxde
 #pacman -S --noconfirm --needed lxappearance lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal openbox pcmanfm leafpad
 
@@ -65,7 +78,13 @@ systemctl enable vboxservice.service
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
-passwd
+# use following command to generate hashed value of your root password
+# openssl passwd -1 clear-text-password98
+
+usermod -p '$1$UYmVAOsQ$1Mofon8HXPRImRa5ze8xQ1' root
+
+useradd -m admin
+
 EOF
 
 chmod +x /mnt/root/part2.sh
