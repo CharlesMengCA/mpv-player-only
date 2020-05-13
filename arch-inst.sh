@@ -4,7 +4,7 @@ set -x #echo on
 
 # find the best mirrors
 pacman -Syy
-pacman -S --noconfirm --needed reflector xmlstarlet
+pacman -S --noconfirm --needed reflector xmlstarlet dialog
 reflector -c "CA" -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 
 # start install
@@ -20,6 +20,10 @@ genfstab /mnt >> /mnt/etc/fstab
 
 cat <<EOF > /mnt/root/part2.sh
 #!/bin/bash
+
+bootstrapper_dialog() {
+    DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
+}
 
 ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
@@ -72,7 +76,11 @@ systemctl enable vboxservice.service
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
-#passwd
+
+bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
+root_password="$DIALOG_RESULT"
+
+echo "root:${root_password}" | chpasswd
 EOF
 
 chmod +x /mnt/root/part2.sh
@@ -87,6 +95,8 @@ xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@val
 
 xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
 xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
+
+umount /mnt
 
 # mount -t vboxsf -o gid=vboxsf LinuxFolder /root/mpv
 
