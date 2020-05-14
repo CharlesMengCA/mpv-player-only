@@ -2,6 +2,10 @@
 
 set -x #echo on
 
+bootstrapper_dialog() {
+ DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
+}
+
 # find the best mirrors
 pacman -Syy
 pacman -S --noconfirm --needed reflector xmlstarlet dialog
@@ -18,12 +22,13 @@ pacstrap /mnt base base-devel linux linux-firmware
 
 genfstab /mnt >> /mnt/etc/fstab
 
+# root password
+bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
+root_password="$DIALOG_RESULT"
+
 cat <<EOF > /mnt/root/part2.sh
 #!/bin/bash
 
-bootstrapper_dialog() {
-    DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
-}
 
 ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
@@ -76,10 +81,6 @@ systemctl enable vboxservice.service
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
 
 #set root password
-
-bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
-root_password="$DIALOG_RESULT"
-
 echo "root:${root_password}" | chpasswd
 EOF
 
