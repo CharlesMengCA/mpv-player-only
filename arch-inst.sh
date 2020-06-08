@@ -66,10 +66,10 @@ cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
 sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
 	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
-gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
-gsettings set org.xfce.mousepad.preferences.view tab-width 2
-gsettings set org.xfce.mousepad.preferences.view word-wrap true
-gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
+dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
+dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
+dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
+dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
 
 #lxde
 #pacman -S --noconfirm --needed lxappearance lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal openbox pcmanfm leafpad
