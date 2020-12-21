@@ -37,7 +37,7 @@ diffutils
 #dnsmasq
 #dosfstools
 #edk2-shell
-efibootmgr
+#efibootmgr
 #espeakup
 #ethtool
 #exfatprogs
@@ -73,7 +73,7 @@ linux-firmware
 #memtest86+
 mkinitcpio
 mkinitcpio-archiso
-mkinitcpio-nfs-utils
+#mkinitcpio-nfs-utils
 #mtools
 nano
 #nbd
@@ -125,8 +125,7 @@ EOF
 
 : <<'END'
 
-
 END
 
-#./build.sh -v -o ~/mpv/ISO
 mkarchiso -v -o ~/mpv/ISO ~/livecd/
+
