@@ -58,14 +58,14 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # xfce desktop
-pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal arc-gtk-theme mousepad
+pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal mousepad
 
 # configure panels
 cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
 
 # Defaut Theme: Arc
-sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
-	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+#sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
+#	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
 dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
 dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
@@ -73,7 +73,7 @@ dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view
 dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
 
 #lxde
-#pacman -S --noconfirm --needed lxappearance lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal openbox pcmanfm leafpad
+#pacman -S --noconfirm --needed lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal pcmanfm leafpad
 
 systemctl enable lxdm
 
