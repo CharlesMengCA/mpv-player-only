@@ -7,7 +7,7 @@ bootstrapper_dialog() {
 }
 
 # find the best mirrors
-#pacman -Syy
+pacman -Syy
 #pacman -S --noconfirm --needed reflector
 #reflector -c CA -c US -p https -f 12 -l 10 -n 12 --verbose --save /etc/pacman.d/mirrorlist
 pacman -S --noconfirm --needed xmlstarlet dialog
