@@ -14,6 +14,7 @@ Create D:\LinuxFolder
 start VM with an Arch Linux ISO
 
 curl -LOJ https://github.com/CharlesMengCA/mpv-player-only/raw/master/arch-inst.sh
+
 or
 curl -LJ https://tiny.cc/archinst -o arch-inst.sh
 
