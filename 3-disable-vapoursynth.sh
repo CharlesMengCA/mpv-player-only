@@ -1,4 +1,6 @@
 #!/bin/bash
+clear
+echo $0 $@
 
 set -x #echo on
 
@@ -9,12 +11,26 @@ add_option () {
 	fi
 }
 
+comment_line () {
+
+	sed -i "/^\s*$2/s/^/#/g" packages/$1
+}
+
 
 cd ~/mpv-winbuild-cmake/
 
-sed -i "/--enable-vapoursynth/d" packages/mpv.cmake
+#vapoursynth
+comment_line ffmpeg.cmake vapoursynth
+comment_line ffmpeg.cmake --enable-vapoursynth
+
+#sed -i "/--enable-vapoursynth/d" packages/mpv.cmake
+sed -i "s/--enable-vapoursynth/--disable-vapoursynth/" packages/mpv.cmake
+
 sed -i "s/--enable-pdf-build/--disable-pdf-build/" packages/mpv.cmake
 sed -i "/manual.pdf/d" packages/mpv.cmake
 
 add_option mpv --enable-static-build --disable-debug-build
+
+
+
 
