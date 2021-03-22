@@ -21,7 +21,9 @@ cd ~
 
 sudo pacman -S --noconfirm --needed \
        git gyp mercurial subversion ninja cmake meson ragel yasm nasm asciidoc enca \
-       gperf unzip p7zip gcc-multilib python2-pip python-docutils python2-lxml python2-pillow python-mako
+       gperf unzip p7zip gcc-multilib python-pip
+
+pip3 install rst2pdf mako
 
 # warning: XXX is up to date -- skipping curl
 # flex automake autoconf pkg-config patch gcc-multilib
