@@ -16,10 +16,10 @@ start VM with an Arch Linux ISO
 curl -LOJ https://github.com/CharlesMengCA/mpv-player-only/raw/master/arch-inst.sh
 
 or
-curl -LJ https://tiny.cc/archinst -o arch-inst.sh
+curl -LOJ https://tiny.cc/archinst
 
-nano arch_inst.sh
+nano arch_inst
 
-chmod +x arch_inst.sh
+chmod +x archinst
 
-./arch_inst.sh
+./arch_inst
