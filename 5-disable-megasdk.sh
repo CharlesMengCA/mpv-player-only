@@ -1,14 +1,14 @@
 #!/bin/bash
-
-set -x #echo on
+clear
+echo $0 $@
 
 comment_line () {
-
 	sed -i "/^\s*$1/s/^/#/g" packages/CMakeLists.txt	
 }
 
-
 cd ~/mpv-winbuild-cmake/
+
+set -x #echo on
 
 comment_line termcap
 comment_line readline
