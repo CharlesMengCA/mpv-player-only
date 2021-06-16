@@ -128,4 +128,3 @@ EOF
 END
 
 mkarchiso -v -o ~/mpv/ISO ~/livecd/
-
