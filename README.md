@@ -3,7 +3,7 @@ Cloned from https://github.com/shinchiro/mpv-winbuild-cmake with encoders disabl
 
 Big thanks to shinchiro to make the great player available to Windows users
 
-Download and Install VirtualBox v6.1.18
+Download and Install VirtualBox v6.1.22
 
 https://www.virtualbox.org/wiki/Downloads
 
