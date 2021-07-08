@@ -12,6 +12,14 @@ add_option () {
 
 cd ~
 
+lsb_release -a &> /dev/null
+if [ $? -eq 127 ]
+then
+  PKG_MGR="pacman -S --noconfirm --needed"
+else
+  PKG_MGR="apt-get install -y"
+fi
+
 set -x #echo on
 
 #sudo pacman -S --noconfirm --needed reflector rsync
@@ -19,7 +27,7 @@ set -x #echo on
 # sudo pacman -Sc --noconfirm
 # clang is required by ffmpeg/cuda-llvm
 
-sudo pacman -S --noconfirm --needed \
+sudo ${PKG_MGR} \
        git gyp mercurial subversion ninja cmake meson ragel yasm nasm asciidoc enca \
        gperf unzip p7zip gcc-multilib python-pip clang
 
