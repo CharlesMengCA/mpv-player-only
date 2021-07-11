@@ -61,7 +61,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm --needed lxdm xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal mousepad
 
 # configure panels
-cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
+#cp -n /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/panel/default.org.xml
 
 # Defaut Theme: Arc
 #sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
@@ -75,6 +75,13 @@ dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view
 #lxde
 #pacman -S --noconfirm --needed lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal pcmanfm leafpad
 
+#KDE Plasma
+#pacman -S --noconfirm --needed lxdm plasma-desktop dolphin konsole kwrite 
+
+#lxqt
+#pacman -S --noconfirm --needed lxdm ttf-dejavu oxygen-icons featherpad \
+# lxqt-globalkeys lxqt-panel lxqt-qtplugin lxqt-session lxqt-themes openbox pcmanfm-qt qterminal
+ 
 systemctl enable lxdm
 
 sed -i 's/# session=\/usr\/bin\/startlxde/session=\/usr\/bin\/startxfce4/' /etc/lxdm/lxdm.conf
