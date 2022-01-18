@@ -5,14 +5,19 @@ bootstrapper_dialog() {
 }
 
 # root password
-pacman -S --noconfirm --needed dialog
+if pacman -Qs dialog; then
+  pacman -S --noconfirm --needed dialog
+fi >/dev/null 2>&1
 
 bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
 root_password="$DIALOG_RESULT"
+clear
 
-# waiting for the latest mirror list from reflector
+echo -n Waiting for the latest mirror list from reflector..
 for (( ; ; ))
 do
+	echo -n .
+	
 	mirrorCounts=$(cat /etc/pacman.d/mirrorlist | wc -l)
 
 	if  [ $mirrorCounts -lt 50 ];	then
@@ -21,6 +26,7 @@ do
 
 	sleep 0.5
 done
+echo .
 
 set -x #echo on
 
