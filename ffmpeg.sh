@@ -11,22 +11,22 @@ add_option ffmpeg -pkg-config-flags=--static --disable-debug
 add_option ffmpeg -pkg-config-flags=--static --enable-shared
 
 comment_line packages/CMakeLists.txt libbs2b
-comment_line ffmpeg.cmake libbs2b
-comment_line ffmpeg.cmake --enable-libbs2b
+comment_line ffmpeg libbs2b
+comment_line ffmpeg --enable-libbs2b
 
 # Mod format support
 comment_line packages/CMakeLists.txt libopenmpt
-comment_line ffmpeg.cmake libopenmpt
-comment_line ffmpeg.cmake --enable-libopenmpt
+comment_line ffmpeg libopenmpt
+comment_line ffmpeg --enable-libopenmpt
 
 comment_line packages/CMakeLists.txt libmodplug
-comment_line ffmpeg.cmake libmodplug
-comment_line ffmpeg.cmake --enable-libmodplug
+comment_line ffmpeg libmodplug
+comment_line ffmpeg --enable-libmodplug
 
 # The Speex codec has been obsoleted by Opus
 comment_line packages/CMakeLists.txt speex
-comment_line ffmpeg.cmake speex
-comment_line ffmpeg.cmake --enable-libspeex
+comment_line ffmpeg speex
+comment_line ffmpeg --enable-libspeex
 
 mkdir build64
 cd build64
