@@ -4,6 +4,12 @@ bootstrapper_dialog() {
  DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
 }
 
+# root password
+pacman -S --noconfirm --needed dialog
+
+bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
+root_password="$DIALOG_RESULT"
+
 # waiting for the latest mirror list from reflector
 for (( ; ; ))
 do
@@ -13,7 +19,7 @@ do
 		break
 	fi
 
-	sleep 1
+	sleep 0.5
 done
 
 set -x #echo on
@@ -22,7 +28,7 @@ set -x #echo on
 pacman -Syy
 #pacman -S --noconfirm --needed reflector
 #reflector -c CA -c US -p https -f 12 -l 10 -n 12 --verbose --save /etc/pacman.d/mirrorlist
-pacman -S --noconfirm --needed xmlstarlet dialog
+pacman -S --noconfirm --needed xmlstarlet &
 
 # start install
 echo -e "n\np\n1\n\n\nw" | fdisk /dev/sda
@@ -36,10 +42,6 @@ pacstrap /mnt base base-devel
 pacstrap /mnt linux
 
 genfstab /mnt >> /mnt/etc/fstab
-
-# root password
-bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong password for the root user.\n" 8 60
-root_password="$DIALOG_RESULT"
 
 #read -p "Press any key to continue..."
 
@@ -99,6 +101,7 @@ systemctl enable lightdm
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
 
 sed -i 's/#autologin-user=/autologin-user=root/' /etc/lightdm/lightdm.conf
+
 groupadd -r autologin
 gpasswd -a root autologin
 
@@ -114,9 +117,7 @@ echo "root:${root_password}" | chpasswd
 EOF
 
 chmod +x /mnt/root/part2.sh
-
 arch-chroot /mnt /root/part2.sh
-
 rm /mnt/root/part2.sh
 
 mkdir -p /mnt/root/.config/xfce4/terminal
