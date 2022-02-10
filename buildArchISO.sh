@@ -15,11 +15,17 @@ mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
 #exit
 
 cat <<EOF > packages.x86_64
+dialog
+
 #alsa-utils
+
 amd-ucode
 arch-install-scripts
+
 #b43-fwcutter
+
 base
+
 #bind-tools
 #brltty
 #broadcom-wl
@@ -31,8 +37,10 @@ base
 #darkhttpd
 #ddrescue
 #dhclient
+
 dhcpcd
 diffutils
+
 #dmraid
 #dnsmasq
 #dosfstools
@@ -48,10 +56,14 @@ diffutils
 #gpart
 #gpm
 #gptfdisk
+
 grml-zsh-config
+
 #grub
 #hdparm
+
 intel-ucode
+
 #ipw2100-fw
 #ipw2200-fw
 #irssi
@@ -62,7 +74,9 @@ intel-ucode
 #lftp
 #libfido2
 #libusb-compat
+
 linux
+
 #linux-atm
 #linux-firmware
 #livecd-sounds
@@ -74,12 +88,14 @@ linux
 #mc
 #mdadm
 #memtest86+
+
 mkinitcpio
 mkinitcpio-archiso
+
 #mkinitcpio-nfs-utils
 #modemmanager
 #mtools
-nano
+#nano
 #nbd
 #ndisc6
 #nfs-utils
@@ -88,7 +104,7 @@ nano
 #ntfs-3g
 #nvme-cli
 #openconnect
-openssh
+#openssh
 #openvpn
 #partclone
 #parted
@@ -99,7 +115,9 @@ openssh
 #pv
 #qemu-guest-agent
 #refind
+
 reflector
+
 #reiserfsprogs
 #rp-pppoe
 #rsync
@@ -111,7 +129,9 @@ reflector
 #sof-firmware
 #squashfs-tools
 #sudo
+
 syslinux
+
 #systemd-resolvconf
 #tcpdump
 #terminus-font
@@ -129,6 +149,7 @@ syslinux
 #wvdial
 #xfsprogs
 #xl2tpd
+
 zsh
 
 EOF
