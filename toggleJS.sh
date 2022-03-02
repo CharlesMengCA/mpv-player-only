@@ -11,3 +11,5 @@ else
 	 uncomment_line mpv "mujs" 
     replace_option mpv "--disable-javascript" "--enable-javascript"
 fi
+
+rm -r build64/packages/mpv-prefix/
