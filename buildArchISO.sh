@@ -158,4 +158,6 @@ EOF
 
 END
 
+cp -af --no-preserve=ownership,mode -- ~/mpv/arch-inst.sh ~/livecd/airootfs/root/.automated_script.sh
+
 mkarchiso -v -o ~/mpv/ISO ~/livecd/

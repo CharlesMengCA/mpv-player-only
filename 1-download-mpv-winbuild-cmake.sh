@@ -29,7 +29,7 @@ set -x #echo on
 
 sudo ${PKG_MGR} \
        git gyp mercurial subversion ninja cmake ragel yasm nasm asciidoc enca \
-       gperf unzip p7zip gcc-multilib python-pip clang meson
+       gperf unzip p7zip gcc-multilib python-pip clang meson po4a 
 
 #pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2021/08/17/extra/os/x86_64/meson-0.59.0-2-any.pkg.tar.zst
 #block-upd meson
@@ -47,5 +47,5 @@ git config --global http.lowSpeedTime 120
 if [ -d "$BUILD_DIR" ]; then
 	cd $BUILD_DIR && git reset --hard HEAD && git pull
 else
-	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git
+	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
 fi 

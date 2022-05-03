@@ -11,10 +11,30 @@ cd ~/mpv-winbuild-cmake/
 
 #append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
 
-replace_option expat "R_2_4_1" "R_2_4_6"
-replace_option expat "2\.4\.1" "2\.4\.6"
-replace_option expat "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2f2fb6a" \
-							"de55794b7a9bc214852fdc075beaaecd854efe1361597e6268ee87946951289b"
+#replace_option expat "R_2_4_7" "R_2_4_8"
+#replace_option expat "2\.4\.7" "2\.4\.8"
+#replace_option expat "9875621085300591f1e64c18fd3da3a0eeca4a74f884b9abac2758ad1bd07a7d" \
+#							"f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25"
+
+#replace_option zlib "http:\/\/download\.sourceforge\.net\/libpng\/zlib-1\.2\.11\.tar\.gz" \
+#						  "https:\/\/zlib\.net\/zlib-1\.2\.12\.tar\.gz"
+						  
+#replace_option zlib "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1" \
+#						  "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9"
+
+#sed -i "/https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git/!b;n;c\    GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292" packages/vulkan.cmake
+
+#sed -i "s/GIT_REMOTE_NAME origin//g" vulkan.cmake
+#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.2.193"
+#append_option  vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292"
+#replace next line https://stackoverflow.com/questions/18620153/find-matching-text-and-replace-next-line
+
+#replace_option libressl "3.1.5" "3.5.2"
+#replace_option libressl "2c13ddcec5081c0e7ba7f93d8370a91911173090f1922007e1d90de274500494" \
+#								"56feab8e21c3fa6549f8b7d7511658b8e98518162838a795314732654adf3e5f"
+
+#cp $bashFolder/libressl-0001-remove-postfix-in-libs-name.patch ./packages 
+
 
 #replace_option lame "GIT_REPOSITORY https:\/\/salsa.debian.org\/multimedia-team\/lame.git" \
 #							"URL \"https:\/\/downloads.sourceforge.net\/project\/lame\/lame\/3.100\/lame-3.100.tar.gz\""
@@ -32,9 +52,6 @@ replace_option expat "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2
 
 #replace_option spirv-tools "GIT_SHALLOW 1" "GIT_TAG b9e255b3663c29686ef91e0d332c1ba82930bbb5"
 
-#sed -i "s/GIT_REMOTE_NAME origin//g" vulkan.cmake
-#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.2.193"
-#append_option  vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG v1.2.193"
 
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG 1ab2340644109442f933b1fb47dee927bed29f8e"
 
@@ -79,6 +96,3 @@ replace_option expat "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2
 
 #sed -i "s/optimizer.RegisterVulkanToWebGPUPasses();/\/\/optimizer.RegisterVulkanToWebGPUPasses();/" build64/shaderc-prefix/src/shaderc/libshaderc_util/src/spirv_tools_wrapper.cc
 
-#sed -i "s/libressl-3.1.5.tar.gz/libressl-3.4.2.tar.gz/" libressl.cmake
-#sed -i "s/2c13ddcec5081c0e7ba7f93d8370a91911173090f1922007e1d90de274500494/cb82ca7d547336917352fbd23db2fc483c6c44d35157b32780214ec74197b3ce/" libressl.cmake
-#cp $bashFolder/libressl-0001-remove-postfix-in-libs-name.patch ./packages 
