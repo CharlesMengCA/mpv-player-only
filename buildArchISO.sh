@@ -95,7 +95,7 @@ mkinitcpio-archiso
 #mkinitcpio-nfs-utils
 #modemmanager
 #mtools
-#nano
+nano
 #nbd
 #ndisc6
 #nfs-utils

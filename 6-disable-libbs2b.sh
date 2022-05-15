@@ -27,9 +27,9 @@ comment_line ffmpeg --enable-libspeex
 # OpenAL
 comment_line CMakeLists.txt openal-soft
 comment_line mpv openal-soft
-comment_line mpv --enable-openal
+comment_line mpv "-Dopenal=enabled"
 comment_line mpv-release openal-soft
-comment_line mpv-release --enable-openal
+comment_line mpv-release "-Dopenal=enabled"
 
 #opus-tools
 comment_line CMakeLists.txt opus-tools
@@ -39,9 +39,9 @@ comment_line CMakeLists.txt opusfile
 # rubberband - Better scaletempo (on high speed x1.5-x3)
 comment_line CMakeLists.txt rubberband
 comment_line mpv rubberband
-comment_line mpv --enable-rubberband
+replace_option mpv "-Drubberband=enabled" "-Drubberband=disabled"
 comment_line mpv-release rubberband
-comment_line mpv-release --enable-rubberband
+replace_option mpv-release "-Drubberband=enabled" "-Drubberband=disabled"
 
 #game-music-emu
 comment_line CMakeLists.txt game-music-emu

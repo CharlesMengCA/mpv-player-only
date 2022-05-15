@@ -11,6 +11,12 @@ cd ~/mpv-winbuild-cmake/
 
 #append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
 
+
+replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.1.0.tar.gz" \
+							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
+replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55ad084756e57a30f951b725acd" \
+							  "GIT_SHALLOW 1"
+							  
 #replace_option expat "R_2_4_7" "R_2_4_8"
 #replace_option expat "2\.4\.7" "2\.4\.8"
 #replace_option expat "9875621085300591f1e64c18fd3da3a0eeca4a74f884b9abac2758ad1bd07a7d" \
