@@ -1,4 +1,4 @@
-./#!/bin/bash
+#!/bin/bash
 clear
 echo $0 $@
 
@@ -63,4 +63,3 @@ ln -sf $PWD/src_packages/meson.pyz /usr/local/bin/meson
 rm -rf /usr/local/src/meson
 
 meson --version
-
