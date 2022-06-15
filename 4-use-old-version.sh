@@ -11,11 +11,17 @@ cd ~/mpv-winbuild-cmake/
 
 #append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
 
-
 replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.1.0.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
 replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55ad084756e57a30f951b725acd" \
 							  "GIT_SHALLOW 1"
+
+
+#replace_option libiconv "1.16" "1.17"
+#replace_option libiconv "e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04" \
+#							   "8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
+
+#replace_option libmfx "COMMAND mv libmfx.pc mfx.pc" "COMMAND cp -u libmfx.pc mfx.pc"
 							  
 #replace_option expat "R_2_4_7" "R_2_4_8"
 #replace_option expat "2\.4\.7" "2\.4\.8"
@@ -101,4 +107,3 @@ replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55a
 
 
 #sed -i "s/optimizer.RegisterVulkanToWebGPUPasses();/\/\/optimizer.RegisterVulkanToWebGPUPasses();/" build64/shaderc-prefix/src/shaderc/libshaderc_util/src/spirv_tools_wrapper.cc
-

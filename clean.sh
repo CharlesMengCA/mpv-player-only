@@ -1,6 +1,8 @@
 #!/bin/bash
 source $(pwd)/functions.sh
 
+StartTime=$(date '+%H:%M:%S')
+
 clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/build64/packages/
@@ -25,3 +27,5 @@ rm -r libbluray-prefix
 
 cd ..
 ninja mpv
+
+echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
