@@ -1,12 +1,11 @@
 #!/bin/bash
 # some library version may fail during build, find an old version to make it work
 source $(pwd)/functions.sh
-
+bashFolder=$(pwd)
 clear && echo $0 $@
 
-bashFolder=$(pwd)
-
 cd ~/mpv-winbuild-cmake/
+
 #set -x #echo on
 
 #append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
@@ -16,6 +15,19 @@ replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/re
 replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55ad084756e57a30f951b725acd" \
 							  "GIT_SHALLOW 1"
 
+#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 0ad591fa3c2a68e555e80f45a4d6cb52dfdaf8f0"
+
+#broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
+#replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
+
+cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
+cp $bashFolder/vulkan-0003-Fix-appmodel.h-header.patch ./packages
+
+#add_option mbedtls "cleanup(mbedtls install)" "force_rebuild_git(mbedtls)"
+
+#comment_line libzimg "GIT_SHALLOW 1"
+
+#replace_option libzimg "GIT_SHALLOW 1" "GIT_TAG 51c3c7f750c2af61955377faad56e3ba1b03589f"
 
 #replace_option libiconv "1.16" "1.17"
 #replace_option libiconv "e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04" \
@@ -38,7 +50,7 @@ replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55a
 
 #sed -i "s/GIT_REMOTE_NAME origin//g" vulkan.cmake
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.2.193"
-#append_option  vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292"
+#append_option  vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG 0ad591fa3c2a68e555e80f45a4d6cb52dfdaf8f0"
 #replace next line https://stackoverflow.com/questions/18620153/find-matching-text-and-replace-next-line
 
 #replace_option libressl "3.1.5" "3.5.2"

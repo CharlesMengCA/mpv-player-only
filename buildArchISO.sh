@@ -1,6 +1,5 @@
 #!/bin/bash
-clear
-echo $0 $@
+clear && echo $0 $@
 set -x #echo on
 
 pacman -S --needed --noconfirm archiso
@@ -8,12 +7,11 @@ pacman -S --needed --noconfirm archiso
 cd
 
 rm -r livecd
-
 mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
 #sed -i -e 's#/usr/share/licenses/amd-ucode/LICENSE#/usr/share/licenses/amd-ucode/LICENSE.amd-ucode#g' build.sh
 
 #exit
-
+#https://github.com/archlinux/archiso/blob/master/configs/releng/packages.x86_64
 cat <<EOF > packages.x86_64
 dialog
 
@@ -22,17 +20,17 @@ dialog
 amd-ucode
 arch-install-scripts
 
+#archinstall
 #b43-fwcutter
 
 base
 
-#bind-tools
+#bind
 #brltty
 #broadcom-wl
 #btrfs-progs
 #clonezilla
 #cloud-init
-#crda
 #cryptsetup
 #darkhttpd
 #ddrescue
@@ -41,9 +39,11 @@ base
 dhcpcd
 diffutils
 
+#dmidecode
 #dmraid
 #dnsmasq
 #dosfstools
+#e2fsprogs
 #edk2-shell
 #efibootmgr
 #espeakup
@@ -61,12 +61,14 @@ grml-zsh-config
 
 #grub
 #hdparm
+#hyperv
 
 intel-ucode
 
 #ipw2100-fw
 #ipw2200-fw
 #irssi
+#iw
 #iwd
 #jfsutils
 #kitty-terminfo
@@ -79,6 +81,7 @@ linux
 
 #linux-atm
 #linux-firmware
+#linux-firmware-marvell
 #livecd-sounds
 #lsscsi
 #lvm2
@@ -103,6 +106,8 @@ mkinitcpio-archiso
 #nmap
 #ntfs-3g
 #nvme-cli
+#open-iscsi
+#open-vm-tools
 #openconnect
 #openssh
 #openvpn
@@ -137,8 +142,10 @@ syslinux
 #terminus-font
 #testdisk
 #tmux
+#tpm2-tss
 #udftools
 #usb_modeswitch
+#usbmuxd
 #usbutils
 #vim
 #virtualbox-guest-utils-nox

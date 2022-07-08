@@ -1,11 +1,9 @@
 #!/bin/bash
 source $(pwd)/functions.sh
-
+bashFolder=$(pwd)
 clear && echo $0 $@
 
-MPV_BUILD_FOLDER=~/mpv-winbuild-cmake/
-cp lua-remove-comments.sh "$MPV_BUILD_FOLDER"packages/
-cd $MPV_BUILD_FOLDER
+cd ~/mpv-winbuild-cmake
 
 # misc
 comment_line CMakeLists.txt "mpv-release"
@@ -32,7 +30,11 @@ comment_line CMakeLists.txt "libsdl2"
 comment_line mpv "libsdl2"
 replace_option mpv "-Dsdl2=enabled" "-Dsdl2=disabled"
 
-add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/lua-remove-comments.sh"
-
 comment_line mpv "mujs"
 replace_option mpv "-Djavascript=enabled" "-Djavascript=disabled"
+
+cp $bashFolder/lua-remove-comments.sh ./packages
+add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/lua-remove-comments.sh"
+
+cp $bashFolder/libass-7-digit-commit-id.sh ./packages
+add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/libass-7-digit-commit-id.sh"

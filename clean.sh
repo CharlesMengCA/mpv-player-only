@@ -5,27 +5,14 @@ StartTime=$(date '+%H:%M:%S')
 
 clear && echo $0 $@
 
-cd ~/mpv-winbuild-cmake/build64/packages/
+cd ~/mpv-winbuild-cmake/build64/
 
-rm -r spirv-cross-prefix
-rm -r libssh-prefix
-rm -r nettle-prefix
-rm -r luajit-prefix
-rm -r fontconfig-prefix
-rm -r lame-prefix
-rm -r mujs-prefix
-rm -r vulkan-prefix
-rm -r libsrt-prefix
-rm -r ffmpeg-prefix
-rm -r mpv-prefix
-rm -r libjxl-prefix
-rm -r libbluray-prefix
+rm -r mpv-*
+rm -r packages/mpv-prefix/src/mpv-build/generated/version.h
 
-#rm -r libbs2b-prefix
-#rm -r libepoxy-prefix
-#rm -r libmodplug-prefix
 
-cd ..
+
+ninja mpv-fullclean
 ninja mpv
 
 echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')

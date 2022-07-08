@@ -1,16 +1,16 @@
 #!/bin/bash
-clear
-echo $0 $@
-
-BUILD_DIR="mpv-winbuild-cmake/"
-
 block-upd () {
 	if ! grep -- "$1" /etc/pacman.conf; then
 		sed -i "/#IgnorePkg   =/a IgnorePkg    = $1" /etc/pacman.conf
 	fi >/dev/null 2>&1
 }
 
-cd ~
+BUILD_DIR="mpv-winbuild-cmake/"
+
+clear
+echo $0 $@
+
+cd
 
 lsb_release -a &> /dev/null
 if [ $? -eq 127 ]
@@ -34,7 +34,7 @@ sudo ${PKG_MGR} \
 #pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2021/08/17/extra/os/x86_64/meson-0.59.0-2-any.pkg.tar.zst
 #block-upd meson
 
-pip3 install mako
+pip3 install mako --root-user-action=ignore
 #rst2pdf
 
 # warning: XXX is up to date -- skipping curl
@@ -52,14 +52,12 @@ if [ -d "$BUILD_DIR" ]; then
 	cd $BUILD_DIR && git reset --hard HEAD && git pull
 else
 	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+#	cd $BUILD_DIR && git checkout 4134830b7b835d734646e87e84bf14e242372b02
 fi 
 
-cd $BUILD_DIR
-
-git clone --depth 1 https://github.com/mesonbuild/meson.git /usr/local/src/meson
-mkdir src_packages
-/usr/local/src/meson/packaging/create_zipapp.py --outfile src_packages/meson.pyz --interpreter '/usr/bin/env python3' /usr/local/src/meson
-ln -sf $PWD/src_packages/meson.pyz /usr/local/bin/meson
-rm -rf /usr/local/src/meson
-
-meson --version
+#cd $BUILD_DIR
+#my_meson=$(find ~/mpv -name meson.pyz)
+#mkdir meson_build
+#cp ${my_meson} meson_build
+#ln -sf $PWD/meson_build/meson.pyz /usr/local/bin/meson
+#meson --version
