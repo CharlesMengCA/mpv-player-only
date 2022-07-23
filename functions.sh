@@ -61,7 +61,7 @@ comment_line () {
 
 uncomment_line () {
 	echo "uncomment_line $1 $2"
-	sed -i '/$2/s/^#//g' $(get_filename $1)
+	sed -i "/^#.*$2/s/^#//g" $(get_filename $1)
 }
 
 delete_line () {

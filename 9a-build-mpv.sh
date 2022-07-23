@@ -2,9 +2,9 @@
 clear && echo $0 $@
 
 BUILD64=~/mpv-winbuild-cmake/build64
-
 cd $BUILD64
 
+StartTime=$(date '+%H:%M:%S')
 set -x #echo on
 
 ninja amf-headers angle-headers aom avisynth-headers \
@@ -16,4 +16,5 @@ ninja amf-headers angle-headers aom avisynth-headers \
 
 # libsdl2
 
-ninja libssh
+{ set +x; } 2>/dev/null # echo off
+echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')

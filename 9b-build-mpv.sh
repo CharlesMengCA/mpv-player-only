@@ -4,6 +4,7 @@ clear && echo $0 $@
 BUILD64=~/mpv-winbuild-cmake/build64
 cd $BUILD64
 
+StartTime=$(date '+%H:%M:%S')
 set -x #echo on
 
 ninja vulkan
@@ -30,10 +31,17 @@ ninja libplacebo
 
 #rm $FILE
 
-ninja mujs
-
-ninja libssh
+ninja spirv-cross
+ninja libarchive
+ninja libass
+#ninja harfbuzz
+ninja libjxl
 
 ninja mpv
 
-date
+{ set +x; } 2>/dev/null # echo off
+
+cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
+cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll
+
+echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')

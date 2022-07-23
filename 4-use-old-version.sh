@@ -10,18 +10,25 @@ cd ~/mpv-winbuild-cmake/
 
 #append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
 
-replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.1.0.tar.gz" \
+replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.2.1.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
-replace_option mbedtls "URL_HASH SHA256=b02df6f68dd1537e115a8497d5c173dc71edc55ad084756e57a30f951b725acd" \
+replace_option mbedtls "URL_HASH SHA256=d0e77a020f69ad558efc660d3106481b75bd3056d6301c31564e04a0faae88cc" \
 							  "GIT_SHALLOW 1"
 
-#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 0ad591fa3c2a68e555e80f45a4d6cb52dfdaf8f0"
+# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
+#replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
+
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG 2f0d45571b5290f2cc7269cc74bfb5af139eff3e"
+
+#replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG 12d55df496aa473296b180318b3132fdceb068fe"
+
+#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 57d5dd568b701b5a3dd17d758f3a665c128116a7"
 
 #broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
 
-cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
-cp $bashFolder/vulkan-0003-Fix-appmodel.h-header.patch ./packages
+#cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
+#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 
 #add_option mbedtls "cleanup(mbedtls install)" "force_rebuild_git(mbedtls)"
 
@@ -68,7 +75,6 @@ cp $bashFolder/vulkan-0003-Fix-appmodel.h-header.patch ./packages
 #replace_option libarchive "GIT_SHALLOW 1" "GIT_TAG 3665c7587d6561f0209da1716f86fbebb9a26778"
 
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG a88a141c1791b448f2c327e6bdd9491a4439efc2"
 #replace_option ffmpeg "GIT_TAG a88a141c1791b448f2c327e6bdd9491a4439efc2" "GIT_SHALLOW 1"
 
 #replace_option mpv "mpv-1.dll" "mpv-2.dll"
@@ -80,7 +86,6 @@ cp $bashFolder/vulkan-0003-Fix-appmodel.h-header.patch ./packages
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG 1ab2340644109442f933b1fb47dee927bed29f8e"
 
 #add_option toolchain/mingw-w64 "GIT_SHALLOW 1" "GIT_TAG v7.0.0"
-#add_option vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG 3e390a15976143060eb232acc04380209f9ed08e"
 
 #replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 3d935ea2243b4fffd9694191834d8573270dc869"
 #replace_option spirv-headers "GIT_SHALLOW 1" "GIT_TAG f836486eb164603f3c8cc7c272f4d3b953d6aa25"
@@ -97,7 +102,6 @@ cp $bashFolder/vulkan-0003-Fix-appmodel.h-header.patch ./packages
 #add_option glslang "GIT_SHALLOW 1" "GIT_TAG 11.2.0"
 #sed -i "s/https:\/\/git.xiph.org\/opus.git/https:\/\/github.com\/xiph\/opus.git/" opus.cmake
 #replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG v4.157.0"
-#replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG b4c65bc361603e801d264f533d0d8f6fd702a19f"
 #add_option mujs "GIT_REPOSITORY" "GIT_TAG 1.0.7"
 
 
