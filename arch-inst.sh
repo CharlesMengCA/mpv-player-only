@@ -30,10 +30,7 @@ echo .
 
 set -x #echo on
 
-# find the best mirrors
 pacman -Syy
-#pacman -S --noconfirm --needed reflector
-#reflector -c CA -c US -p https -f 12 -l 10 -n 12 --verbose --save /etc/pacman.d/mirrorlist
 pacman -S --noconfirm --needed xmlstarlet &
 
 # start install
@@ -43,9 +40,8 @@ mkfs.ext4 /dev/sda1
 
 mount /dev/sda1 /mnt
 
-pacstrap /mnt base base-devel
+pacstrap /mnt base linux
 #pacstrap -U /mnt https://archive.archlinux.org/repos/2019/03/12/core/os/x86_64/linux-firmware-20190212.28f5f7d-1-any.pkg.tar.xz
-pacstrap /mnt linux
 
 genfstab /mnt >> /mnt/etc/fstab
 
@@ -66,7 +62,7 @@ export LANG=en_US.UTF-8
 echo archlinux.cm.local > /etc/hostname
 
 # enable dhcp
-pacman -S --noconfirm --needed dhcpcd
+pacman -S --noconfirm --needed base-devel dhcpcd
 
 systemctl enable dhcpcd
 
@@ -122,6 +118,8 @@ systemctl enable vboxservice.service
 echo "root:${root_password}" | chpasswd
 EOF
 
+umount -R /mnt/dev
+
 chmod +x /mnt/root/part2.sh
 arch-chroot /mnt /root/part2.sh
 rm /mnt/root/part2.sh
@@ -140,4 +138,4 @@ xml ed --inplace -u "//property[@name='plugin-2']/property[@name='grouping']/@va
 xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
 xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
 
-umount /mnt
+umount -R /mnt
