@@ -8,15 +8,17 @@ cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
 
-#append_option mpv "mpv.git" "GIT_TAG 2858073fd03616f6fef0351256fc897352088987"
+#append_option mpv "mpv.git" "GIT_TAG 89dfcf8286fbcd70669650fb52edaefa6343c113"
 
 replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.2.1.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
 replace_option mbedtls "URL_HASH SHA256=d0e77a020f69ad558efc660d3106481b75bd3056d6301c31564e04a0faae88cc" \
 							  "GIT_SHALLOW 1"
 
-# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
-#replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
+if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
+	# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
+	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
+fi
 
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG 2f0d45571b5290f2cc7269cc74bfb5af139eff3e"
 
