@@ -33,8 +33,8 @@ replace_option mpv "-Dsdl2=enabled" "-Dsdl2=disabled"
 comment_line mpv "mujs"
 replace_option mpv "-Djavascript=enabled" "-Djavascript=disabled"
 
-cp $bashFolder/lua-remove-comments.sh ./packages
+cp -v $bashFolder/lua-remove-comments.sh ./packages
 add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/lua-remove-comments.sh"
 
-cp $bashFolder/libass-7-digit-commit-id.sh ./packages
+cp -v $bashFolder/libass-7-digit-commit-id.sh ./packages
 add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/libass-7-digit-commit-id.sh"
