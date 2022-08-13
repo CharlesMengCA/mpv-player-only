@@ -31,6 +31,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: build without jxl encoder
         run: |
+          chmod +x *.sh
           ./0-build-all.sh
           ./9z-zip-build.sh
       - uses: actions/upload-artifact@v3
