@@ -7,8 +7,11 @@ defaults:
     
 # Controls when the workflow will run
 on:
+  create:
+      tags:
+        - v*
 
-  # Allows you to run this workflow manually from the Actions tab
+# Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -29,3 +32,8 @@ jobs:
       - name: build without jxl encoder
         run: |
           ./0-build-all.sh
+          ./9z-zip-build.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: CM-Test
+          path: ./*.7z
