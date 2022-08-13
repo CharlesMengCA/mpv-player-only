@@ -15,9 +15,9 @@ cd
 lsb_release -a &> /dev/null
 if [ $? -eq 127 ]
 then
-  PKG_MGR="pacman -S --noconfirm --needed python-pip"
+  PKG_MGR="pacman -S --noconfirm --needed python-pip ninja"
 else
-  PKG_MGR="apt-get install -y python3-pip"
+  PKG_MGR="apt-get install -y python3-pip ninja-build"
 fi
 
 set -x #echo on
@@ -28,7 +28,7 @@ set -x #echo on
 # clang is required by ffmpeg/cuda-llvm
 
 sudo ${PKG_MGR} \
-       git gyp mercurial subversion ninja cmake ragel yasm nasm asciidoc enca \
+       git gyp mercurial subversion cmake ragel yasm nasm asciidoc enca \
        gperf unzip p7zip gcc-multilib clang meson po4a 
 
 #pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2021/08/17/extra/os/x86_64/meson-0.59.0-2-any.pkg.tar.zst
