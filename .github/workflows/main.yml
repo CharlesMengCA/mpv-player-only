@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      SHORT_DATE: ${{ env.short_date }}
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
