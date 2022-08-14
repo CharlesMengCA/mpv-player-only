@@ -12,16 +12,22 @@ echo $0 $@
 
 cd
 
-# clang is required by ffmpeg/cuda-llvm
-COMMON_PACKAGES="git gyp mercurial subversion cmake ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib clang meson po4a"
-set -x #echo on
 lsb_release -a &> /dev/null
 if [ $? -eq 127 ]
 then
-  sudo pacman -S --noconfirm --needed python-pip ninja $COMMON_PACKAGES
+  # warning: XXX is up to date -- skipping curl
+  # flex automake autoconf pkg-config patch gcc-multilib
+  # clang is required by ffmpeg/cuda-llvmc
+  sudo pacman -S --noconfirm --needed \
+		git gyp mercurial subversion ninja cmake ragel yasm nasm asciidoc enca \
+		gperf unzip p7zip gcc-multilib python-pip clang meson po4a
 else
   sudo apt-get update
-  sudo apt-get install -y python3-pip ninja-build texinfo $COMMON_PACKAGES
+  sudo apt-get install -y \
+		build-essential checkinstall bison flex gettext git mercurial subversion ninja-build \
+		gyp cmake yasm nasm automake pkg-config libtool libtool-bin gcc-multilib g++-multilib \
+		clang libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint \
+		re2c asciidoc python3-pip docbook2x unzip p7zip-full curl
 fi
 
 set -x #echo on
@@ -37,8 +43,6 @@ pip3 install mako jinja2
 # --root-user-action=ignore
 #rst2pdf
 
-# warning: XXX is up to date -- skipping curl
-# flex automake autoconf pkg-config patch gcc-multilib
 
 git config --global user.email "fakeuser@outlook.com"
 git config --global user.name "fakeuser"
