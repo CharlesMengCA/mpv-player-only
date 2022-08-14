@@ -12,12 +12,16 @@ echo $0 $@
 
 cd
 
+# clang is required by ffmpeg/cuda-llvm
+COMMON_PACKAGES="git gyp mercurial subversion cmake ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib clang meson po4a"
+set -x #echo on
 lsb_release -a &> /dev/null
 if [ $? -eq 127 ]
 then
-  PKG_MGR="pacman -S --noconfirm --needed python-pip ninja"
+  sudo pacman -S --noconfirm --needed python-pip ninja $COMMON_PACKAGES
 else
-  PKG_MGR="apt-get install -y python3-pip ninja-build"
+  sudo apt-get update
+  sudo apt-get install -y python3-pip ninja-build texinfo $COMMON_PACKAGES
 fi
 
 set -x #echo on
@@ -25,16 +29,12 @@ set -x #echo on
 #sudo pacman -S --noconfirm --needed reflector rsync
 #reflector -c CA -c US -p https -p rsync -f 12 -l 5 -n 12 --verbose --save /etc/pacman.d/mirrorlist
 # sudo pacman -Sc --noconfirm
-# clang is required by ffmpeg/cuda-llvm
-
-sudo ${PKG_MGR} \
-       git gyp mercurial subversion cmake ragel yasm nasm asciidoc enca \
-       gperf unzip p7zip gcc-multilib clang meson po4a 
 
 #pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2021/08/17/extra/os/x86_64/meson-0.59.0-2-any.pkg.tar.zst
 #block-upd meson
 
-pip3 install mako jinja2 --root-user-action=ignore
+pip3 install mako jinja2
+# --root-user-action=ignore
 #rst2pdf
 
 # warning: XXX is up to date -- skipping curl
