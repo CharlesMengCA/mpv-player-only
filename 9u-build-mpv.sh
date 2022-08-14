@@ -21,9 +21,10 @@ rm -r mpv-*
 
 cd packages
 
-rm -r mpv-prefix
-rm -r ffmpeg-prefix
-rm -r freetype2-prefix
+rm -rf mpv-prefix
+rm -rf ffmpeg-prefix
+rm -rf freetype2-prefix
+rm -rf libssh-prefix
 
 if [ "$backup_only" = true ]; then
 	backup fontconfig
@@ -31,7 +32,6 @@ if [ "$backup_only" = true ]; then
 	backup libbluray
 	backup libjxl
 	backup libsrt
-	backup libssh
 	backup luajit
 	backup mbedtls
 	backup mujs
@@ -48,7 +48,6 @@ if [ "$backup_only" = true ]; then
 	restore libbluray
 	restore libjxl
 	restore libsrt
-	restore libssh
 	restore luajit
 	restore mbedtls
 	restore mujs
