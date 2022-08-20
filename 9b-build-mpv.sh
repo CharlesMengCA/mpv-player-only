@@ -21,6 +21,7 @@ ninja vulkan
 
 ninja shaderc
 
+
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/shaderc.pc
 
 #if [ ! -f "$FILE" ]; then
@@ -35,6 +36,39 @@ ninja spirv-cross
 ninja libarchive
 ninja libass
 #ninja harfbuzz
+
+lsb_release -a &> /dev/null
+if [ $? -ne 127 ]; then
+	rm -rf packages/vulkan-prefix/src/vulkan/
+	rm -rf packages/vulkan-header-prefix/src/vulkan-header/
+
+	rm -rf packages/shaderc-prefix/src/shaderc/
+	rm -rf packages/spirv-tools-prefix/src/spirv-tools/
+	rm -rf packages/spirv-headers-prefix/src/spirv-headers/
+	rm -rf packages/glslang-prefix/src/glslang/
+
+	rm -rf packages/libplacebo-prefix/src/libplacebo/
+	rm -rf packages/zlib-prefix/src/zlib/
+	rm -rf packages/libjpeg-prefix/src/libjpeg/
+
+	rm -rf packages/spirv-cross-prefix/src/spirv-cross/
+
+	rm -rf packages/libarchive-prefix/src/libarchive/
+	rm -rf packages/bzip2-prefix/src/bzip2/
+	rm -rf packages/expat-prefix/src/expat/
+	rm -rf packages/lzo-prefix/src/lzo/
+	rm -rf packages/xz-prefix/src/xz/
+	rm -rf packages/zlib-prefix/src/zlib/
+	rm -rf packages/nettle-prefix/src/nettle/
+
+	rm -rf packages/libass-prefix/src/libass/
+	rm -rf packages/harfbuzz-prefix/src/harfbuzz/
+	rm -rf packages/freetype2-prefix/src/freetype2/
+	rm -rf packages/fribidi-prefix/src/fribidi/
+	rm -rf packages/libiconv-prefix/src/libiconv/
+	rm -rf packages/fontconfig-prefix/src/fontconfig/
+fi
+
 ninja libjxl
 
 ninja mpv

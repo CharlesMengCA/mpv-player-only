@@ -8,7 +8,7 @@ cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
 
-#append_option mpv "mpv.git" "GIT_TAG 89dfcf8286fbcd70669650fb52edaefa6343c113"
+#append_option mpv "mpv.git" "GIT_TAG 1ef53f094b4362afdfd54770a59b6d3da3551ee5"
 
 replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.2.1.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
@@ -20,11 +20,14 @@ if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/m
 	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
 fi
 
+#append_option mpv "--prefer-static" "-Dbuild-date=true"
+
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG 2f0d45571b5290f2cc7269cc74bfb5af139eff3e"
 
 #replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG 12d55df496aa473296b180318b3132fdceb068fe"
 
 #replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 57d5dd568b701b5a3dd17d758f3a665c128116a7"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
 
 #broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
@@ -84,26 +87,19 @@ fi
 
 #replace_option spirv-tools "GIT_SHALLOW 1" "GIT_TAG b9e255b3663c29686ef91e0d332c1ba82930bbb5"
 
-
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG 1ab2340644109442f933b1fb47dee927bed29f8e"
 
 #add_option toolchain/mingw-w64 "GIT_SHALLOW 1" "GIT_TAG v7.0.0"
 
 #replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 3d935ea2243b4fffd9694191834d8573270dc869"
 #replace_option spirv-headers "GIT_SHALLOW 1" "GIT_TAG f836486eb164603f3c8cc7c272f4d3b953d6aa25"
-#replace_option spirv-tools "GIT_SHALLOW 1" "GIT_TAG d07505c761f5a0013cf3134f1d912ec775ad49c7"
-
-#replace_option spirv-headers "GIT_SHALLOW 1" "GIT_TAG 814e728b30ddd0f4509233099a3ad96fd4318c07"
-#replace_option spirv-tools "GIT_SHALLOW 1" "GIT_TAG 4b092d2ab81854e61632bdd1e658907f0071c37e"
 
 
 #add_option lcms2 "GIT_REPOSITORY https:\/\/github.com\/mm2\/Little-CMS.git" "GIT_TAG 5f7853e784d6c46d32171478248541de308137b8"
 
 #add_option shaderc "shaderc.git" "GIT_TAG v2021.1"
 #add_option fribidi "GIT_SHALLOW 1" "GIT_TAG v1.0.9"
-#add_option glslang "GIT_SHALLOW 1" "GIT_TAG 11.2.0"
 #sed -i "s/https:\/\/git.xiph.org\/opus.git/https:\/\/github.com\/xiph\/opus.git/" opus.cmake
-#replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG v4.157.0"
 #add_option mujs "GIT_REPOSITORY" "GIT_TAG 1.0.7"
 
 
@@ -122,6 +118,5 @@ fi
 #add_option fontconfig "GIT_SHALLOW 1" "GIT_TAG 2.13.92"
 
 #sed -i "s/git:\/\/anongit.freedesktop.org\/uchardet\/uchardet/https:\/\/gitlab.freedesktop.org\/uchardet\/uchardet.git/" uchardet.cmake
-
 
 #sed -i "s/optimizer.RegisterVulkanToWebGPUPasses();/\/\/optimizer.RegisterVulkanToWebGPUPasses();/" build64/shaderc-prefix/src/shaderc/libshaderc_util/src/spirv_tools_wrapper.cc

@@ -65,3 +65,5 @@ fi
 #cp ${my_meson} meson_build
 #ln -sf $PWD/meson_build/meson.pyz /usr/local/bin/meson
 #meson --version
+
+df -h

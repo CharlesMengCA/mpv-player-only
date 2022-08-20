@@ -10,8 +10,12 @@ sed -i -e "/configuration += '-Dprefix='/d" meson.build
 sed -i -e "s/conf_data.set_quoted('FULLCONFIG', feature_str)/conf_data.set_quoted('FULLCONFIG', feature_str.replace('win32 win32-desktop win32-executable win32-internal-pthreads ',''))/g" meson.build
 sed -i -e "s/configuration = 'meson build '/configuration = 'meson build'/g" meson.build
 
-cd player/lua
 
+
+#BUILD_DATE=$(date +"%F %l:%M %p")
+#sed -i -e "s/= BUILDDATE;/= \"$BUILD_DATE\";/g" common/version.c
+
+cd player/lua
 sed -i -e '/\-\-\[\[/,/\-\-\]\]/{d}' *.lua
 sed -i -e '/^\s*--/{d}' *.lua
 sed -i -e 's/\s\+--.*$//' *.lua
