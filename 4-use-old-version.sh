@@ -20,13 +20,15 @@ if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/m
 	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
 fi
 
+#replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 69ae9e7460499b488cb2d32edae623a95264db14"
+
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
 
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG 2f0d45571b5290f2cc7269cc74bfb5af139eff3e"
 
 #replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG 12d55df496aa473296b180318b3132fdceb068fe"
 
-#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 57d5dd568b701b5a3dd17d758f3a665c128116a7"
+#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG b57feee2859e2dd2076b4c36977bf75ac7ac03e3"
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
 
 #broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
@@ -91,7 +93,6 @@ fi
 
 #add_option toolchain/mingw-w64 "GIT_SHALLOW 1" "GIT_TAG v7.0.0"
 
-#replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 3d935ea2243b4fffd9694191834d8573270dc869"
 #replace_option spirv-headers "GIT_SHALLOW 1" "GIT_TAG f836486eb164603f3c8cc7c272f4d3b953d6aa25"
 
 

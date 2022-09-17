@@ -8,7 +8,11 @@ StartTime=$(date '+%H:%M:%S')
 set -x #echo on
 
 ninja vulkan
-
+status=$?
+if [ $status -ne 0 ]; then
+	echo "error in building vulkan" 
+	exit
+fi
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/vulkan.pc
 #if [ ! -f "$FILE" ]; then
 
@@ -20,7 +24,6 @@ ninja vulkan
 #fi
 
 ninja shaderc
-
 
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/shaderc.pc
 

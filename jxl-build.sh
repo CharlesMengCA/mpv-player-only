@@ -4,7 +4,7 @@ source $(pwd)/functions.sh
 clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/build64/packages/mpv-prefix/src/mpv
-build_dir=mpv-x86_64-$(date -u +%Y%m%d)-git-$(git rev-parse --short=7 HEAD)-jxl
+build_dir=mpv-x86_64-v3-$(date -u +%Y%m%d)-git-$(git rev-parse --short=7 HEAD)-jxl
 
 cd ~
 mkdir $build_dir
