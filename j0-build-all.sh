@@ -2,7 +2,6 @@
 StartTime=$(date '+%H:%M:%S')
 ./1-download-mpv-winbuild-cmake.sh
 ./2-disable-ffmpeg-encoder.sh
-./disable-ffmpeg-jxl.sh
 ./3-disable-vapoursynth.sh
 ./4-use-old-version.sh
 ./5-disable-OpenGL.sh

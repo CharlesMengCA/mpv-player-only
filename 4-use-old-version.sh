@@ -20,6 +20,24 @@ if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/m
 	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
 fi
 
+#replace_option zlib "github.com\/madler\/zlib\/archive\/refs\/tags\/v1.2.12.tar.gz" \
+#						  "zlib.net\/zlib-1.2.13.tar.gz"
+						  
+#replace_option zlib "d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932" \
+#						  "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
+
+cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages 
+
+#replace_option x265 "GIT_REPOSITORY https:\/\/bitbucket.org\/multicoreware\/x265_git.git" \
+#                    "URL https:\/\/bitbucket.org\/multicoreware\/x265_git\/get\/931178347b3f.zip"
+                    
+#replace_option expat "R_2_4_8" "R_2_4_9"
+#replace_option expat "2\.4\.8" "2\.4\.9"
+#replace_option expat "f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25" \
+#							"6e8c0728fe5c7cd3f93a6acce43046c5e4736c7b4b68e032e9350daa0efc0354"
+
+#cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages 
+
 #replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 69ae9e7460499b488cb2d32edae623a95264db14"
 
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
@@ -48,17 +66,6 @@ fi
 #							   "8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
 
 #replace_option libmfx "COMMAND mv libmfx.pc mfx.pc" "COMMAND cp -u libmfx.pc mfx.pc"
-							  
-#replace_option expat "R_2_4_7" "R_2_4_8"
-#replace_option expat "2\.4\.7" "2\.4\.8"
-#replace_option expat "9875621085300591f1e64c18fd3da3a0eeca4a74f884b9abac2758ad1bd07a7d" \
-#							"f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25"
-
-#replace_option zlib "http:\/\/download\.sourceforge\.net\/libpng\/zlib-1\.2\.11\.tar\.gz" \
-#						  "https:\/\/zlib\.net\/zlib-1\.2\.12\.tar\.gz"
-						  
-#replace_option zlib "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1" \
-#						  "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9"
 
 #sed -i "/https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git/!b;n;c\    GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292" packages/vulkan.cmake
 

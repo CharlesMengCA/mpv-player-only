@@ -28,7 +28,7 @@ rm -rf libssh-prefix
 
 if [ "$backup_only" = true ]; then
 	backup fontconfig
-	backup lame
+	#backup lame
 	backup libbluray
 	backup libjxl
 	backup libsrt
@@ -44,7 +44,7 @@ if [ "$backup_only" = true ]; then
 
 	cd packages
 	restore fontconfig
-	restore lame
+	#restore lame
 	restore libbluray
 	restore libjxl
 	restore libsrt
@@ -56,11 +56,11 @@ if [ "$backup_only" = true ]; then
 	restore vulkan
 else
 	rm -r fontconfig-prefix
-	rm -r lame-prefix
+	#rm -r lame-prefix
 	#rm -r libbluray-prefix
 	rm -r libjxl-prefix
 	rm -r libsrt-prefix
-	rm -r libssh-prefix
+	#rm -r libssh-prefix
 	rm -r luajit-prefix
 	rm -r mbedtls-prefix
 	rm -r mujs-prefix

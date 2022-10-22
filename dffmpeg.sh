@@ -9,14 +9,17 @@ systemctl start docker.service
 
 cd ~
 git clone https://github.com/BtbN/FFmpeg-Builds.git
+#git clone https://github.com/CharlesMengCA/FFmpeg-Builds.git
 cd FFmpeg-Builds
 
 rm scripts.d/50-openmpt.sh
 rm scripts.d/50-kvazaar.sh
 rm scripts.d/50-aribb24/50-libaribb24.sh
 
-./makeimage.sh win64 gpl-shared 5.1
+set -x #echo on
+sed -i "s/--branch='\\\$GIT_BRANCH'/--branch='n5.1.2'/g" build.sh
 
+./makeimage.sh win64 gpl-shared 5.1
 ./build.sh win64 gpl-shared 5.1
 
 ls ffbuild/pkgroot
