@@ -10,7 +10,6 @@ rm -r livecd
 mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
 #sed -i -e 's#/usr/share/licenses/amd-ucode/LICENSE#/usr/share/licenses/amd-ucode/LICENSE.amd-ucode#g' build.sh
 
-#exit
 #https://github.com/archlinux/archiso/blob/master/configs/releng/packages.x86_64
 cat <<EOF > packages.x86_64
 dialog

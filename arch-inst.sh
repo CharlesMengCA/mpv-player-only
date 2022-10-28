@@ -100,22 +100,30 @@ dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view
 
 systemctl enable lightdm
 
+useradd -m -G wheel cm
+
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
 
-sed -i 's/#autologin-user=/autologin-user=root/' /etc/lightdm/lightdm.conf
+sed -i 's/#autologin-user=/autologin-user=cm/' /etc/lightdm/lightdm.conf
 
 groupadd -r autologin
-gpasswd -a root autologin
+gpasswd -a cm autologin
 
 #virtualbox configure
 pacman -S --noconfirm --needed virtualbox-guest-utils
 
 systemctl enable vboxservice.service
 
+mkdir /home/cm/mpv
+
 #echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
+echo -e "LinuxFolder\t\t/home/cm/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
+
+sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) NOPASSWD: \/usr\/bin\/pacman/' /etc/sudoers
 
 #set root password
 echo "root:${root_password}" | chpasswd
+echo "cm:${root_password}" | chpasswd
 EOF
 
 umount -R /mnt/dev
