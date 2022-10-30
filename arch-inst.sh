@@ -83,11 +83,6 @@ pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter xorg-server xfdesktop
 #sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
 #	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
-dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
-dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
-dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
-dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
-
 #lxde
 #pacman -S --noconfirm --needed lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal pcmanfm leafpad
 
@@ -100,7 +95,17 @@ dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view
 
 systemctl enable lightdm
 
-useradd -m -G wheel cm
+useradd -mG wheel cm
+
+#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
+#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
+#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
+#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
+
+sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
+sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
+sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
+sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
 
 sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
 
