@@ -25,9 +25,11 @@ rm -rf mpv-prefix
 rm -rf ffmpeg-prefix
 rm -rf freetype2-prefix
 rm -rf libssh-prefix
+rm -rf fontconfig-prefix
+rm -rf vulkan-prefix
 
 if [ "$backup_only" = true ]; then
-	backup fontconfig
+#	backup fontconfig
 	#backup lame
 	backup libbluray
 	backup libjxl
@@ -43,7 +45,7 @@ if [ "$backup_only" = true ]; then
 	ninja lzo
 
 	cd packages
-	restore fontconfig
+#	restore fontconfig
 	#restore lame
 	restore libbluray
 	restore libjxl
@@ -55,19 +57,18 @@ if [ "$backup_only" = true ]; then
 	restore spirv-cross
 	restore vulkan
 else
-	rm -r fontconfig-prefix
-	#rm -r lame-prefix
-	#rm -r libbluray-prefix
-	rm -r libjxl-prefix
-	rm -r libsrt-prefix
-	#rm -r libssh-prefix
-	rm -r luajit-prefix
-	rm -r mbedtls-prefix
-	rm -r mujs-prefix
-	rm -r nettle-prefix
-	rm -r spirv-cross-prefix
-	rm -r vulkan-header-prefix
-	rm -r vulkan-prefix
+	#rm -rf lame-prefix
+	#rm -rf libbluray-prefix
+	rm -rf libjxl-prefix
+	rm -rf libsrt-prefix
+	#rm -rf libssh-prefix
+	rm -rf luajit-prefix
+	rm -rf mbedtls-prefix
+	rm -rf mujs-prefix
+	rm -rf nettle-prefix
+	rm -rf spirv-cross-prefix
+	rm -rf vulkan-header-prefix
+	rm -rf vulkan-prefix
 
 	#rm -r libbs2b-prefix
 	#rm -r libepoxy-prefix

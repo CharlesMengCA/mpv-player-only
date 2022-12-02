@@ -2,7 +2,7 @@
 echo $0 $@
 
 sed -i -e 's/2021/'$(date +"%Y")'/g' version.py
-sed -i -e '/^NEW_REVISION = .*/i version=version.replace("34.0-", "34.1-").replace("4-dirty", "8-dirty").replace("-dirty", "")' version.py
+sed -i -e '/^NEW_REVISION = .*/i version=version.replace("35.0-", "35.0-").replace("4-dirty", "8-dirty").replace("-dirty", "")' version.py
 #sed -i -e 's/date.strftime("%a %b %d %I:%M:%S %Y")/datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")/g' version.py
 sed -i -e 's/date.strftime("%a %b %d %I:%M:%S %Y")/datetime.now().strftime("%Y-%m-%d %-I:%M %p")/g' version.py
 

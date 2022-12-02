@@ -20,21 +20,51 @@ if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/m
 	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
 fi
 
+#https://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.5.tar.xz
+#https://github.com/xiph/ogg/releases/download/v1.3.5/libogg-1.3.5.tar.xz
+if ! curl --output /dev/null --silent --head --fail "https://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.5.tar.xz"; then
+	replace_option ogg "ftp.osuosl.org\/pub\/xiph\/releases\/ogg" "github.com\/xiph\/ogg\/releases\/download\/v1.3.5"
+fi
+
+#https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz
+#https://github.com/xiph/vorbis/releases/download/v1.3.7/libvorbis-1.3.7.tar.xz
+#if ! curl --output /dev/null --silent --head --fail "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz"; then
+	replace_option vorbis "downloads.xiph.org\/releases\/vorbis" "github.com\/xiph\/vorbis\/releases\/download\/v1.3.7"
+#fi
+
+#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
+
+#comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"
+#replace_option ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2" "PATCH_COMMAND \$\{EXEC\} patch -p1 < \$\{CMAKE_CURRENT_SOURCE_DIR\}\/o0ot.diff"
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
+
+#add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
+#add_option mpv "SOURCE_DIR " "GIT_TAG ead8469454afa63e6e1fdd9e978af765f89379ce"
+
+#https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include
+#https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git
+#replace_option amf-headers "SVN_REPOSITORY " "GIT_REPOSITORY "
+#replace_option amf-headers "\/trunk\/amf\/public\/include " ".git"
+
+#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 256a5e3b6d6fc31e711f912291498becd6a41330"
+
 #replace_option zlib "github.com\/madler\/zlib\/archive\/refs\/tags\/v1.2.12.tar.gz" \
 #						  "zlib.net\/zlib-1.2.13.tar.gz"
 						  
 #replace_option zlib "d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932" \
 #						  "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 
-cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages 
+#cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages 
 
 #replace_option x265 "GIT_REPOSITORY https:\/\/bitbucket.org\/multicoreware\/x265_git.git" \
 #                    "URL https:\/\/bitbucket.org\/multicoreware\/x265_git\/get\/931178347b3f.zip"
                     
-#replace_option expat "R_2_4_8" "R_2_4_9"
-#replace_option expat "2\.4\.8" "2\.4\.9"
-#replace_option expat "f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25" \
-#							"6e8c0728fe5c7cd3f93a6acce43046c5e4736c7b4b68e032e9350daa0efc0354"
+#replace_option expat "R_2_4_9" "R_2_5_0"
+#replace_option expat "2\.4\.9" "2\.5\.0"
+#replace_option expat "6e8c0728fe5c7cd3f93a6acce43046c5e4736c7b4b68e032e9350daa0efc0354" \
+#							"ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
+
+#comment_line libjxl "PATCH_COMMAND"
 
 #cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages 
 
@@ -42,18 +72,16 @@ cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages
 
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
 
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG 2f0d45571b5290f2cc7269cc74bfb5af139eff3e"
+
 
 #replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG 12d55df496aa473296b180318b3132fdceb068fe"
 
-#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG b57feee2859e2dd2076b4c36977bf75ac7ac03e3"
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
 
 #broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
 
 #cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
-#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 
 #add_option mbedtls "cleanup(mbedtls install)" "force_rebuild_git(mbedtls)"
 
@@ -69,50 +97,19 @@ cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages
 
 #sed -i "/https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git/!b;n;c\    GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292" packages/vulkan.cmake
 
-#sed -i "s/GIT_REMOTE_NAME origin//g" vulkan.cmake
-#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.2.193"
-#append_option  vulkan "GIT_REPOSITORY https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git" "GIT_TAG 0ad591fa3c2a68e555e80f45a4d6cb52dfdaf8f0"
 #replace next line https://stackoverflow.com/questions/18620153/find-matching-text-and-replace-next-line
-
-#replace_option libressl "3.1.5" "3.5.2"
-#replace_option libressl "2c13ddcec5081c0e7ba7f93d8370a91911173090f1922007e1d90de274500494" \
-#								"56feab8e21c3fa6549f8b7d7511658b8e98518162838a795314732654adf3e5f"
-
-#cp $bashFolder/libressl-0001-remove-postfix-in-libs-name.patch ./packages 
-
 
 #replace_option lame "GIT_REPOSITORY https:\/\/salsa.debian.org\/multimedia-team\/lame.git" \
 #							"URL \"https:\/\/downloads.sourceforge.net\/project\/lame\/lame\/3.100\/lame-3.100.tar.gz\""
 
 #comment_line lame "force_rebuild_git(lame)"
 
-#replace_option libarchive "GIT_SHALLOW 1" "GIT_TAG 3665c7587d6561f0209da1716f86fbebb9a26778"
-
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
-#replace_option ffmpeg "GIT_TAG a88a141c1791b448f2c327e6bdd9491a4439efc2" "GIT_SHALLOW 1"
-
-#replace_option mpv "mpv-1.dll" "mpv-2.dll"
 #sed -i '/opengl_cb\.h/d' mpv.cmake
-
-#replace_option spirv-tools "GIT_SHALLOW 1" "GIT_TAG b9e255b3663c29686ef91e0d332c1ba82930bbb5"
-
-#replace_option libssh "GIT_SHALLOW 1" "GIT_TAG 1ab2340644109442f933b1fb47dee927bed29f8e"
 
 #add_option toolchain/mingw-w64 "GIT_SHALLOW 1" "GIT_TAG v7.0.0"
 
-#replace_option spirv-headers "GIT_SHALLOW 1" "GIT_TAG f836486eb164603f3c8cc7c272f4d3b953d6aa25"
-
-
-#add_option lcms2 "GIT_REPOSITORY https:\/\/github.com\/mm2\/Little-CMS.git" "GIT_TAG 5f7853e784d6c46d32171478248541de308137b8"
-
-#add_option shaderc "shaderc.git" "GIT_TAG v2021.1"
-#add_option fribidi "GIT_SHALLOW 1" "GIT_TAG v1.0.9"
 #sed -i "s/https:\/\/git.xiph.org\/opus.git/https:\/\/github.com\/xiph\/opus.git/" opus.cmake
 #add_option mujs "GIT_REPOSITORY" "GIT_TAG 1.0.7"
-
-
-#add_option x265 "GIT_SHALLOW 1" "GIT_TAG 3ae3d711660da39af2a230f3d5856ee3a6195cd4"
-#replace_option freetype2 "GIT_SHALLOW 1" "GIT_TAG c5516e0f7cd0c7075381b15d3194a640f4d35ee3"
 
 #vk_dir=/usr/share/vulkan/registry
 #mkdir -p "$vk_dir" && cp /root/mpv-winbuild-cmake/build64/vulkan-header-prefix/src/vulkan-header/registry/vk.xml $vk_dir/vk.xml
@@ -123,7 +120,6 @@ cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages
 #cp -n /root/mpv-winbuild-cmake/build64/aom-prefix/src/aom/aom/aomdx.h /root/mpv-winbuild-cmake/build64/install/x86_64-w64-mingw32/include/aom/
 
 #sed -i "s/-DCONFIG_AV1_DECODER=0/-DCONFIG_AV1_DECODER=1/" aom.cmake
-#add_option fontconfig "GIT_SHALLOW 1" "GIT_TAG 2.13.92"
 
 #sed -i "s/git:\/\/anongit.freedesktop.org\/uchardet\/uchardet/https:\/\/gitlab.freedesktop.org\/uchardet\/uchardet.git/" uchardet.cmake
 
