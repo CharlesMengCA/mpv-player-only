@@ -10,4 +10,6 @@ StartTime=$(date '+%H:%M:%S')
 ./7-new-toolchain.sh
 ./8-build-player.sh
 ./9b-build-mpv.sh
+
+
 echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')

@@ -46,7 +46,7 @@ fi
 #replace_option amf-headers "SVN_REPOSITORY " "GIT_REPOSITORY "
 #replace_option amf-headers "\/trunk\/amf\/public\/include " ".git"
 
-#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 256a5e3b6d6fc31e711f912291498becd6a41330"
+#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 5035e37bf6bf6cf4b0c6cf7956c63b0522d69ab9"
 
 #replace_option zlib "github.com\/madler\/zlib\/archive\/refs\/tags\/v1.2.12.tar.gz" \
 #						  "zlib.net\/zlib-1.2.13.tar.gz"

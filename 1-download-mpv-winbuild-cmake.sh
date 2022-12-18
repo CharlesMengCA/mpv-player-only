@@ -40,7 +40,7 @@ set -x #echo on
 #pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2021/08/17/extra/os/x86_64/meson-0.59.0-2-any.pkg.tar.zst
 #block-upd meson
 
-pip3 install mako jinja2
+pip3 install mako jinja2 jsonschema
 # --root-user-action=ignore
 #rst2pdf
 

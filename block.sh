@@ -2,15 +2,13 @@
 clear
 echo $0 $@
 
-add_option () {
-	if ! grep -- "$2$" /etc/pacman.conf; then
-		sed -i "/$1/a $2" /etc/pacman.conf
+block-upd(){
+	if ! grep -- "$1" /etc/pacman.conf; then
+		sed -i "/#IgnorePkg   =/a IgnorePkg    = $1" /etc/pacman.conf
 	fi
 }
 
-blockPkg(){
-	add_option "#IgnorePkg   =" "IgnorePkg    = $1"
-}
-
-#blockPkg xorg-server-common
-blockPkg xorg-server
+#block-upd xorg-server-common
+#block-upd xorg-server
+#block-upd linux-firmware
+block-upd libmpc

@@ -72,7 +72,7 @@ if [ $? -ne 127 ]; then
 	rm -rf packages/fontconfig-prefix/src/fontconfig/
 fi
 
-ninja libjxl
+#ninja libjxl
 
 ninja mpv
 
