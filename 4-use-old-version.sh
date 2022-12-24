@@ -10,9 +10,9 @@ cd ~/mpv-winbuild-cmake/
 
 #append_option mpv "mpv.git" "GIT_TAG 1ef53f094b4362afdfd54770a59b6d3da3551ee5"
 
-replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.2.1.tar.gz" \
+replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.3.0.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
-replace_option mbedtls "URL_HASH SHA256=d0e77a020f69ad558efc660d3106481b75bd3056d6301c31564e04a0faae88cc" \
+replace_option mbedtls "URL_HASH SHA256=113fa84bc3cf862d56e7be0a656806a5d02448215d1e22c98176b1c372345d33" \
 							  "GIT_SHALLOW 1"
 
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
@@ -31,6 +31,10 @@ fi
 #if ! curl --output /dev/null --silent --head --fail "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz"; then
 	replace_option vorbis "downloads.xiph.org\/releases\/vorbis" "github.com\/xiph\/vorbis\/releases\/download\/v1.3.7"
 #fi
+
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.237"
+#cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
+#add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
 #cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 

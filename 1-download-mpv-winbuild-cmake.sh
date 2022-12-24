@@ -56,6 +56,9 @@ git config --global --add safe.directory $PWD
 if [ -d "$BUILD_DIR" ]; then
 	cd $BUILD_DIR && git reset --hard HEAD && git pull
 else
+   #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
+   #exit 
+   
 	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=2
    cd $BUILD_DIR
    #git checkout -b cm dabeea23e7544b3166f6ecfc95e4a50e3dafc72d

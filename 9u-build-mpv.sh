@@ -27,6 +27,8 @@ rm -rf freetype2-prefix
 rm -rf libssh-prefix
 rm -rf fontconfig-prefix
 rm -rf vulkan-prefix
+rm -rf libjxl-prefix
+rm -rf libsrt-prefix
 
 if [ "$backup_only" = true ]; then
 #	backup fontconfig
