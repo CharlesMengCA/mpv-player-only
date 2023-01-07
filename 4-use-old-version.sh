@@ -36,6 +36,8 @@ fi
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
+#delete_line ffmpeg "PATCH_COMMAND "
+
 #cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 
 #comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"
@@ -43,7 +45,7 @@ fi
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
 
 #add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
-#add_option mpv "SOURCE_DIR " "GIT_TAG ead8469454afa63e6e1fdd9e978af765f89379ce"
+#add_option mpv "SOURCE_DIR " "GIT_TAG d8ae14653a8d86e31b4d9a90615a25c7b7fd7d10"
 
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git
