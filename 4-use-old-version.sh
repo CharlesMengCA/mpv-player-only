@@ -32,7 +32,9 @@ fi
 	replace_option vorbis "downloads.xiph.org\/releases\/vorbis" "github.com\/xiph\/vorbis\/releases\/download\/v1.3.7"
 #fi
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.237"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.238"
+#comment_line vulkan-header "GIT_SHALLOW 1"
+#add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
@@ -45,7 +47,7 @@ fi
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
 
 #add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
-#add_option mpv "SOURCE_DIR " "GIT_TAG d8ae14653a8d86e31b4d9a90615a25c7b7fd7d10"
+#add_option mpv "SOURCE_DIR " "GIT_TAG 7b09bf7ffc1a927e4d45eb0407ec7024bff2f4d5"
 
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git

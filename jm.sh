@@ -15,7 +15,7 @@ $(echo $build_dll | sed -e "s#"$mingw_lib"#-s#g")
 
 mkdir $target_folder
 cp mpv.exe $target_folder
-cp libmpv-2.dll $target_folder/mpv-2.dll
+cp libmpv-2.dll $target_folder/
 
 clear
 cd $target_folder

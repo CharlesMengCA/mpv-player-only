@@ -62,8 +62,8 @@ else
 	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=2
    cd $BUILD_DIR
    #git checkout -b cm dabeea23e7544b3166f6ecfc95e4a50e3dafc72d
-   git am --3way $SCRIPT_DIR/Patch/amf-headers-0001-Use-git-instead-of-svn.patch
-   git status
+   #git am --3way $SCRIPT_DIR/Patch/amf-headers-0001-Use-git-instead-of-svn.patch
+   git log
 #   git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
 	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi 
