@@ -1,83 +1,58 @@
 #!/bin/bash
 source $(pwd)/functions.sh
 
-backup (){
-	mv $1-prefix $1-prefix-bak
-}
-restore (){
-	rm -r $1-prefix
-	mv $1-prefix-bak $1-prefix
-}
+check_update (){
+   cd $1-prefix/src/$1 2>/dev/null
+   
+   if [ $? -eq 1 ]; then return; fi
+   
+   git_url=$(git config --get remote.origin.url)
 
-backup_only=true
-
-StartTime=$(date '+%H:%M:%S')
+   remote_commit=$(git ls-remote -q --heads | grep 'heads/main\|heads/master')
+   remote_commit=${remote_commit:0:40}
+   
+   local_commit=$(git rev-parse HEAD)
+   
+   cd ../../..
+   
+   if [[ "$git_url" == *"mpv-winbuild-cmake"* ]]; then
+      echo "$1 - not a git repo"
+      return 
+   fi
+   
+   if [ "$local_commit" = "$remote_commit" ]; then
+     echo "$1 - backup"
+     mv $1-prefix $1-prefix-bak
+   else
+     echo "$1 - remove"
+     rm -rf $1-prefix
+   fi
+}
 
 clear && echo $0 $@
-
 cd ~/mpv-winbuild-cmake/build64/
 
-rm -r mpv-*
+rm -rf mpv-*
 
 cd packages
 
-rm -rf mpv-prefix
-rm -rf ffmpeg-prefix
-rm -rf freetype2-prefix
-rm -rf libssh-prefix
-rm -rf fontconfig-prefix
-rm -rf vulkan-prefix
-rm -rf libjxl-prefix
-rm -rf libsrt-prefix
-
-if [ "$backup_only" = true ]; then
-#	backup fontconfig
-	#backup lame
-	backup libbluray
-	backup libjxl
-	backup libsrt
-	backup luajit
-	backup mbedtls
-	backup mujs
-	backup nettle
-	backup spirv-cross
-	backup vulkan
-
-	cd ..
-	ninja lzo
-
-	cd packages
-#	restore fontconfig
-	#restore lame
-	restore libbluray
-	restore libjxl
-	restore libsrt
-	restore luajit
-	restore mbedtls
-	restore mujs
-	restore nettle
-	restore spirv-cross
-	restore vulkan
-else
-	#rm -rf lame-prefix
-	#rm -rf libbluray-prefix
-	rm -rf libjxl-prefix
-	rm -rf libsrt-prefix
-	#rm -rf libssh-prefix
-	rm -rf luajit-prefix
-	rm -rf mbedtls-prefix
-	rm -rf mujs-prefix
-	rm -rf nettle-prefix
-	rm -rf spirv-cross-prefix
-	rm -rf vulkan-header-prefix
-	rm -rf vulkan-prefix
-
-	#rm -r libbs2b-prefix
-	#rm -r libepoxy-prefix
-	#rm -r libmodplug-prefix
-fi
+find ./ -type d -name '*-prefix' | while read line; do
+    check_update ${line:2:-7}
+done
 
 cd ..
+ninja bzip2
+cd packages
+
+find ./ -type d -name '*-prefix-bak' | while read line; do
+    rm -rf ${line:0:-4} 
+    mv $line ${line:0:-4} 
+    echo "${line:2:-11} - restored"
+done
+
+cd ..
+
+StartTime=$(date '+%H:%M:%S')
 
 ninja shaderc
 ninja spirv-cross

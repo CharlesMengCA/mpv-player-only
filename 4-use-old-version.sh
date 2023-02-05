@@ -8,8 +8,6 @@ cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
 
-#append_option mpv "mpv.git" "GIT_TAG 1ef53f094b4362afdfd54770a59b6d3da3551ee5"
-
 replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.3.0.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
 replace_option mbedtls "URL_HASH SHA256=113fa84bc3cf862d56e7be0a656806a5d02448215d1e22c98176b1c372345d33" \
@@ -32,6 +30,15 @@ fi
 	replace_option vorbis "downloads.xiph.org\/releases\/vorbis" "github.com\/xiph\/vorbis\/releases\/download\/v1.3.7"
 #fi
 
+#replace_option libxml2 "gitlab.gnome.org" "github.com"
+
+
+add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
+comment_line libplacebo "GIT_CLONE_FLAGS "
+
+#add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
+#add_option glslang "UPDATE_COMMAND " "GIT_TAG main"
+
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.238"
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
@@ -41,6 +48,7 @@ fi
 #delete_line ffmpeg "PATCH_COMMAND "
 
 #cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
+
 
 #comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"
 #replace_option ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2" "PATCH_COMMAND \$\{EXEC\} patch -p1 < \$\{CMAKE_CURRENT_SOURCE_DIR\}\/o0ot.diff"
