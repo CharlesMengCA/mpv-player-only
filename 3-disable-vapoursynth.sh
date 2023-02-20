@@ -38,3 +38,7 @@ add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SO
 
 cp -v $bashFolder/libass-7-digit-commit-id.sh ./packages
 add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/libass-7-digit-commit-id.sh"
+
+#comment_line CMakeLists.txt "libdovi"
+#comment_line libplacebo "libdovi"
+
