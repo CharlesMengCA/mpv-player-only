@@ -41,7 +41,7 @@ find ./ -type d -name '*-prefix' | while read line; do
 done
 
 cd ..
-ninja bzip2
+echo-build bzip2
 cd packages
 
 find ./ -type d -name '*-prefix-bak' | while read line; do
@@ -54,16 +54,16 @@ cd ..
 
 StartTime=$(date '+%H:%M:%S')
 
-ninja shaderc
-ninja spirv-cross
-ninja libarchive
-ninja libass
-#ninja harfbuzz
-ninja libssh
-ninja libjxl
-ninja libplacebo
+echo-build shaderc
+echo-build spirv-cross
+echo-build libarchive
+echo-build libass
+#echo-build harfbuzz
+echo-build libssh
+#echo-build libjxl
+echo-build libplacebo
 
-ninja mpv
+echo-build mpv
 
 cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
 cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll

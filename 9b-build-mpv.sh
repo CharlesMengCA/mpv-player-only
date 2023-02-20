@@ -1,18 +1,22 @@
 #!/bin/bash
+source $(pwd)/functions.sh
 clear && echo $0 $@
 
 BUILD64=~/mpv-winbuild-cmake/build64
 cd $BUILD64
 
 StartTime=$(date '+%H:%M:%S')
-set -x #echo on
+#set -x #echo on
+#{ set +x; } 2>/dev/null # echo off
 
-ninja vulkan
+echo-build vulkan
+
 status=$?
 if [ $status -ne 0 ]; then
 	echo "error in building vulkan" 
 	exit
 fi
+
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/vulkan.pc
 #if [ ! -f "$FILE" ]; then
 
@@ -23,7 +27,7 @@ fi
 #		ninja vulkan
 #fi
 
-ninja shaderc
+echo-build shaderc
 
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/shaderc.pc
 
@@ -31,13 +35,13 @@ ninja shaderc
 #	cp $BUILD64/packages/shaderc-prefix/src/shaderc-build/shaderc.pc $FILE
 #fi
 
-ninja libplacebo
+echo-build libplacebo
 
 #rm $FILE
 
-ninja spirv-cross
-ninja libarchive
-ninja libass
+echo-build spirv-cross
+echo-build libarchive
+echo-build libass
 #ninja harfbuzz
 
 lsb_release -a &> /dev/null
@@ -72,11 +76,7 @@ if [ $? -ne 127 ]; then
 	rm -rf packages/fontconfig-prefix/src/fontconfig/
 fi
 
-#ninja libjxl
-
-ninja mpv
-
-{ set +x; } 2>/dev/null # echo off
+echo-build mpv
 
 cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
 cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll

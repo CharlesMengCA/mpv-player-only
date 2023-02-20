@@ -32,14 +32,22 @@ fi
 
 #replace_option libxml2 "gitlab.gnome.org" "github.com"
 
-
+uncomment_line libplacebo "GIT_CLONE_FLAGS "
 add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
 comment_line libplacebo "GIT_CLONE_FLAGS "
+
+#uncomment_line libplacebo "GIT_CLONE_FLAGS "
+#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 82023b9e9d683499329b2d5c502eafaf5f6c8ef2"
+#comment_line libplacebo "GIT_CLONE_FLAGS "
+
 
 #add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
 #add_option glslang "UPDATE_COMMAND " "GIT_TAG main"
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.238"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG e8b8e06d092ab406b097907ecaae1a8aae9c7d53"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
+#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
+
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
@@ -90,7 +98,6 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 
 
 
-#replace_option libplacebo "GIT_SHALLOW 1" "GIT_TAG 12d55df496aa473296b180318b3132fdceb068fe"
 
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
 

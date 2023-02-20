@@ -4,7 +4,7 @@ set -x #echo on
 
 pacman -S --needed --noconfirm archiso
 
-cd
+cd ..
 
 rm -r livecd
 mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
@@ -164,6 +164,6 @@ EOF
 
 END
 
-cp -af --no-preserve=ownership,mode -- ~/mpv/arch-inst.sh ~/livecd/airootfs/root/.automated_script.sh
+cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/.automated_script.sh
 
-mkarchiso -v -o ~/mpv/ISO ~/livecd/
+mkarchiso -v -o ~/mpv/ISO ./

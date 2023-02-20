@@ -19,7 +19,6 @@ get_filename () {
 
 replace_option () {
 	echo "replace_option $1 $2 $3"
-	
 	sed -i "s/$2/$3/g" $(get_filename $1)
 }
 
@@ -55,7 +54,6 @@ add_option () {
 
 comment_line () {
 	echo "comment_line $1 $2"
-
 	sed -i "/^\s*$2/s/^/#/g" $(get_filename $1)
 }
 
@@ -66,10 +64,20 @@ uncomment_line () {
 
 delete_line () {
 	echo "delete_line $1 $2"
-
 	sed -i "/$2/d" $(get_filename $1)
 }
 
 replace_patch () {
 	sed -i "s/$2/$3/g" packages/$1.patch
+}
+
+echo-build () {
+   echo "+ ninja $1"
+   ninja $1
+   
+   status=$?
+   if [ $status -ne 0 ]; then
+      echo "Error in building $1" 
+      exit
+   fi
 }

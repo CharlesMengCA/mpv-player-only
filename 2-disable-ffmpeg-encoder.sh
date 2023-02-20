@@ -13,18 +13,23 @@ append_option ffmpeg -pkg-config-flags=--static --disable-programs
 #append_option ffmpeg -pkg-config-flags=--static --disable-doc
 append_option ffmpeg -pkg-config-flags=--static --disable-debug
 
-# following 3 lines need to be flipped together
-#comment_line ffmpeg "--enable-libjxl"
-append_option ffmpeg -pkg-config-flags=--static --enable-encoder=libjxl
-
 #build mpv.exe and skip mpv-2.dll
 #comment_line mpv "-Dlibmpv=true"
 
+append_option ffmpeg -pkg-config-flags=--static --enable-encoder=libjxl
 #append_option ffmpeg -pkg-config-flags=--static --enable-encoder=libwebp
 append_option ffmpeg -pkg-config-flags=--static --disable-encoders
 #add_option ffmpeg -pkg-config-flags=--static --enable-shared
 
 #https://ffmpeg.org/ffmpeg-formats.html#Muxers
 append_option ffmpeg -pkg-config-flags=--static --disable-muxers
+
 #https://ffmpeg.org/ffmpeg-filters.html#Description
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=yadif
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=yadif_cuda
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale_cuda
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale_npp
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale2ref
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale2ref_npp
 append_option ffmpeg -pkg-config-flags=--static --disable-filters
