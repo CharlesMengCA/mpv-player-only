@@ -24,9 +24,10 @@ sed -i -e '/\-\-\[\[/,/\-\-\]\]/{d}' *.lua
 sed -i -e '/^\s*--/{d}' *.lua
 sed -i -e 's/\s\+--.*$//' *.lua
 sed -i -e 's/\-\- bar, line, slider, inverted or none//' *.lua
+sed -i '/user-data\/osc\/margins/d' osc.lua
 
 git_revision=$(git describe)
-git_revision=${git_revision/34.0-/34.1-}
+git_revision=${git_revision/35.0-/35.1-}
 
 if [ "${git_revision: -1}" == "4" ]; then
   git_revision=${git_revision::-1}8

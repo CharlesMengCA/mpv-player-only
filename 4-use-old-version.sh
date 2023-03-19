@@ -37,9 +37,11 @@ add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
 comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #uncomment_line libplacebo "GIT_CLONE_FLAGS "
-#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 82023b9e9d683499329b2d5c502eafaf5f6c8ef2"
+#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 1a99e806be26038985be0638bbc80c0db1a00796"
 #comment_line libplacebo "GIT_CLONE_FLAGS "
 
+#add_option mpv "SOURCE_DIR " "GIT_TAG dcc9bc5deab932be8b4a743326f48b25ba2cbe84"
+#add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
 
 #add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
 #add_option glslang "UPDATE_COMMAND " "GIT_TAG main"
@@ -62,8 +64,7 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 #replace_option ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2" "PATCH_COMMAND \$\{EXEC\} patch -p1 < \$\{CMAKE_CURRENT_SOURCE_DIR\}\/o0ot.diff"
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
 
-#add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
-#add_option mpv "SOURCE_DIR " "GIT_TAG 7b09bf7ffc1a927e4d45eb0407ec7024bff2f4d5"
+
 
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git

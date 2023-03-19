@@ -26,6 +26,7 @@ fi
 
 #		ninja vulkan
 #fi
+echo-build libssh
 
 echo-build shaderc
 

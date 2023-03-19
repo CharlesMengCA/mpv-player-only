@@ -9,4 +9,11 @@ StartTime=$(date '+%H:%M:%S')
 ./7-new-toolchain.sh
 ./8-build-player.sh
 ./9b-build-mpv.sh
+
+mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
+
+if [[ $mpv_exe == "" ]]; then
+   ./jm.sh
+fi
+
 echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
