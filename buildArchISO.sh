@@ -165,5 +165,10 @@ EOF
 END
 
 cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/.automated_script.sh
+cp ../mpv/arch-inst-part2.sh airootfs/root/
+
+#cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/arch-inst.sh
+sed -i "/--ipv4/d" airootfs/etc/xdg/reflector/reflector.conf
+sed -i "/--ipv6/d" airootfs/etc/xdg/reflector/reflector.conf
 
 mkarchiso -v -o ~/mpv/ISO ./

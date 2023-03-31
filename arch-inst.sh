@@ -4,6 +4,19 @@ bootstrapper_dialog() {
  DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
 }
 
+wait_for_reflector() {
+   echo -n Waiting for the latest mirror list from reflector..
+   
+   while pgrep reflector >/dev/null
+   do
+      echo -n .
+      
+      sleep 0.5
+   done
+   
+   clear
+}
+
 # root password
 if pacman -Qs dialog; then
   pacman -S --noconfirm --needed dialog
@@ -13,20 +26,12 @@ bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong pa
 root_password="$DIALOG_RESULT"
 clear
 
-echo -n Waiting for the latest mirror list from reflector..
-for (( ; ; ))
-do
-	echo -n .
-	
-	mirrorCounts=$(cat /etc/pacman.d/mirrorlist | wc -l)
+wait_for_reflector
 
-	if  [ $mirrorCounts -lt 50 ];	then
-		break
-	fi
-
-	sleep 0.5
-done
-echo .
+#if [[ $(cat /etc/pacman.d/mirrorlist | wc -l) -lt 20 ]]; then
+#   reflector --save /etc/pacman.d/mirrorlist --protocol https --latest 20 --sort rate >/dev/null 2>&1 &
+#   wait_for_reflector
+#fi
 
 set -x #echo on
 
@@ -45,103 +50,13 @@ pacstrap /mnt base linux
 
 genfstab /mnt >> /mnt/etc/fstab
 
-#read -p "Press any key to continue..."
-
-cat <<EOF > /mnt/root/part2.sh
-#!/bin/bash
-
-ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
-
-sed -i 's/#en_US\.UTF-8/en_US.UTF-8/' /etc/locale.gen
-
-locale-gen
-
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-export LANG=en_US.UTF-8
-
-echo archlinux.cm.local > /etc/hostname
-
-# enable dhcp
-pacman -S --noconfirm --needed base-devel dhcpcd
-
-systemctl enable dhcpcd
-
-# grub bootloader
-pacman -S --noconfirm --needed grub
-
-grub-install /dev/sda
-
-sed -i 's/GRUB_TIMEOUT_STYLE=menu/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
-sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
-
-grub-mkconfig -o /boot/grub/grub.cfg
-
-# xfce desktop
-pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter xorg-server xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal mousepad
-
-# Defaut Theme: Arc
-#sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \
-#	/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
-
-#lxde
-#pacman -S --noconfirm --needed lxappearance-obconf lxde-common lxde-icon-theme lxdm lxlauncher lxpanel lxrandr lxsession lxtask lxterminal pcmanfm leafpad
-
-#KDE Plasma
-#pacman -S --noconfirm --needed lxdm plasma-desktop dolphin konsole kwrite
-
-#lxqt
-#pacman -S --noconfirm --needed lxdm ttf-dejavu oxygen-icons featherpad \
-# lxqt-globalkeys lxqt-panel lxqt-qtplugin lxqt-session lxqt-themes openbox pcmanfm-qt qterminal
-
-systemctl enable lightdm
-
-useradd -mG wheel cm
-
-#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
-#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
-#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
-#dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
-
-sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view color-scheme 'oblivion'
-sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view tab-width 2
-sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view word-wrap true
-sudo -Hu cm dbus-launch --exit-with-session gsettings set org.xfce.mousepad.preferences.view show-line-numbers true
-
-sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
-
-sed -i 's/#autologin-user=/autologin-user=cm/' /etc/lightdm/lightdm.conf
-
-groupadd -r autologin
-gpasswd -a cm autologin
-
-#virtualbox configure
-pacman -S --noconfirm --needed virtualbox-guest-utils
-
-systemctl enable vboxservice.service
-
-mkdir /home/cm/mpv
-
-#echo -e "LinuxFolder\t\t/root/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
-echo -e "LinuxFolder\t\t/home/cm/mpv\tvboxsf\t\trw\t\t0 0" >> /etc/fstab
-
-sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) NOPASSWD: \/usr\/bin\/pacman/' /etc/sudoers
-
-#set root password
-echo "root:${root_password}" | chpasswd
-echo "cm:${root_password}" | chpasswd
-EOF
-
-umount -R /mnt/dev
-
+cp arch-inst-part2.sh /mnt/root/part2.sh
 chmod +x /mnt/root/part2.sh
-arch-chroot /mnt /root/part2.sh
+arch-chroot /mnt /root/part2.sh $root_password
 rm /mnt/root/part2.sh
 
-mkdir -p /mnt/root/.config/xfce4/terminal
-echo -e "[Configuration]\nTitleInitial=%d\n" >> /mnt/root/.config/xfce4/terminal/terminalrc
-
 xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@value" \
-			-v "p=10;x=0;y=0" \
+			-v "p=8;x=0;y=0" \
 			/mnt/etc/xdg/xfce4/panel/default.xml
 
 xml ed --inplace -u "//property[@name='plugin-2']/property[@name='grouping']/@value" \

@@ -24,6 +24,30 @@ comment_line CMakeLists.txt speex
 comment_line ffmpeg speex
 comment_line ffmpeg --enable-libspeex
 
+# davs2
+comment_line CMakeLists.txt davs2
+comment_line ffmpeg davs2
+comment_line ffmpeg --enable-libdavs2
+
+# davs2
+comment_line CMakeLists.txt uavs3d
+comment_line ffmpeg uavs3d
+comment_line ffmpeg --enable-libuavs3d
+
+# libzvbi - teletext based subtitles
+comment_line CMakeLists.txt libzvbi
+comment_line ffmpeg libzvbi
+comment_line ffmpeg --enable-libzvbi
+
+#aribb24 - a library used for decoding closed captioning from ISDB streams, commonly used on Japanese TV
+#comment_line CMakeLists.txt aribb24
+#comment_line ffmpeg aribb24
+#comment_line ffmpeg --enable-libaribb24
+
+comment_line CMakeLists.txt libaribcaption
+comment_line ffmpeg libaribcaption
+comment_line ffmpeg --enable-libaribcaption
+
 # OpenAL
 comment_line CMakeLists.txt openal-soft
 comment_line mpv openal-soft
