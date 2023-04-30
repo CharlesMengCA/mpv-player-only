@@ -171,4 +171,5 @@ cp ../mpv/arch-inst-part2.sh airootfs/root/
 sed -i "/--ipv4/d" airootfs/etc/xdg/reflector/reflector.conf
 sed -i "/--ipv6/d" airootfs/etc/xdg/reflector/reflector.conf
 
+
 mkarchiso -v -o ~/mpv/ISO ./

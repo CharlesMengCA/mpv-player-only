@@ -2,15 +2,16 @@
 # some library version may fail during build, find an old version to make it work
 source $(pwd)/functions.sh
 bashFolder=$(pwd)
+
 clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
 
-replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.3.0.tar.gz" \
+replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.4.0.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
-replace_option mbedtls "URL_HASH SHA256=113fa84bc3cf862d56e7be0a656806a5d02448215d1e22c98176b1c372345d33" \
+replace_option mbedtls "URL_HASH SHA256=1B899F355022E8D02C4D313196A0A16AF86C5A692456FA99D302915B8CF0320A" \
 							  "GIT_SHALLOW 1"
 
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
@@ -32,9 +33,13 @@ fi
 
 #replace_option libxml2 "gitlab.gnome.org" "github.com"
 
+# just for version info purpose
 uncomment_line libplacebo "GIT_CLONE_FLAGS "
 add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
 comment_line libplacebo "GIT_CLONE_FLAGS "
+
+cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
+add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/libplacebo*.patch"
 
 #uncomment_line libplacebo "GIT_CLONE_FLAGS "
 #add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 1a99e806be26038985be0638bbc80c0db1a00796"
@@ -75,15 +80,15 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #replace_option zlib "github.com\/madler\/zlib\/archive\/refs\/tags\/v1.2.12.tar.gz" \
 #						  "zlib.net\/zlib-1.2.13.tar.gz"
-						  
+
 #replace_option zlib "d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932" \
 #						  "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 
-#cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages 
+#cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages
 
 #replace_option x265 "GIT_REPOSITORY https:\/\/bitbucket.org\/multicoreware\/x265_git.git" \
 #                    "URL https:\/\/bitbucket.org\/multicoreware\/x265_git\/get\/931178347b3f.zip"
-                    
+
 #replace_option expat "R_2_4_9" "R_2_5_0"
 #replace_option expat "2\.4\.9" "2\.5\.0"
 #replace_option expat "6e8c0728fe5c7cd3f93a6acce43046c5e4736c7b4b68e032e9350daa0efc0354" \
@@ -91,14 +96,11 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #comment_line libjxl "PATCH_COMMAND"
 
-#cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages 
+#cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages
 
 #replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 69ae9e7460499b488cb2d32edae623a95264db14"
 
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
-
-
-
 
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
 

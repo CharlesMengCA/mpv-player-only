@@ -1,5 +1,6 @@
 #!/bin/bash
 echo $0 $@
+#git reset --soft HEAD~1
 
 sed -i -e 's/2023/'$(date +"%Y")'/g' version.py
 sed -i -e '/^NEW_REVISION = .*/i version=version.replace("35.0-", "35.1-").replace("4-dirty", "8-dirty").replace("-dirty", "")' version.py

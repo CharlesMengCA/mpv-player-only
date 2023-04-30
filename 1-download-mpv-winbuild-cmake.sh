@@ -49,14 +49,15 @@ if [ -d "$BUILD_DIR" ]; then
 	cd $BUILD_DIR && git reset --hard HEAD && git pull
 else
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
-   #exit 
-   
+   #exit
+
 	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=2
    cd $BUILD_DIR
+
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
    #git am --3way $SCRIPT_DIR/Patch/amf-headers-0001-Use-git-instead-of-svn.patch
    git log
 	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
-fi 
+fi
 
-df -h
+#df -h
