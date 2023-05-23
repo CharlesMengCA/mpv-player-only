@@ -31,20 +31,22 @@ if [[ $1 == "" ]] || [[ $1 == "kernel" ]] || [[ $1 == "config" ]]; then
 
    git init
    git remote add origin https://git.openwrt.org/openwrt/openwrt.git
-   #git remote add origin https://github.com/graysky2/openwrt.git
    git fetch origin
 
    #git checkout -b C59-canada v22.03.2
    git checkout master
-   #git checkout 15
-   git describe > ~/openwrt_version.txt
+   
+   sed -i 's/CONFIG_WERROR=y/# CONFIG_WERROR is not set/' target/linux/generic/config-5.15
+   
+   #git reset --soft HEAD~1
+   git describe > ~/openwrt_version.txt   
    
    # Update the feeds
    ./scripts/feeds update -a
    ./scripts/feeds install -a
 
    # Configure the firmware image and the kernel
-   #wget https://downloads.openwrt.org/releases/22.03.3/targets/mediatek/mt7622/config.buildinfo -O .config
+   #wget https://downloads.openwrt.org/releases/22.03.5/targets/mediatek/mt7622/config.buildinfo -O .config
    #wget https://downloads.openwrt.org/snapshots/targets/mediatek/mt7622/config.buildinfo -O .config
    #make menuconfig
    #./scripts/diffconfig.sh > diffconfig
@@ -61,16 +63,11 @@ make -j $(nproc) defconfig
 # Build the firmware image
 make download #-j1 V=s
 
-#rm -rf target/linux/generic/backport-5.15/807-v6.1-0003-nvmem-core-add-error-handling-for-dev_set_name.patch
-#cp -av $SCRIPT_DIR/Patches/. ./
-
-git am --3way $SCRIPT_DIR/Patches/0001-kernel-bump-5.15-to-5.15.105.patch
-git reset --soft HEAD~1
-
-#git describe
-#exit
-
 make -j $(($(nproc)-2))
+
+if [ $? -ne 0 ]; then
+    exit
+fi
 
 echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
 
