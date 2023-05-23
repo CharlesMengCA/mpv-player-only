@@ -7,6 +7,8 @@ clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
+cp -v --preserve=timestamps $bashFolder/Patch/cm-patch.sh ./packages
+
 #set -x #echo on
 
 replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.4.0.tar.gz" \
@@ -38,8 +40,23 @@ uncomment_line libplacebo "GIT_CLONE_FLAGS "
 add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
 comment_line libplacebo "GIT_CLONE_FLAGS "
 
+#replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
+
+#cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
+#add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
 cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
-add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/libplacebo*.patch"
+add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
+#cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-*.patch ./packages
+#add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
+#cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
+
+
+#add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/glslang*.patch"
+
+
 
 #uncomment_line libplacebo "GIT_CLONE_FLAGS "
 #add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 1a99e806be26038985be0638bbc80c0db1a00796"
@@ -98,7 +115,7 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way 
 
 #cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages
 
-#replace_option glslang "GIT_SHALLOW 1" "GIT_TAG 69ae9e7460499b488cb2d32edae623a95264db14"
+
 
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
 

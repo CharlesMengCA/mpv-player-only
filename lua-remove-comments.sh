@@ -1,5 +1,9 @@
 #!/bin/bash
+
+${0%/*}/cm-patch.sh
+
 echo $0 $@
+
 #git reset --soft HEAD~1
 
 sed -i -e 's/2023/'$(date +"%Y")'/g' version.py

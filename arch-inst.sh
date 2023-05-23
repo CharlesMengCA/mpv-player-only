@@ -35,8 +35,9 @@ wait_for_reflector
 
 set -x #echo on
 
+timedatectl
+
 pacman -Syy
-pacman -S --noconfirm --needed xmlstarlet &
 
 # start install
 echo -e "n\np\n1\n\n\nw" | fdisk /dev/sda
@@ -45,8 +46,10 @@ mkfs.ext4 /dev/sda1
 
 mount /dev/sda1 /mnt
 
-pacstrap /mnt base linux
+pacstrap -K /mnt base linux
 #pacstrap -U /mnt https://archive.archlinux.org/repos/2019/03/12/core/os/x86_64/linux-firmware-20190212.28f5f7d-1-any.pkg.tar.xz
+
+pacman -S --noconfirm --needed xmlstarlet &
 
 genfstab /mnt >> /mnt/etc/fstab
 

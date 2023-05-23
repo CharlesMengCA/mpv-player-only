@@ -33,7 +33,7 @@ fi
 
 set -x #echo on
 
-pip3 install mako jinja2 jsonschema
+pip3 install mako jinja2 jsonschema 
 # --root-user-action=ignore
 #rst2pdf
 
@@ -56,7 +56,7 @@ else
 
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
    #git am --3way $SCRIPT_DIR/Patch/amf-headers-0001-Use-git-instead-of-svn.patch
-   git log
+   git log -n 1 --oneline
 	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
 

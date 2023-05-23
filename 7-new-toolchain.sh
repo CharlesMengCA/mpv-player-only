@@ -9,18 +9,21 @@ cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
 
-#append_option mingw-w64 "GIT_REPOSITORY https:\/\/github.com\/mirror\/mingw-w64.git" "GIT_TAG 09a6458131cda15b85cabd4a380dd5426deb7943"
+#replace_option mingw-w64 "mirror" "mingw-w64"
+#append_option mingw-w64 "GIT_REPOSITORY https:\/\/github.com\/mirror\/mingw-w64.git" "GIT_TAG origin/v11.x"
 
 #gcc v12
 #replace_option gcc "releases\/gcc-12.2.0\/gcc-12.2.0" "snapshots\/12-20220917\/gcc-12-20220917"
 
-#replace_option gcc "12-20230401" "12-20230421"
-#replace_option gcc "b0757f56cd778ca537090c79d1ca606e28d258473a9add59df9be39dcfe3047cbe324e81a389f101d8ded31419b0e535410997593bd99a6fa22730288362de4e" \
-#						 "140ff8e4f387284e070b22f22e51f3aa09ada233dc2bca90894f4b0dbd3e9532f266c8606bea6152afed3eedb853548247f133e332e23f7c6bf380fa61b54b96"
-
-replace_option gcc "12-20230401" "12-20230428"
+replace_option gcc "12-20230401" "13-20230520"
 replace_option gcc "b0757f56cd778ca537090c79d1ca606e28d258473a9add59df9be39dcfe3047cbe324e81a389f101d8ded31419b0e535410997593bd99a6fa22730288362de4e" \
-						 "992f9cd71f9910efea401048540ba2b43360170f76ce992cf356b1ab383240f481e29c5b0ad32fa4efb2bdbb397477506cb83a825268cfbdd2cde7044d43c758"
+						 "d6c8626822855f71cc58b6b36ebb38092aaf12fa9aa40b8d70fb3edc9f4c614fbf47626ea5cc1ec631bc47b5d64911bfdb7cfc6924f27a54016b1f8c9c7588d7"
+
+comment_line gcc "PATCH_COMMAND "
+
+#replace_option gcc "12-20230401" "12-20230519"
+#replace_option gcc "b0757f56cd778ca537090c79d1ca606e28d258473a9add59df9be39dcfe3047cbe324e81a389f101d8ded31419b0e535410997593bd99a6fa22730288362de4e" \
+#						 "cd24ad69a6c47a95384d8fd4fcb7e895f8fb4d8e0c4b74d1300943fa8198624e3c40b0bd7702cb78f40849a09b5069e50e36bc191bd206b36c956ca25126ee02"
 
 #replace_option binutils "2.39" "2.40"
 #replace_option binutils "68e038f339a8c21faa19a57bbc447a51c817f47c2e06d740847c6e9cc3396c025d35d5369fa8c3f8b70414757c89f0e577939ddc0d70f283182504920f53b0a3" \
@@ -28,6 +31,6 @@ replace_option gcc "b0757f56cd778ca537090c79d1ca606e28d258473a9add59df9be39dcfe3
 
 
 #https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/?C=M;O=D
-if ! curl --output /dev/null --silent --head --fail "https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/12-20230218/gcc-12-20230218.tar.xz"; then
+if ! curl --output /dev/null --silent --head --fail "https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/12-20230401/gcc-12-20230401.tar.xz"; then
 	replace_option gcc "mirrorservice.org\/sites\/sourceware.org\/pub" "bigsearcher.com\/mirrors"
 fi
