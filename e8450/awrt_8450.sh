@@ -54,9 +54,7 @@ fi
 
 cp $SCRIPT_DIR/diffconfig .config
 
-if [[ $1 == "config" ]]; then
-   exit
-fi
+[[ $1 == "config" ]] && exit
 
 make -j $(nproc) defconfig
 
@@ -65,9 +63,7 @@ make download #-j1 V=s
 
 make -j $(($(nproc)-2))
 
-if [ $? -ne 0 ]; then
-    exit
-fi
+[ $? -ne 0 ] && exit
 
 echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
 
