@@ -38,6 +38,7 @@ fi
 # just for version info purpose
 uncomment_line libplacebo "GIT_CLONE_FLAGS "
 add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
+#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 541c85ec5e0e0b93a40896549c464632caab845d"
 comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"

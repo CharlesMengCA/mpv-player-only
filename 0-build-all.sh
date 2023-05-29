@@ -9,6 +9,7 @@ StartTime=$(date '+%H:%M:%S')
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
 ./8-build-player.sh
+[[ $1 == "8" ]] && exit
 ./9b-build-mpv.sh
 
 
