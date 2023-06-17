@@ -36,7 +36,7 @@ if [[ $1 == "" ]] || [[ $1 == "kernel" ]] || [[ $1 == "config" ]]; then
    #git checkout -b C59-canada v22.03.2
    git checkout master
    
-   sed -i 's/CONFIG_WERROR=y/# CONFIG_WERROR is not set/' target/linux/generic/config-5.15
+   #sed -i 's/CONFIG_WERROR=y/# CONFIG_WERROR is not set/' target/linux/generic/config-5.15
    
    #git reset --soft HEAD~1
    git describe > ~/openwrt_version.txt   
