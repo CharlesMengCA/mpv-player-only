@@ -12,5 +12,4 @@ StartTime=$(date '+%H:%M:%S')
 [[ $1 == "8" ]] && exit
 ./9b-build-mpv.sh
 
-
-echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
+echo 'Build 0-9:' $StartTime '->' $(date '+%H:%M:%S')

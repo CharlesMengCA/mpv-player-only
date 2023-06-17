@@ -14,14 +14,14 @@ echo $0 $@
 cd
 
 lsb_release -a &> /dev/null
-if [ $? -eq 127 ]
-then
+if [ $? -eq 127 ]; then
   # warning: XXX is up to date -- skipping curl
   # flex automake autoconf pkg-config patch gcc-multilib subversion
-  # clang is required by ffmpeg/cuda-llvmc
+  # clang is required by ffmpeg/cuda-llvmc 
   sudo pacman -S --noconfirm --needed \
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
-		gperf unzip p7zip gcc-multilib python-pip clang meson po4a
+		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
+      python-mako python-j2cli python-jsonschema
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -33,7 +33,7 @@ fi
 
 set -x #echo on
 
-pip3 install mako jinja2 jsonschema 
+#pip3 install mako 
 # --root-user-action=ignore
 #rst2pdf
 
@@ -51,7 +51,7 @@ else
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #exit
 
-	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=2
+	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
    cd $BUILD_DIR
 
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0

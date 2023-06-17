@@ -41,3 +41,16 @@ fi
 #sed -i -e 's/Drop files or URLs to play here./'${git_revision}' Drop files or URLs to play here./g' osc.lua
 
 #git commit -a -m 'remove lua comments'
+
+MIN=$(date '+%M')
+MIN=${MIN:1:1}
+
+if [[ $MIN == "3" ]] || [[ $MIN == "4" ]]; then
+   while [[ $MIN -ne "5" ]]
+   do
+      echo -n .
+      sleep 0.1
+      MIN=$(date '+%M')
+      MIN=${MIN:1:1}
+   done
+fi

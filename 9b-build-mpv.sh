@@ -20,12 +20,9 @@ echo-build vulkan
 
 #		ninja vulkan
 #fi
-ninja libssh
 
-status=$?
-if [ $status -ne 0 ]; then
-	ninja libssh
-fi
+echo "+ ninja libssh"
+ninja libssh -j 1
 
 echo-build shaderc
 
@@ -42,7 +39,6 @@ echo-build libplacebo
 echo-build spirv-cross
 echo-build libarchive
 echo-build libass
-#ninja harfbuzz
 
 lsb_release -a &> /dev/null
 if [ $? -ne 127 ]; then
@@ -81,4 +77,4 @@ echo-build mpv
 cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
 cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll
 
-echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
+echo 'Build 9:' $StartTime '->' $(date '+%H:%M:%S')

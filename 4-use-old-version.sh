@@ -43,11 +43,23 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
 
+replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
+replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-msvcrt=ucrt"
+
 #cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
 cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
 add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG e8b8e06d092ab406b097907ecaae1a8aae9c7d53"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
+
+#vulkan-loader
+#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
+#replace_option vulkan "GIT_TAG main" "GIT_TAG 9f6660f470480e75938e0381e1b2e8b2f90cc031"
+
+cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-*.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
@@ -69,10 +81,6 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 #add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
 #add_option glslang "UPDATE_COMMAND " "GIT_TAG main"
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG e8b8e06d092ab406b097907ecaae1a8aae9c7d53"
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
-#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
@@ -80,7 +88,7 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 
 #delete_line ffmpeg "PATCH_COMMAND "
 
-#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
+
 
 
 #comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"
@@ -94,7 +102,6 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 #replace_option amf-headers "SVN_REPOSITORY " "GIT_REPOSITORY "
 #replace_option amf-headers "\/trunk\/amf\/public\/include " ".git"
 
-#replace_option vulkan "GIT_SHALLOW 1" "GIT_TAG 5035e37bf6bf6cf4b0c6cf7956c63b0522d69ab9"
 
 #replace_option zlib "github.com\/madler\/zlib\/archive\/refs\/tags\/v1.2.12.tar.gz" \
 #						  "zlib.net\/zlib-1.2.13.tar.gz"

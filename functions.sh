@@ -75,8 +75,7 @@ echo-build () {
    echo "+ ninja $1"
    ninja $1
    
-   status=$?
-   if [ $status -ne 0 ]; then
+   if [ $? -ne 0 ]; then
       echo "Error in building $1" 
       exit
    fi
