@@ -42,3 +42,10 @@ add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT
 #comment_line CMakeLists.txt "libdovi"
 #comment_line libplacebo "libdovi"
 
+comment_line CMakeLists.txt "aom"
+comment_line ffmpeg "aom"
+comment_line ffmpeg "--enable-libaom"
+comment_line ffmpeg "--disable-decoder=libaom_av1"
+
+comment_line libjxl "-DJPEGXL_ENABLE_AVX512=ON"
+comment_line libjxl "-DJPEGXL_ENABLE_AVX512_ZEN4=ON"

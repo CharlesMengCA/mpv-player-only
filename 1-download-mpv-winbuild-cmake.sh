@@ -21,7 +21,7 @@ if [ $? -eq 127 ]; then
   sudo pacman -S --noconfirm --needed \
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
 		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
-      python-mako python-j2cli python-jsonschema
+      python-mako python-j2cli python-jsonschema mold
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -59,5 +59,7 @@ else
    git log -n 1 --oneline
 	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
+
+export CFLAGS=-fuse-ld=mold
 
 #df -h

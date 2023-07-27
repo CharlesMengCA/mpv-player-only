@@ -1,7 +1,8 @@
 clear
 target_folder=$(pwd)
+gcc_version=$(ls $HOME/mpv-winbuild-cmake/build64/toolchain/gcc-prefix/src/*.xz | sed 's/.*-\(.*-.*\)\..*\..*/\1/')
 cd ~/mpv-winbuild-cmake/build64/packages/mpv-prefix/src/mpv/
-target_folder="$target_folder/Mod/mpv-x86_64-v3-$(date '+%Y%m%d')-git-$(git rev-parse --short=7 HEAD)-jxl"
+target_folder="$target_folder/Mod/mpv-x86_64-v3-$(date '+%Y%m%d')-git-$(git rev-parse --short=7 HEAD)-jxl_$gcc_version"
 cd ../mpv-build/
 mingw_lib=$(echo $(pwd) | sed -e "s#packages/mpv-prefix/src/mpv-build#install/mingw/lib/libmingwex.a#g")
 #mingw_lib=$(echo $mingw_lib | sed -e "s#/#\\\\/#g")

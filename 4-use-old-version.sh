@@ -43,8 +43,8 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
 
-replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
-replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-msvcrt=ucrt"
+#replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
+#replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-msvcrt=ucrt"
 
 #cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
@@ -52,30 +52,30 @@ replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-
 cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
 add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG e8b8e06d092ab406b097907ecaae1a8aae9c7d53"
+#replace_option vulkan-header "GIT_TAG main" "GIT_TAG 9c37439a7952c204150863fc35569dd864dbd599"
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
 
 #vulkan-loader
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
 #replace_option vulkan "GIT_TAG main" "GIT_TAG 9f6660f470480e75938e0381e1b2e8b2f90cc031"
 
-cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
+#replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
+#replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"
+
+
+#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 
 #cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-*.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
-#cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
+cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 
+#delete_line mpv "mpv.def"
 
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/glslang*.patch"
 
 
-
-#uncomment_line libplacebo "GIT_CLONE_FLAGS "
-#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 1a99e806be26038985be0638bbc80c0db1a00796"
-#comment_line libplacebo "GIT_CLONE_FLAGS "
-
-#add_option mpv "SOURCE_DIR " "GIT_TAG dcc9bc5deab932be8b4a743326f48b25ba2cbe84"
+#add_option mpv "SOURCE_DIR " "GIT_TAG 0e0b396af4dcf739636995e7ece298597c219d2e"
 #add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
 
 #add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
@@ -133,8 +133,6 @@ cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
 
 #cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
-
-#add_option mbedtls "cleanup(mbedtls install)" "force_rebuild_git(mbedtls)"
 
 #comment_line libzimg "GIT_SHALLOW 1"
 
