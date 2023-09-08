@@ -1,7 +1,7 @@
 #!/bin/bash
 source $(pwd)/functions.sh
 clear && echo $0 $@
-gcc_version=$(ls $HOME/mpv-winbuild-cmake/build64/toolchain/gcc-prefix/src/*.xz | sed 's/.*-\(.*-.*\)\..*\..*/\1/')
+gcc_version=$(find $HOME/mpv-winbuild-cmake/build64/toolchain/gcc-prefix/src -maxdepth 1 -name *.xz  -printf "%f\n" | sed 's/gcc-\(.*\)\..*\..*/\1/')
 
 mpv_build=$(find ~/mpv-winbuild-cmake/build64 -maxdepth 1 -type d -name mpv-x86_64-*-git*)
 

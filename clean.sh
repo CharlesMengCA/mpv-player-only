@@ -6,7 +6,7 @@ clear && echo $0 $@
 cd ~/mpv-winbuild-cmake/build64/
 
 rm -r mpv-*
-rm -r packages/mpv-prefix/src/mpv-build/generated/version.h
+rm -r packages/mpv-prefix/src/mpv-build/common/version.h
 
 ninja mpv-fullclean
 ninja mpv

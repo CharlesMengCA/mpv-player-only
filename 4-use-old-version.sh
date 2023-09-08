@@ -5,15 +5,21 @@ bashFolder=$(pwd)
 
 clear && echo $0 $@
 
+#cd ~
+#git clone --depth 1 https://github.com/lu-zero/cargo-c.git
+#cp -v $HOME/mpv/Patch/Cargo.toml cargo-c
+
 cd ~/mpv-winbuild-cmake/
+
+#replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
 
 cp -v --preserve=timestamps $bashFolder/Patch/cm-patch.sh ./packages
 
 #set -x #echo on
 
-replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.4.0.tar.gz" \
+replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.4.1.tar.gz" \
 							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
-replace_option mbedtls "URL_HASH SHA256=1B899F355022E8D02C4D313196A0A16AF86C5A692456FA99D302915B8CF0320A" \
+replace_option mbedtls "URL_HASH SHA256=A420FCF7103E54E775C383E3751729B8FB2DCD087F6165BEFD13F28315F754F5" \
 							  "GIT_SHALLOW 1"
 
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
@@ -33,6 +39,7 @@ fi
 	replace_option vorbis "downloads.xiph.org\/releases\/vorbis" "github.com\/xiph\/vorbis\/releases\/download\/v1.3.7"
 #fi
 
+#replace_option fontconfig "gitlab.freedesktop.org\/fontconfig" "gitlab.com\/freedesktop-sdk\/mirrors\/freedesktop\/tagoh"
 #replace_option libxml2 "gitlab.gnome.org" "github.com"
 
 # just for version info purpose
@@ -52,12 +59,17 @@ comment_line libplacebo "GIT_CLONE_FLAGS "
 cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
 add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
+#add_option shaderc "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+#cp -v --preserve=timestamps $bashFolder/Patch/shaderc-*.patch ./packages
+
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG 9c37439a7952c204150863fc35569dd864dbd599"
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
 
+
+#cp -v --preserve=timestamps $bashFolder/Patch/vulkan-*.patch ./packages
 #vulkan-loader
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-#replace_option vulkan "GIT_TAG main" "GIT_TAG 9f6660f470480e75938e0381e1b2e8b2f90cc031"
+#replace_option vulkan "GIT_TAG main" "GIT_TAG b93def1bd90481b0309d2bc329b0a72a1bcfb84c"
 
 #replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
 #replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"

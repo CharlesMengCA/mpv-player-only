@@ -6,11 +6,24 @@ echo $0 $@
 
 #git reset --soft HEAD~1
 
-sed -i -e 's/2023/'$(date +"%Y")'/g' version.py
-#sed -i -e '/^NEW_REVISION = .*/i version=version.replace("36.0-", "36.0-").replace("4-dirty", "8-dirty").replace("-dirty", "")' version.py
-sed -i -e '/^NEW_REVISION = .*/i version=version.replace("4-dirty", "8-dirty").replace("-dirty", "")' version.py
-#sed -i -e 's/date.strftime("%a %b %d %I:%M:%S %Y")/datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")/g' version.py
-sed -i -e 's/date.strftime("%a %b %d %I:%M:%S %Y")/datetime.now().strftime("%Y-%m-%d %-I:%M %p")/g' version.py
+MIN=$(date '+%M')
+MIN=${MIN:1:1}
+
+if [[ $MIN == "3" ]] || [[ $MIN == "4" ]]; then
+   while [[ $MIN -ne "5" ]]
+   do
+      echo -n .
+      sleep 0.1
+      MIN=$(date '+%M')
+      MIN=${MIN:1:1}
+   done
+fi
+
+mpv_version=$(git describe | sed 's/v//g' | sed 's/4$/8/g')
+build_date=$(date '+%Y-%m-%d###%-I:%M###%p')
+sed -i -e 's/@VERSION@/'$mpv_version'/g' common/version.h.in
+sed -i -e 's/__DATE__ " " __TIME__/"'$build_date'"/g' common/version.h.in
+sed -i -e 's/###/ /g' common/version.h.in
 
 sed -i -e "s/conf_data.set_quoted('FULLCONFIG', feature_str)/conf_data.set_quoted('FULLCONFIG', feature_str.replace('win32 win32-desktop win32-executable win32-internal-pthreads ',''))/g" meson.build
 sed -i -e "s/set_quoted('CONFIGURATION', configuration)/set_quoted('CONFIGURATION', 'meson build')/g" meson.build
@@ -42,16 +55,3 @@ fi
 #sed -i -e 's/Drop files or URLs to play here./'${git_revision}' Drop files or URLs to play here./g' osc.lua
 
 #git commit -a -m 'remove lua comments'
-
-MIN=$(date '+%M')
-MIN=${MIN:1:1}
-
-if [[ $MIN == "3" ]] || [[ $MIN == "4" ]]; then
-   while [[ $MIN -ne "5" ]]
-   do
-      echo -n .
-      sleep 0.1
-      MIN=$(date '+%M')
-      MIN=${MIN:1:1}
-   done
-fi
