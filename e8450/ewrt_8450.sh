@@ -47,6 +47,13 @@ if [[ $1 == "" ]] || [[ $1 == "kernel" ]] || [[ $1 == "config" ]]; then
    
    #
    sed -i "s/git.openwrt.org\/feed\/telephony/github.com\/CharlesMengCA\/telephony/" feeds.conf.default
+   sed -i "s/git.openwrt.org\/project\/luci/github.com\/CharlesMengCA\/luci/" feeds.conf.default
+   
+   sed -i "s/github.com\/openwrt\/mt76/github.com\/rany2\/mt76/" package/kernel/mt76/Makefile
+   sed -i "s/PKG_SOURCE_VERSION:=b14c2351ddb8601c322576d84029e463d456caef/PKG_SOURCE_VERSION:=a6d684637177c6aecbc89bff6d8a5ef1f7eba6f9/" package/kernel/mt76/Makefile
+   sed -i "s/PKG_SOURCE_DATE:=2023-08-14/PKG_SOURCE_DATE:=2023-08-30/" package/kernel/mt76/Makefile
+   sed -i "/PKG_MIRROR_HASH/d" package/kernel/mt76/Makefile
+   
    #git apply $SCRIPT_DIR/Patches/mt76.patch
    #sed -i "s/5.15/6.1/" package/kernel/bpf-headers/Makefile
    #sed -i 's/CONFIG_WERROR=y/# CONFIG_WERROR is not set/' target/linux/generic/config-6.1
@@ -61,7 +68,7 @@ if [[ $1 == "" ]] || [[ $1 == "kernel" ]] || [[ $1 == "config" ]]; then
    ./scripts/feeds install -a
 
    # Configure the firmware image and the kernel
-   #wget https://downloads.openwrt.org/releases/22.03.5/targets/mediatek/mt7622/config.buildinfo -O .config
+   #wget https://downloads.openwrt.org/releases/23.05.0-rc3/targets/mediatek/mt7622/config.buildinfo -O .config
    #wget https://downloads.openwrt.org/snapshots/targets/mediatek/mt7622/config.buildinfo -O .config
    #make menuconfig
    #make kernel_menuconfig
@@ -79,7 +86,7 @@ make -j $(nproc) defconfig
 # Build the firmware image
 make download #-j1 V=s
 
-#   curl -f --connect-timeout 20 --retry 5 -o dl/linux-5.15.123.tar.xz --location https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.123.tar.xz
+curl -f --connect-timeout 20 --retry 5 -o dl/linux-5.15.130.tar.xz --location https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.130.tar.xz
 
 make -j $(($(nproc)-2))
 
