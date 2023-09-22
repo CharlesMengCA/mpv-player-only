@@ -1,6 +1,6 @@
 clear
 target_folder=$(pwd)
-gcc_version=$(ls $HOME/mpv-winbuild-cmake/build64/toolchain/gcc-prefix/src/*.xz | sed 's/.*-\(.*-.*\)\..*\..*/\1/')
+gcc_version=$(find $HOME/mpv-winbuild-cmake/build64/toolchain/gcc-prefix/src -maxdepth 1 -name *.xz  -printf "%f\n" | sed 's/gcc-\(.*\)\..*\..*/\1/')
 cd ~/mpv-winbuild-cmake/build64/packages/mpv-prefix/src/mpv/
 target_folder="$target_folder/Mod/mpv-x86_64-v3-$(date '+%Y%m%d')-git-$(git rev-parse --short=7 HEAD)-jxl_$gcc_version"
 cd ../mpv-build/

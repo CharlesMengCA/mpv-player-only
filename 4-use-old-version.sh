@@ -43,21 +43,25 @@ fi
 #replace_option libxml2 "gitlab.gnome.org" "github.com"
 
 # just for version info purpose
-uncomment_line libplacebo "GIT_CLONE_FLAGS "
-add_option libplacebo "GIT_CLONE_FLAGS " "GIT_SHALLOW 1"
-#add_option libplacebo "GIT_CLONE_FLAGS " "GIT_TAG 541c85ec5e0e0b93a40896549c464632caab845d"
-comment_line libplacebo "GIT_CLONE_FLAGS "
+replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_SHALLOW 1"
+#replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_TAG 541c85ec5e0e0b93a40896549c464632caab845d"
+#replace_option libplacebo "haasn" "CharlesMengCA"
+
+add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
+
+#comment_line ffmpeg "PATCH_COMMAND "
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
+#cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
+#add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
 #replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
 #replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-msvcrt=ucrt"
 
-#cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
-#add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
-cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
-add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+#replace_option libxml2 "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_TAG 89f4976728bc73363c57c9966a34b21901210fa8"
+
 
 #add_option shaderc "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 #cp -v --preserve=timestamps $bashFolder/Patch/shaderc-*.patch ./packages
@@ -69,7 +73,7 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 #cp -v --preserve=timestamps $bashFolder/Patch/vulkan-*.patch ./packages
 #vulkan-loader
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-#replace_option vulkan "GIT_TAG main" "GIT_TAG b93def1bd90481b0309d2bc329b0a72a1bcfb84c"
+#replace_option vulkan "GIT_TAG main" "GIT_TAG 1e09b25e96fbcb8ab7b40a07ef21afb89ffe54f7"
 
 #replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
 #replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"
@@ -99,8 +103,6 @@ cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
 #delete_line ffmpeg "PATCH_COMMAND "
-
-
 
 
 #comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"

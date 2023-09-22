@@ -1,6 +1,6 @@
 #!/bin/bash
-StartTime=$(date '+%H:%M:%S')
-./1-download-mpv-winbuild-cmake.sh
+echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
+./1-download-mpv-winbuild-cmake.sh $1
 ./2-disable-ffmpeg-encoder.sh
 ./disable-ffmpeg-jxl.sh
 ./3-disable-vapoursynth.sh
@@ -8,8 +8,24 @@ StartTime=$(date '+%H:%M:%S')
 ./5-disable-OpenGL.sh
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
-./8-build-player.sh
+
+echo 'Before toolchain: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
+
+if [[ $1 == "clang" ]]; then
+   ./8c-clang.sh
+else
+   ./8g-gcc.sh
+fi
+
+echo 'After toolchain: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
+
 [[ $1 == "8" ]] && exit
+[[ $2 == "8" ]] && exit
+
 ./9b-build-mpv.sh
 
-echo 'Build 0-9:' $StartTime '->' $(date '+%H:%M:%S')
+mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
+
+[[ $1 == "clang" && $mpv_exe == "" ]] && ./clang.sh
+
+echo 'Build MPV: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt

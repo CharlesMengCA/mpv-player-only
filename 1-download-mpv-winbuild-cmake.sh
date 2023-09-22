@@ -21,7 +21,8 @@ if [ $? -eq 127 ]; then
   sudo pacman -S --noconfirm --needed \
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
 		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
-      python-mako python-j2cli python-jsonschema mold
+      python-mako python-j2cli python-jsonschema mold \
+      lld libc++ libc++abi
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -51,11 +52,20 @@ else
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #exit
 
-	git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #if [[ $1 == "clang" ]]; then
+   #   git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #else
+      git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #fi
+	
    cd $BUILD_DIR
 
+   #git revert 1f90152466fc49db4f8d5cd7332abf529b5b4c9e -n
+
+   #[[ $1 == "clang" ]] && git checkout clang
+   
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
-   #git am --3way $SCRIPT_DIR/Patch/amf-headers-0001-Use-git-instead-of-svn.patch
+   #git am --3way $SCRIPT_DIR/Patch/b0e105983d84731c6c180935cf7ebd19da0a3b1a.patch
    git log -n 1 --oneline
 	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi

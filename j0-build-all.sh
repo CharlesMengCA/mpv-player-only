@@ -7,8 +7,16 @@ StartTime=$(date '+%H:%M:%S')
 ./5-disable-OpenGL.sh
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
-./8-build-player.sh
+
+if [[ $1 == "clang" ]]; then
+   ./8c-clang.sh
+else
+   ./8g-gcc.sh
+fi
+
 [[ $1 == "8" ]] && exit
+[[ $2 == "8" ]] && exit
+
 ./9b-build-mpv.sh
 
 mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
