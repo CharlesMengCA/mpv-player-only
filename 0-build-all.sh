@@ -11,10 +11,10 @@ echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
 echo 'Before toolchain: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
 
-if [[ $1 == "clang" ]]; then
-   ./8c-clang.sh
-else
+if [[ $1 == "gcc" ]]; then
    ./8g-gcc.sh
+else
+   ./8c-clang.sh
 fi
 
 echo 'After toolchain: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
@@ -26,6 +26,6 @@ echo 'After toolchain: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
 
 mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
 
-[[ $1 == "clang" && $mpv_exe == "" ]] && ./clang.sh
+[[ $1 == "" && $mpv_exe == "" ]] && ./clang.sh
 
 echo 'Build MPV: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt

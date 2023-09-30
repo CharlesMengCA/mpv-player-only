@@ -19,9 +19,9 @@ cd ~/mpv-winbuild-cmake/
 #replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
 #						 "d99e4826a70db04504467e349e9fbaedaa5870766cda7c5cab50cdebedc4be755ebca5b789e1232a34a20be1a0b60097de9280efe47bdb71c73251e30b0862a2"
 
-#replace_option gcc "13-20230916" "13-20230916"
-#replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
-#						 "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1"
+replace_option gcc "13-20230916" "13-20230923"
+replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
+						 "12c0aafb7e91a18224b9b94e7e7e34b57c2e447cc85f51c8ddab672fa3fe31c784d42c15a8a1eb0da8fc9cc321c24163b12fb4f71e7da91b0169a278f2b83713"
 
 #comment_line gcc "PATCH_COMMAND "
 
