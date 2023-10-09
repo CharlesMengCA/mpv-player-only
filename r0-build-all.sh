@@ -1,5 +1,10 @@
 #!/bin/bash
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
+sudo pacman -S --noconfirm --needed p7zip
+
+echo -e '\nRestoring pre-built llvm...'
+7z x -so Patch/llvm.tar.7z | tar xf - -C ~
+
 ./1-download-mpv-winbuild-cmake.sh $1
 ./2-disable-ffmpeg-encoder.sh
 ./disable-ffmpeg-jxl.sh
@@ -8,12 +13,6 @@ echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 ./5-disable-OpenGL.sh
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
-
-if [[ $1 == "gcc" ]]; then
-   ./8g-gcc.sh
-else
-   ./8c-clang.sh
-fi
 
 [[ $1 == "8" ]] && exit
 [[ $2 == "8" ]] && exit

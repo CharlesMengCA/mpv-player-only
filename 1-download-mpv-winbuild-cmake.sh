@@ -1,4 +1,6 @@
 #!/bin/bash
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
 block-upd () {
 	if ! grep -- "$1" /etc/pacman.conf; then
 		sed -i "/#IgnorePkg   =/a IgnorePkg    = $1" /etc/pacman.conf
@@ -6,7 +8,6 @@ block-upd () {
 }
 
 BUILD_DIR="mpv-winbuild-cmake/"
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 clear
 echo $0 $@
@@ -22,7 +23,7 @@ if [ $? -eq 127 ]; then
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
 		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
       python-mako python-j2cli python-jsonschema mold \
-      lld libc++ libc++abi
+      lld libc++ libc++abi less
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -47,29 +48,33 @@ git config --global fetch.prune true
 git config --global --add safe.directory $PWD
 
 if [ -d "$BUILD_DIR" ]; then
-	cd $BUILD_DIR && git reset --hard HEAD && git pull
+	cd $BUILD_DIR && git reset --hard origin/master && git pull
 else
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #exit
 
-   #if [[ $1 == "clang" ]]; then
-   #   git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
-   #else
-      git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
-   #fi
+   git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
 	
    cd $BUILD_DIR
-
-   #git revert 1f90152466fc49db4f8d5cd7332abf529b5b4c9e -n
 
    #[[ $1 == "clang" ]] && git checkout clang
    
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
-   #git am --3way $SCRIPT_DIR/Patch/b0e105983d84731c6c180935cf7ebd19da0a3b1a.patch
-   git log -n 1 --oneline
-	#cd $BUILD_DIR && git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
+   
+	#git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
 
-export CFLAGS=-fuse-ld=mold
+git am --3way $SCRIPT_DIR/Patch/MBEDTLS_AES_USE_HARDWARE_ONLY.patch
+if [[ $1 == "gcc" ]]; then
+   git am --3way $SCRIPT_DIR/Patch/libsrt.patch
+fi >/dev/null 2>&1
+
+#mpv: use custom buildtype
+#git revert e5a2f4188b3d1627a840c008566c770c3b39a7b5 -n
+
+git log -n 3 --oneline
+
+#export CFLAGS=-fuse-ld=mold
 
 #df -h

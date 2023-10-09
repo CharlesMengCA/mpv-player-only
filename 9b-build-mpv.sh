@@ -1,5 +1,6 @@
 #!/bin/bash
-source $(pwd)/functions.sh
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 clear && echo $0 $@
 
 BUILD64=~/mpv-winbuild-cmake/build64
@@ -77,4 +78,4 @@ echo-build mpv
 cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
 cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll
 
-echo 'Build 9:' $StartTime '->' $(date '+%H:%M:%S')
+echo 'MPV Build: ' $StartTime '->' $(date '+%H:%M:%S')  >> $HOME/build_time.txt

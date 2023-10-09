@@ -1,5 +1,6 @@
 #!/bin/bash
-source $(pwd)/functions.sh
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 
 check_update (){
    cd $1-prefix/src/$1 2>/dev/null

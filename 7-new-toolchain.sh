@@ -1,10 +1,10 @@
 #!/bin/bash
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
+
 # try out new toolchain
-source $(pwd)/functions.sh
 
 clear && echo $0 $@
-
-baseFolder=$(pwd)
 cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
@@ -19,22 +19,21 @@ cd ~/mpv-winbuild-cmake/
 #replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
 #						 "d99e4826a70db04504467e349e9fbaedaa5870766cda7c5cab50cdebedc4be755ebca5b789e1232a34a20be1a0b60097de9280efe47bdb71c73251e30b0862a2"
 
-replace_option gcc "13-20230916" "13-20230923"
+replace_option gcc "13-20230916" "13-20231007"
 replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
-						 "12c0aafb7e91a18224b9b94e7e7e34b57c2e447cc85f51c8ddab672fa3fe31c784d42c15a8a1eb0da8fc9cc321c24163b12fb4f71e7da91b0169a278f2b83713"
+						 "5e3c7f4ec2b1d9f0f65097b0d992bf5acfafb2830b1394a832a4e95163a369b9beb42681cd0fd09aa25494d8b83bc377f1f03f0319dd785d4eea372b8477074b"
 
 #comment_line gcc "PATCH_COMMAND "
 
-#replace_option gcc "13-20230916" "13-20230909"
+#replace_option gcc "13-20230916" "13-20230930"
 #replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
-#						 "4c51f64b23a7e52e835c3127e2df94b14653ac3a13d1823e4531506018727a458c505b79aeadcb18877ab70991bfa4946a1621934b43fff5d5aaf7b0cb0e19f5"
+#						 "ca1c59c53af51c3e46a340210516594184fdfcb97bbb693c59a675d54239d8386732537632e486ed7c6030dbf3d836d07917d6dc9808071a55b1f411e46d3d10"
 
 #add_option gcc "CONFIGURE_COMMAND " "PATCH_COMMAND \$\{EXEC\} curl -sL https://salsa.debian.org/mingw-w64-team/gcc-mingw-w64/-/raw/5e7d749d80e47d08e34a17971479d06cd423611e/debian/patches/vmov-alignment.patch | patch -p2"
 
 #replace_option binutils "2.39" "2.40"
 #replace_option binutils "68e038f339a8c21faa19a57bbc447a51c817f47c2e06d740847c6e9cc3396c025d35d5369fa8c3f8b70414757c89f0e577939ddc0d70f283182504920f53b0a3" \
 #						 "a37e042523bc46494d99d5637c3f3d8f9956d9477b748b3b1f6d7dfbb8d968ed52c932e88a4e946c6f77b8f48f1e1b360ca54c3d298f17193f3b4963472f6925"
-
 
 #https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/?C=M;O=D
 if ! curl --output /dev/null --silent --head --fail "https://mirrorservice.org/sites/sourceware.org/pub/gcc/snapshots/13-20230916/gcc-13-20230916.tar.xz"; then

@@ -1,7 +1,9 @@
 #!/bin/bash
-source $(pwd)/functions.sh
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 
 clear && echo $0 $@
+
 cd ~/mpv-winbuild-cmake/
 
 # libepoxy

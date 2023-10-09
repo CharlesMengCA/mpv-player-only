@@ -1,6 +1,7 @@
 #!/bin/bash
-source $(pwd)/functions.sh
-bashFolder=$(pwd)
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
+
 clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake
@@ -33,10 +34,10 @@ replace_option mpv "-Dsdl2=enabled" "-Dsdl2=disabled"
 comment_line mpv "mujs"
 replace_option mpv "-Djavascript=enabled" "-Djavascript=disabled"
 
-cp -v $bashFolder/lua-remove-comments.sh ./packages
+cp -v $SCRIPT_DIR/Patch/lua-remove-comments.sh ./packages
 add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/lua-remove-comments.sh"
 
-cp -v $bashFolder/libass-7-digit-commit-id.sh ./packages
+cp -v $SCRIPT_DIR/Patch/libass-7-digit-commit-id.sh ./packages
 add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/libass-7-digit-commit-id.sh"
 
 #comment_line CMakeLists.txt "libdovi"

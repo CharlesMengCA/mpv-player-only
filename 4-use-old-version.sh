@@ -1,7 +1,7 @@
 #!/bin/bash
 # some library version may fail during build, find an old version to make it work
-source $(pwd)/functions.sh
-bashFolder=$(pwd)
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 
 clear && echo $0 $@
 
@@ -13,14 +13,19 @@ cd ~/mpv-winbuild-cmake/
 
 #replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
 
-cp -v --preserve=timestamps $bashFolder/Patch/cm-patch.sh ./packages
+add_option mpv "--default-library=shared" "--buildtype=release"
+comment_line mpv "-Ddebug=true"
+
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
 
 #set -x #echo on
 
-replace_option mbedtls "URL https:\/\/github.com\/Mbed-TLS\/mbedtls\/archive\/refs\/tags\/v3.4.1.tar.gz" \
-							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
-replace_option mbedtls "URL_HASH SHA256=A420FCF7103E54E775C383E3751729B8FB2DCD087F6165BEFD13F28315F754F5" \
-							  "GIT_SHALLOW 1"
+#replace_option mbedtls "URL \${mbedtls_link}" \
+#							  "GIT_REPOSITORY https:\/\/github.com\/Mbed-TLS\/mbedtls.git"
+#replace_option mbedtls "URL_HASH SHA256=\${mbedtls_hash}" \
+#							  "GIT_SHALLOW 1"
+comment_line mbedtls "GIT_RESET "
+
 
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
 	# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
@@ -48,12 +53,12 @@ replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_SHALLOW 1"
 #replace_option libplacebo "haasn" "CharlesMengCA"
 
 add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
-cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-*.patch ./packages
 
 #comment_line ffmpeg "PATCH_COMMAND "
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
-#cp -v --preserve=timestamps $bashFolder/Patch/glslang-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/glslang-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
 #replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
@@ -64,27 +69,27 @@ cp -v --preserve=timestamps $bashFolder/Patch/libplacebo-*.patch ./packages
 
 
 #add_option shaderc "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
-#cp -v --preserve=timestamps $bashFolder/Patch/shaderc-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/shaderc-*.patch ./packages
 
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG 9c37439a7952c204150863fc35569dd864dbd599"
 #replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
 
 
-#cp -v --preserve=timestamps $bashFolder/Patch/vulkan-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/vulkan-*.patch ./packages
 #vulkan-loader
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-#replace_option vulkan "GIT_TAG main" "GIT_TAG 1e09b25e96fbcb8ab7b40a07ef21afb89ffe54f7"
+replace_option vulkan "GIT_TAG main" "GIT_TAG 6d4f07c995975f12d0d8d7a8483cdcbf6c455108"
 
 #replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
 #replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"
 
 
-#cp -v --preserve=timestamps $bashFolder/Patch/new/vulkan-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/vulkan-*.patch ./packages
 
-#cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
-cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 
 #delete_line mpv "mpv.def"
 
@@ -99,7 +104,7 @@ cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
-#cp -v --preserve=timestamps $bashFolder/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
 #add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
 #delete_line ffmpeg "PATCH_COMMAND "
@@ -123,7 +128,7 @@ cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 #replace_option zlib "d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932" \
 #						  "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 
-#cp $bashFolder/Patch/zlib-1-win32-static.patch ./packages
+#cp $SCRIPT_DIR/Patch/zlib-1-win32-static.patch ./packages
 
 #replace_option x265 "GIT_REPOSITORY https:\/\/bitbucket.org\/multicoreware\/x265_git.git" \
 #                    "URL https:\/\/bitbucket.org\/multicoreware\/x265_git\/get\/931178347b3f.zip"
@@ -135,7 +140,7 @@ cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 
 #comment_line libjxl "PATCH_COMMAND"
 
-#cp $bashFolder/libssh-0001-install-modified-pc-file.patch ./packages
+#cp $SCRIPT_DIR/libssh-0001-install-modified-pc-file.patch ./packages
 
 
 
@@ -146,7 +151,7 @@ cp -v --preserve=timestamps $bashFolder/Patch/mpv-*.patch ./packages
 #broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
 #replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
 
-#cp $bashFolder/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
+#cp $SCRIPT_DIR/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
 
 #comment_line libzimg "GIT_SHALLOW 1"
 

@@ -1,5 +1,6 @@
 #!/bin/bash
-source $(pwd)/functions.sh
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 
 clear && echo $0 $@
 
@@ -29,7 +30,7 @@ comment_line CMakeLists.txt davs2
 comment_line ffmpeg davs2
 comment_line ffmpeg --enable-libdavs2
 
-# davs2
+# uavs3d
 comment_line CMakeLists.txt uavs3d
 comment_line ffmpeg uavs3d
 comment_line ffmpeg --enable-libuavs3d
@@ -62,6 +63,8 @@ comment_line CMakeLists.txt opusfile
 
 # rubberband - Better scaletempo (on high speed x1.5-x3)
 comment_line CMakeLists.txt rubberband
+comment_line ffmpeg rubberband
+comment_line ffmpeg "--enable-librubberband"
 comment_line mpv rubberband
 replace_option mpv "-Drubberband=enabled" "-Drubberband=disabled"
 comment_line mpv-release rubberband
