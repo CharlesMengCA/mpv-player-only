@@ -19,15 +19,15 @@ cd ~/mpv-winbuild-cmake/
 #replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
 #						 "d99e4826a70db04504467e349e9fbaedaa5870766cda7c5cab50cdebedc4be755ebca5b789e1232a34a20be1a0b60097de9280efe47bdb71c73251e30b0862a2"
 
-replace_option gcc "13-20230916" "13-20231007"
-replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
-						 "5e3c7f4ec2b1d9f0f65097b0d992bf5acfafb2830b1394a832a4e95163a369b9beb42681cd0fd09aa25494d8b83bc377f1f03f0319dd785d4eea372b8477074b"
+#replace_option gcc "13-20230916" "13-20231007"
+#replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
+#						 "5e3c7f4ec2b1d9f0f65097b0d992bf5acfafb2830b1394a832a4e95163a369b9beb42681cd0fd09aa25494d8b83bc377f1f03f0319dd785d4eea372b8477074b"
 
 #comment_line gcc "PATCH_COMMAND "
 
-#replace_option gcc "13-20230916" "13-20230930"
-#replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
-#						 "ca1c59c53af51c3e46a340210516594184fdfcb97bbb693c59a675d54239d8386732537632e486ed7c6030dbf3d836d07917d6dc9808071a55b1f411e46d3d10"
+replace_option gcc "13-20230916" "13-20231021"
+replace_option gcc "a6f8c2482895fb3e5682329c74d40d9c3f5c794e688fbc0a61fe97acacb14dfd03439baec47708eaa46b2ae2c6fcf8c97b5efe6cf89cffc5df74a8427b59fdd1" \
+						 "f713492b0a92d3cd61e0f4d1ed8cdd70e5be7fb77df1ade54e760e800f213a7e6004cc7bdb338dffbd0b768f4c39a88d6b45e86b957f3ff689f2abf5c39686b1"
 
 #add_option gcc "CONFIGURE_COMMAND " "PATCH_COMMAND \$\{EXEC\} curl -sL https://salsa.debian.org/mingw-w64-team/gcc-mingw-w64/-/raw/5e7d749d80e47d08e34a17971479d06cd423611e/debian/patches/vmov-alignment.patch | patch -p2"
 

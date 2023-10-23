@@ -37,6 +37,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # xfce desktop
 pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter xorg-server xfdesktop thunar xfwm4 xfce4-panel xfce4-session xfce4-settings xfce4-terminal mousepad
+#pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2023/10/16/extra/os/x86_64/xfconf-4.18.1-2-x86_64.pkg.tar.zst
 
 # Defaut Theme: Arc
 #sed -i 's/property name="ThemeName" type="string" value="Adwaita"/property name="ThemeName" type="string" value="Arc"/' \

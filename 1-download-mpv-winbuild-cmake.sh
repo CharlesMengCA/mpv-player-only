@@ -66,12 +66,6 @@ else
 fi
 
 git am --3way $SCRIPT_DIR/Patch/MBEDTLS_AES_USE_HARDWARE_ONLY.patch
-if [[ $1 == "gcc" ]]; then
-   git am --3way $SCRIPT_DIR/Patch/libsrt.patch
-fi >/dev/null 2>&1
-
-#mpv: use custom buildtype
-#git revert e5a2f4188b3d1627a840c008566c770c3b39a7b5 -n
 
 git log -n 3 --oneline
 

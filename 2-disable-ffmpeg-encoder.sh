@@ -34,3 +34,5 @@ append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale_npp
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale2ref
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale2ref_npp
 append_option ffmpeg -pkg-config-flags=--static --disable-filters
+append_option ffmpeg -pkg-config-flags=--static --disable-ptx-compression
+append_option ffmpeg -pkg-config-flags=--static "--nvccflags='-O3'"

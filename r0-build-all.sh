@@ -1,4 +1,5 @@
 #!/bin/bash
+./updateSystem.sh
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 sudo pacman -S --noconfirm --needed p7zip
 

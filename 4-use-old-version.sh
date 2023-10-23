@@ -11,10 +11,15 @@ clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
-#replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
+append_option libva "--buildtype=release" "-Db_ndebug=true"
+append_option dav1d "--buildtype=release" "-Db_ndebug=true"
+append_option fribidi "--buildtype=release" "-Db_ndebug=true"
+append_option harfbuzz "--buildtype=release" "-Db_ndebug=true"
+append_option freetype2 "--buildtype=release" "-Db_ndebug=true"
+append_option fontconfig "--buildtype=release" "-Db_ndebug=true"
+append_option rubberband "--buildtype=release" "-Db_ndebug=true"
 
-add_option mpv "--default-library=shared" "--buildtype=release"
-comment_line mpv "-Ddebug=true"
+#replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
 
 cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
 
@@ -78,7 +83,7 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-*.patch ./packages
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/vulkan-*.patch ./packages
 #vulkan-loader
 #replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-replace_option vulkan "GIT_TAG main" "GIT_TAG 6d4f07c995975f12d0d8d7a8483cdcbf6c455108"
+#replace_option vulkan "GIT_TAG main" "GIT_TAG 6d4f07c995975f12d0d8d7a8483cdcbf6c455108"
 
 #replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
 #replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"
@@ -96,7 +101,7 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/glslang*.patch"
 
 
-#add_option mpv "SOURCE_DIR " "GIT_TAG 0e0b396af4dcf739636995e7ece298597c219d2e"
+#add_option mpv "SOURCE_DIR " "GIT_TAG 9a7291d48ea8ee9c661a7a1f70de1c75cad17336"
 #add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
 
 #add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"

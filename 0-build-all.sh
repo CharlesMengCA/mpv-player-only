@@ -1,5 +1,7 @@
 #!/bin/bash
+./updateSystem.sh
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
+
 ./1-download-mpv-winbuild-cmake.sh $1
 ./2-disable-ffmpeg-encoder.sh
 ./disable-ffmpeg-jxl.sh
@@ -9,14 +11,14 @@ echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
 
+
 if [[ $1 == "gcc" ]]; then
    ./8g-gcc.sh
 else
    ./8c-clang.sh
 fi
 
-[[ $1 == "8" ]] && exit
-[[ $2 == "8" ]] && exit
+[[ $1 == "8" || $2 == "8" ]] && exit
 
 ./9b-build-mpv.sh
 

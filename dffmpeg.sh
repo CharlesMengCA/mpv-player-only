@@ -26,8 +26,8 @@ git am $SCRIPT_DIR/ffmpeg/0001-Disable-linux-related.patch
 rm scripts.d/50-openmpt.sh
 rm scripts.d/50-kvazaar.sh
 rm scripts.d/50-aribb24/50-libaribb24.sh
-#cp $SCRIPT_DIR/ffmpeg/6.0.sh addins
-cp -v $SCRIPT_DIR/ffmpeg/45-vulkan.sh scripts.d/50-vulkan/
+
+#cp -v $SCRIPT_DIR/ffmpeg/60-libplacebo.sh scripts.d/50-vulkan/
 
 git status
 
@@ -40,6 +40,6 @@ set -x #echo on
 #./makeimage.sh win64 gpl-shared
 #./build.sh win64 gpl-shared
 
-source=$(find ffbuild/pkgroot -type d -name 'ffmpeg-*win64*')
-target=$(echo $source | sed 's/^.*pkgroot\/\(.*shared\).*$/\1/')
-cp -r -v $source/bin $SCRIPT_DIR/../$target/
+#source=$(find ffbuild/pkgroot -type d -name 'ffmpeg-*win64*')
+#target=$(echo $source | sed 's/^.*pkgroot\/\(.*shared\).*$/\1/')
+#cp -r -v $source/bin $SCRIPT_DIR/../$target/

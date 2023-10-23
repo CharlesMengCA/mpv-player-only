@@ -50,3 +50,11 @@ comment_line ffmpeg "--disable-decoder=libaom_av1"
 
 comment_line libjxl "-DJPEGXL_ENABLE_AVX512=ON"
 comment_line libjxl "-DJPEGXL_ENABLE_AVX512_ZEN4=ON"
+
+
+#release build
+replace_option mpv "-Ddebug=true" "--buildtype=release"
+#delete_line mpv "-Db_ndebug=true"
+
+replace_option libplacebo "-Ddebug=true" "--buildtype=release"
+#delete_line libplacebo "-Db_ndebug=true"
