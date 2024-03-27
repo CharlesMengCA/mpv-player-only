@@ -4,18 +4,21 @@ echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
 ./1-download-mpv-winbuild-cmake.sh $1
 ./2-disable-ffmpeg-encoder.sh
-./disable-ffmpeg-jxl.sh
+
+if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
+   ./disable-ffmpeg-jxl.sh
+fi
+
 ./3-disable-vapoursynth.sh
 ./4-use-old-version.sh
 ./5-disable-OpenGL.sh
 ./6-disable-libbs2b.sh
 ./7-new-toolchain.sh
 
-
 if [[ $1 == "gcc" ]]; then
    ./8g-gcc.sh
 else
-   ./8c-clang.sh
+   ./8c-clang.sh $1
 fi
 
 [[ $1 == "8" || $2 == "8" ]] && exit

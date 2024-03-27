@@ -33,11 +33,11 @@ echo-build shaderc
 #	cp $BUILD64/packages/shaderc-prefix/src/shaderc-build/shaderc.pc $FILE
 #fi
 
+#echo-build spirv-cross
 echo-build libplacebo
 
 #rm $FILE
 
-echo-build spirv-cross
 echo-build libarchive
 echo-build libass
 

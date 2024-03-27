@@ -51,10 +51,18 @@ comment_line ffmpeg --enable-libaribcaption
 
 # OpenAL
 comment_line CMakeLists.txt openal-soft
+comment_line ffmpeg "openal-soft"
+comment_line ffmpeg "--enable-openal"
 comment_line mpv openal-soft
 comment_line mpv "-Dopenal=enabled"
 comment_line mpv-release openal-soft
 comment_line mpv-release "-Dopenal=enabled"
+
+# libva
+comment_line CMakeLists.txt libva
+comment_line ffmpeg libva
+comment_line mesa libva
+replace_option ffmpeg "--enable-vaapi" "--disable-vaapi"
 
 #opus-tools
 comment_line CMakeLists.txt opus-tools

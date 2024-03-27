@@ -8,7 +8,11 @@ echo -e '\nRestoring pre-built llvm...'
 
 ./1-download-mpv-winbuild-cmake.sh $1
 ./2-disable-ffmpeg-encoder.sh
-./disable-ffmpeg-jxl.sh
+
+if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
+   ./disable-ffmpeg-jxl.sh
+fi
+
 ./3-disable-vapoursynth.sh
 ./4-use-old-version.sh
 ./5-disable-OpenGL.sh

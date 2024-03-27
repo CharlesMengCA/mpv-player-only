@@ -48,7 +48,7 @@ git config --global fetch.prune true
 git config --global --add safe.directory $PWD
 
 if [ -d "$BUILD_DIR" ]; then
-	cd $BUILD_DIR && git reset --hard origin/master && git pull
+	cd $BUILD_DIR && rm packages/* && git reset --hard origin/master && git pull
 else
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #exit
@@ -57,7 +57,7 @@ else
    #git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
 	
    cd $BUILD_DIR
-
+   
    #[[ $1 == "clang" ]] && git checkout clang
    
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
@@ -65,10 +65,9 @@ else
 	#git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
 
-git am --3way $SCRIPT_DIR/Patch/MBEDTLS_AES_USE_HARDWARE_ONLY.patch
+git am --3way $SCRIPT_DIR/Patch/rustup.patch
 
 git log -n 3 --oneline
 
 #export CFLAGS=-fuse-ld=mold
-
 #df -h

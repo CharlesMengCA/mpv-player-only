@@ -31,7 +31,6 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
 #							  "GIT_SHALLOW 1"
 comment_line mbedtls "GIT_RESET "
 
-
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
 	# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
 	replace_option lzo "fossies.org\/linux\/misc" "www.oberhumer.com\/opensource\/lzo\/download"
@@ -57,10 +56,17 @@ replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_SHALLOW 1"
 #replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_TAG 541c85ec5e0e0b93a40896549c464632caab845d"
 #replace_option libplacebo "haasn" "CharlesMengCA"
 
-add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
-cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-*.patch ./packages
+#add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-*.patch ./packages
 
 #comment_line ffmpeg "PATCH_COMMAND "
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 97d2990ea6241a569bc4c259d427f7739c97d766"
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 456c8ebe7c7dcd766d36cd0296815d89fd1166b5"
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
+append_option ffmpeg "GIT_SHALLOW 1" "PATCH_COMMAND \$\{EXEC\} git apply \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
+#append_option libsrt "GIT_CLONE_FLAGS " "GIT_RESET 618ddfed45a53d99e4a0ce8528b2ecfe2860b5bc"
+
+#append_option spirv-headers "GIT_TAG main" "GIT_RESET b73e168"
 
 #replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/glslang-*.patch ./packages
@@ -109,16 +115,6 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-0001-Vulkan-Headers-v1.3.238.patch ./packages
-#add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
-
-#delete_line ffmpeg "PATCH_COMMAND "
-
-
-#comment_line ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2"
-#replace_option ffmpeg "GIT_TAG c8e9cc8d2096abda1bce99915ec1fdeff18f2fe2" "PATCH_COMMAND \$\{EXEC\} patch -p1 < \$\{CMAKE_CURRENT_SOURCE_DIR\}\/o0ot.diff"
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_TAG n4.4.1"
-
 
 
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include
@@ -161,10 +157,6 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 #comment_line libzimg "GIT_SHALLOW 1"
 
 #replace_option libzimg "GIT_SHALLOW 1" "GIT_TAG 51c3c7f750c2af61955377faad56e3ba1b03589f"
-
-#replace_option libiconv "1.16" "1.17"
-#replace_option libiconv "e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04" \
-#							   "8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
 
 #replace_option libmfx "COMMAND mv libmfx.pc mfx.pc" "COMMAND cp -u libmfx.pc mfx.pc"
 
