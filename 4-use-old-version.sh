@@ -11,6 +11,9 @@ clear && echo $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
+
+git am --3way $SCRIPT_DIR/Patch/rustup.patch
+
 append_option libva "--buildtype=release" "-Db_ndebug=true"
 append_option dav1d "--buildtype=release" "-Db_ndebug=true"
 append_option fribidi "--buildtype=release" "-Db_ndebug=true"
@@ -21,8 +24,6 @@ append_option rubberband "--buildtype=release" "-Db_ndebug=true"
 
 #replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
 
-cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
-
 #set -x #echo on
 
 #replace_option mbedtls "URL \${mbedtls_link}" \
@@ -30,6 +31,8 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
 #replace_option mbedtls "URL_HASH SHA256=\${mbedtls_hash}" \
 #							  "GIT_SHALLOW 1"
 comment_line mbedtls "GIT_RESET "
+#replace_option mbedtls "GIT_RESET 1ec69067fa1351427f904362c1221b31538c8b57"
+#                       "GIT_RESET 2ca6c285a0dd3f33982dd57299012dacab1ff206"
 
 if ! curl --output /dev/null --silent --head --fail "https://fossies.org/linux/misc/lzo-2.10.tar.gz"; then
 	# https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
@@ -53,48 +56,46 @@ fi
 
 # just for version info purpose
 replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_SHALLOW 1"
-#replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_TAG 541c85ec5e0e0b93a40896549c464632caab845d"
 #replace_option libplacebo "haasn" "CharlesMengCA"
 
+#append_option mingw-w64 "GIT_REPOSITORY " "GIT_RESET 93059a6ae05d8e0b42bec5039818003a9f6329b1"
+
+#append_option llvm "GIT_TAG release\/18.x" "GIT_RESET c13b7485b87909fcf739f62cfa382b55407433c0"
+
 #add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-*.patch ./packages
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/fontconfig-*.patch ./packages
 
 #comment_line ffmpeg "PATCH_COMMAND "
 #replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 97d2990ea6241a569bc4c259d427f7739c97d766"
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 456c8ebe7c7dcd766d36cd0296815d89fd1166b5"
-cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
-append_option ffmpeg "GIT_SHALLOW 1" "PATCH_COMMAND \$\{EXEC\} git apply \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 257bc2a82ab6709ddfc8dd9cf570beefcef7d43f"
+
+#append_option mpv "GIT_CLONE_FLAGS " "GIT_RESET 1586ccc0c86ab23aad9e3f4b2b5986574ce266a7"
+
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
+#append_option ffmpeg "GIT_SHALLOW 1" "PATCH_COMMAND \$\{EXEC\} git apply \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
+
 #append_option libsrt "GIT_CLONE_FLAGS " "GIT_RESET 618ddfed45a53d99e4a0ce8528b2ecfe2860b5bc"
 
+git am --3way $SCRIPT_DIR/Patch/revert-openssl.patch
 #append_option spirv-headers "GIT_TAG main" "GIT_RESET b73e168"
+#append_option openssl "SOURCE_DIR  " "GIT_RESET bd73e1e62c4103e0faffb79cb3d34a2a92a95439"
 
-#replace_option glslang "GIT_TAG main" "GIT_TAG a3310b7cff7b67d2daa443c03090b4978c91384a"
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/openssl-*.patch ./packages
+#add_option openssl "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/glslang-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 
 #replace_option mingw-w64-crt "--with-default-msvcrt=msvcrt-os" "--with-default-msvcrt=ucrt"
 #replace_option mingw-w64-headers "--with-default-msvcrt=msvcrt" "--with-default-msvcrt=ucrt"
 
-
-#replace_option libxml2 "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_TAG 89f4976728bc73363c57c9966a34b21901210fa8"
-
-
 #add_option shaderc "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/shaderc-*.patch ./packages
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG 9c37439a7952c204150863fc35569dd864dbd599"
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.240"
-
+#append_option shaderc "GIT_TAG main" "GIT_RESET e6187c722e96ca87240b515071ea9cb8d180f45d"
+#append_option shaderc "-DENABLE_GLSLANG_BINARIES=OFF" "-DSKIP_GLSLANG_INSTALL=ON"
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/vulkan-*.patch ./packages
-#vulkan-loader
-#replace_option vulkan "GIT_TAG main" "GIT_TAG v1.3.240"
-#replace_option vulkan "GIT_TAG main" "GIT_TAG 6d4f07c995975f12d0d8d7a8483cdcbf6c455108"
-
-#replace_option spirv-tools "GIT_TAG main" "GIT_TAG a68ef7b2c520bada945b5017bb098c7403762448"
-#replace_option spirv-headers "GIT_TAG main" "GIT_TAG 10db9d4e194246a020a4148e220837ac7c68cfd9"
-
-
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/vulkan-*.patch ./packages
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
@@ -105,13 +106,6 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 #delete_line mpv "mpv.def"
 
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/glslang*.patch"
-
-
-#add_option mpv "SOURCE_DIR " "GIT_TAG 9a7291d48ea8ee9c661a7a1f70de1c75cad17336"
-#add_option mpv "SOURCE_DIR " "GIT_TAG v0.35.0"
-
-#add_option glslang "UPDATE_COMMAND " "GIT_REMOTE_NAME origin"
-#add_option glslang "UPDATE_COMMAND " "GIT_TAG main"
 
 #comment_line vulkan-header "GIT_SHALLOW 1"
 #add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
@@ -143,24 +137,16 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 
 #cp $SCRIPT_DIR/libssh-0001-install-modified-pc-file.patch ./packages
 
-
-
 #append_option mpv "--prefer-static" "-Dbuild-date=true"
 
-#replace_option vulkan-header "GIT_TAG main" "GIT_TAG v1.3.224"
-
-#broken on debd0ea4d38c4ce93ad4cbbfabead9f47918ffae
-#replace_option libssh "GIT_SHALLOW 1" "GIT_TAG d30cf11cb652f596709366ec7c299dbff11862f1"
 
 #cp $SCRIPT_DIR/libssh-0003-Fix-Update-HMAC-function-parameter-type.patch ./packages
 
 #comment_line libzimg "GIT_SHALLOW 1"
 
-#replace_option libzimg "GIT_SHALLOW 1" "GIT_TAG 51c3c7f750c2af61955377faad56e3ba1b03589f"
 
 #replace_option libmfx "COMMAND mv libmfx.pc mfx.pc" "COMMAND cp -u libmfx.pc mfx.pc"
 
-#sed -i "/https:\/\/github.com\/KhronosGroup\/Vulkan-Loader.git/!b;n;c\    GIT_TAG edc995aef7a8bbb00bbff9b18ab267de53815292" packages/vulkan.cmake
 
 #replace next line https://stackoverflow.com/questions/18620153/find-matching-text-and-replace-next-line
 
@@ -170,11 +156,7 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 #comment_line lame "force_rebuild_git(lame)"
 
 #sed -i '/opengl_cb\.h/d' mpv.cmake
-
-#add_option toolchain/mingw-w64 "GIT_SHALLOW 1" "GIT_TAG v7.0.0"
-
 #sed -i "s/https:\/\/git.xiph.org\/opus.git/https:\/\/github.com\/xiph\/opus.git/" opus.cmake
-#add_option mujs "GIT_REPOSITORY" "GIT_TAG 1.0.7"
 
 #vk_dir=/usr/share/vulkan/registry
 #mkdir -p "$vk_dir" && cp /root/mpv-winbuild-cmake/build64/vulkan-header-prefix/src/vulkan-header/registry/vk.xml $vk_dir/vk.xml

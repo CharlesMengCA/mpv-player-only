@@ -12,7 +12,17 @@ get_filename () {
 		if [ -f "$make_file" ]; then
 			echo $make_file
 		else
-			echo "toolchain/$1.cmake"
+         local make_file="toolchain/$1.cmake"
+         if [ -f "$make_file" ]; then
+            echo $make_file
+         else
+            local make_file="toolchain/llvm/$1.cmake"
+            if [ -f "$make_file" ]; then
+               echo $make_file
+            else
+               echo "toolchain/gcc/$1.cmake"
+            fi
+         fi
 		fi
 	fi 
 }

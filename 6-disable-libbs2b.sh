@@ -11,15 +11,6 @@ comment_line CMakeLists.txt libbs2b
 comment_line ffmpeg libbs2b
 comment_line ffmpeg --enable-libbs2b
 
-# Mod format support
-comment_line CMakeLists.txt libopenmpt
-comment_line ffmpeg libopenmpt
-comment_line ffmpeg --enable-libopenmpt
-
-comment_line CMakeLists.txt libmodplug
-comment_line ffmpeg libmodplug
-comment_line ffmpeg --enable-libmodplug
-
 # The Speex codec has been obsoleted by Opus
 comment_line CMakeLists.txt speex
 comment_line ffmpeg speex
@@ -49,19 +40,10 @@ comment_line CMakeLists.txt libaribcaption
 comment_line ffmpeg libaribcaption
 comment_line ffmpeg --enable-libaribcaption
 
-# OpenAL
-comment_line CMakeLists.txt openal-soft
-comment_line ffmpeg "openal-soft"
-comment_line ffmpeg "--enable-openal"
-comment_line mpv openal-soft
-comment_line mpv "-Dopenal=enabled"
-comment_line mpv-release openal-soft
-comment_line mpv-release "-Dopenal=enabled"
-
 # libva
 comment_line CMakeLists.txt libva
 comment_line ffmpeg libva
-comment_line mesa libva
+#comment_line mesa libva
 replace_option ffmpeg "--enable-vaapi" "--disable-vaapi"
 
 #opus-tools

@@ -2,71 +2,45 @@
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
 
-check_update (){
-   cd $1-prefix/src/$1 2>/dev/null
-   
-   if [ $? -eq 1 ]; then return; fi
-   
-   git_url=$(git config --get remote.origin.url)
+echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
-   remote_commit=$(git ls-remote -q --heads | grep 'heads/main\|heads/master')
-   remote_commit=${remote_commit:0:40}
-   
-   local_commit=$(git rev-parse HEAD)
-   
-   cd ../../..
-   
-   if [[ "$git_url" == *"mpv-winbuild-cmake"* ]]; then
-      echo "$1 - not a git repo"
-      return 
-   fi
-   
-   if [ "$local_commit" = "$remote_commit" ]; then
-     echo "$1 - backup"
-     mv $1-prefix $1-prefix-bak
-   else
-     echo "$1 - remove"
-     rm -rf $1-prefix
-   fi
-}
+./1-download-mpv-winbuild-cmake.sh $1
 
-clear && echo $0 $@
-cd ~/mpv-winbuild-cmake/build64/
+[[ $1 == "1" || $2 == "1" ]] && exit
+
+./2-disable-ffmpeg-encoder.sh
+
+[[ $1 == "2" || $2 == "2" ]] && exit
+
+if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
+   ./disable-ffmpeg-jxl.sh
+fi
+
+if ! [[ $1 == "js" || $2 == "js" ]]; then
+   ./toggleJS.sh "off"
+fi
+
+./3-disable-vapoursynth.sh
+./4-use-old-version.sh
+./5-disable-OpenGL.sh
+./6-disable-libbs2b.sh
+./7-new-toolchain.sh
+
+
+cd $HOME/mpv-winbuild-cmake/build64
 
 rm -rf mpv-*
 
-cd packages
+ninja luajit-fullclean
+ninja fontconfig-fullclean
+ninja spirv-cross-fullclean
+ninja vulkan-fullclean
+ninja libdovi-fullclean
+ninja rav1e-fullclean
 
-find ./ -type d -name '*-prefix' | while read line; do
-    check_update ${line:2:-7}
-done
+ninja mpv
 
-cd ..
-echo-build bzip2
-cd packages
+mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
 
-find ./ -type d -name '*-prefix-bak' | while read line; do
-    rm -rf ${line:0:-4} 
-    mv $line ${line:0:-4} 
-    echo "${line:2:-11} - restored"
-done
 
-cd ..
-
-StartTime=$(date '+%H:%M:%S')
-
-echo-build shaderc
-echo-build spirv-cross
-echo-build libarchive
-echo-build libass
-#echo-build harfbuzz
-echo-build libssh
-#echo-build libjxl
-echo-build libplacebo
-
-echo-build mpv
-
-cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
-cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll
-
-echo 'Build:' $StartTime '->' $(date '+%H:%M:%S')
+echo 'Done: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt

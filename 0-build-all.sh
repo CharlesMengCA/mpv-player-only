@@ -3,10 +3,19 @@
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
 ./1-download-mpv-winbuild-cmake.sh $1
+
+[[ $1 == "1" || $2 == "1" ]] && exit
+
 ./2-disable-ffmpeg-encoder.sh
+
+[[ $1 == "2" || $2 == "2" ]] && exit
 
 if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
    ./disable-ffmpeg-jxl.sh
+fi
+
+if ! [[ $1 == "js" || $2 == "js" ]]; then
+   ./toggleJS.sh "off"
 fi
 
 ./3-disable-vapoursynth.sh

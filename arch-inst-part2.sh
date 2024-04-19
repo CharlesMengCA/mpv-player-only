@@ -95,3 +95,6 @@ echo "cm:$1" | chpasswd
 
 sudo -Hu cm mkdir -p /home/cm/.config/xfce4/terminal
 sudo -Hu cm echo -e "[Configuration]\nTitleMode=TERMINAL_TITLE_REPLACE\n" >> /home/cm/.config/xfce4/terminal/terminalrc
+
+#pacman -U --noconfirm --needed https://archive.archlinux.org/repos/2024/03/27/core/os/x86_64/curl-8.6.0-4-x86_64.pkg.tar.zst
+#sed -i "/#IgnorePkg   =/a IgnorePkg    = curl" /etc/pacman.conf

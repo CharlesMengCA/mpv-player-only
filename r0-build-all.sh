@@ -1,4 +1,6 @@
 #!/bin/bash
+rm -rf $HOME/mpv-winbuild-cmake/
+
 ./updateSystem.sh
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 sudo pacman -S --noconfirm --needed p7zip
@@ -11,6 +13,12 @@ echo -e '\nRestoring pre-built llvm...'
 
 if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
    ./disable-ffmpeg-jxl.sh
+fi
+
+if [[ $1 == "js" || $2 == "js" ]]; then
+   ./toggleJS.sh "on"
+else
+   ./toggleJS.sh "off"
 fi
 
 ./3-disable-vapoursynth.sh

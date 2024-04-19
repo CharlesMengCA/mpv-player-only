@@ -9,3 +9,5 @@ cd ~/mpv-winbuild-cmake/
 comment_line ffmpeg "libjxl"
 comment_line ffmpeg "--enable-libjxl"
 comment_line ffmpeg "--enable-encoder=libjxl"
+
+echo "libjxl: disabled" >> $HOME/build_time.txt
