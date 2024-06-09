@@ -1,0 +1,513 @@
+warning: `/home/cm/mpv-winbuild-cmake/install_rustup/.cargo/config` is deprecated in favor of `config.toml`
+note: if you need to support cargo 1.38 or earlier, you can symlink `config` to `config.toml`
+warning: `/home/cm/mpv-winbuild-cmake/install_rustup/.cargo/config` is deprecated in favor of `config.toml`
+note: if you need to support cargo 1.38 or earlier, you can symlink `config` to `config.toml`
+warning: `/home/cm/mpv-winbuild-cmake/install_rustup/.cargo/config` is deprecated in favor of `config.toml`
+note: if you need to support cargo 1.38 or earlier, you can symlink `config` to `config.toml`
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded cargo-c v0.9.32+cargo-0.79.0
+  Installing cargo-c v0.9.32+cargo-0.79.0
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded adler v1.0.2
+  Downloaded anstyle-parse v0.2.4
+  Downloaded anstyle v1.0.7
+  Downloaded aho-corasick v1.1.3
+  Downloaded anstyle-query v1.1.0
+  Downloaded anstream v0.6.14
+  Downloaded ahash v0.8.11
+  Downloaded annotate-snippets v0.10.2
+  Downloaded arc-swap v1.7.1
+  Downloaded bitflags v2.5.0
+  Downloaded clap_builder v4.5.6
+  Downloaded cc v1.0.99
+  Downloaded git2-curl v0.19.0
+  Downloaded faster-hex v0.9.0
+  Downloaded crossbeam-utils v0.8.20
+  Downloaded rfc6979 v0.4.0
+  Downloaded signature v2.2.0
+  Downloaded git2 v0.18.3
+  Downloaded tempfile v3.10.1
+  Downloaded url v2.5.0
+  Downloaded toml v0.5.11
+  Downloaded socket2 v0.5.7
+  Downloaded erased-serde v0.4.5
+  Downloaded serde_ignored v0.1.10
+  Downloaded subtle v2.5.0
+  Downloaded tinyvec_macros v0.1.1
+  Downloaded gix-config-value v0.14.6
+  Downloaded gix-hashtable v0.5.2
+  Downloaded strsim v0.11.1
+  Downloaded gix-macros v0.1.5
+  Downloaded der v0.7.9
+  Downloaded static_assertions v1.1.0
+  Downloaded home v0.5.9
+  Downloaded hashlink v0.9.1
+  Downloaded gix-index v0.29.0
+  Downloaded crossbeam-epoch v0.9.18
+  Downloaded gix-quote v0.4.12
+  Downloaded time-macros v0.2.18
+  Downloaded libloading v0.8.3
+  Downloaded thiserror-impl v1.0.61
+  Downloaded indexmap v2.2.6
+  Downloaded opener v0.6.1
+  Downloaded nu-ansi-term v0.46.0
+  Downloaded pathdiff v0.2.1
+  Downloaded pin-project-lite v0.2.14
+  Downloaded parking_lot_core v0.9.10
+  Downloaded num-conv v0.1.0
+  Downloaded rand_chacha v0.3.1
+  Downloaded openssl-probe v0.1.5
+  Downloaded quote v1.0.36
+  Downloaded pem-rfc7468 v0.7.0
+  Downloaded num_threads v0.1.7
+  Downloaded proc-macro2 v1.0.85
+  Downloaded parking_lot v0.12.3
+  Downloaded is-terminal v0.4.12
+  Downloaded hex v0.4.3
+  Downloaded heck v0.5.0
+  Downloaded heck v0.4.1
+  Downloaded unicode-ident v1.0.12
+  Downloaded serde_derive v1.0.203
+  Downloaded semver v1.0.23
+  Downloaded gix-traverse v0.37.0
+  Downloaded terminal_size v0.3.0
+  Downloaded serde v1.0.203
+  Downloaded openssl-macros v0.1.1
+  Downloaded lazy_static v1.4.0
+  Downloaded rand_core v0.6.4
+  Downloaded os_info v3.8.2
+  Downloaded is_terminal_polyfill v1.70.0
+  Downloaded lazycell v1.3.0
+  Downloaded maybe-async v0.2.10
+  Downloaded jobserver v0.1.31
+  Downloaded tracing-core v0.1.32
+  Downloaded ignore v0.4.22
+  Downloaded miniz_oxide v0.7.3
+  Downloaded prodash v28.0.0
+  Downloaded lock_api v0.4.12
+  Downloaded http-auth v0.1.9
+  Downloaded regex-automata v0.1.10
+  Downloaded num-traits v0.2.19
+  Downloaded gix v0.58.0
+  Downloaded nom v7.1.3
+  Downloaded minimal-lexical v0.2.1
+  Downloaded gix-pack v0.47.0
+  Downloaded hashbrown v0.12.3
+  Downloaded memchr v2.7.2
+  Downloaded serde_json v1.0.117
+  Downloaded itertools v0.12.1
+  Downloaded hkdf v0.12.4
+  Downloaded orion v0.17.6
+  Downloaded openssl v0.10.64
+  Downloaded p384 v0.13.0
+  Downloaded zerocopy v0.7.34
+  Downloaded rusqlite v0.31.0
+  Downloaded winnow v0.6.13
+  Downloaded hashbrown v0.14.5
+  Downloaded tracing-subscriber v0.3.18
+  Downloaded syn v2.0.66
+  Downloaded winnow v0.5.40
+  Downloaded vcpkg v0.2.15
+  Downloaded syn v1.0.109
+  Downloaded regex v1.10.5
+  Downloaded regex-syntax v0.6.29
+  Downloaded fiat-crypto v0.2.9
+  Downloaded toml_edit v0.22.14
+  Downloaded idna v0.5.0
+  Downloaded unicode-normalization v0.1.23
+  Downloaded tracing v0.1.40
+  Downloaded rustix v0.38.34
+  Downloaded regex-syntax v0.8.4
+  Downloaded time v0.3.36
+  Downloaded unicode-width v0.1.13
+  Downloaded libssh2-sys v0.3.0
+  Downloaded pasetors v0.6.8
+  Downloaded regex-automata v0.4.7
+  Downloaded hmac v0.12.1
+  Downloaded openssl-sys v0.9.102
+  Downloaded rand v0.8.5
+  Downloaded libz-sys v1.1.18
+  Downloaded humantime v2.1.0
+  Downloaded once_cell v1.19.0
+  Downloaded group v0.13.0
+  Downloaded im-rc v15.1.0
+  Downloaded gix-odb v0.57.0
+  Downloaded kstring v2.0.0
+  Downloaded itoa v1.0.11
+  Downloaded encoding_rs v0.8.34
+  Downloaded libc v0.2.155
+  Downloaded memmap2 v0.9.4
+  Downloaded glob v0.3.1
+  Downloaded gix-worktree v0.30.0
+  Downloaded gix-validate v0.8.5
+  Downloaded gix-utils v0.1.12
+  Downloaded libnghttp2-sys v0.1.10+1.61.0
+  Downloaded gix-prompt v0.8.5
+  Downloaded overload v0.1.1
+  Downloaded gix-transport v0.41.2
+  Downloaded gix-tempfile v13.1.1
+  Downloaded gix-ref v0.41.0
+  Downloaded gix-protocol v0.44.2
+  Downloaded gix-packetline v0.17.5
+  Downloaded walkdir v2.5.0
+  Downloaded toml v0.8.14
+  Downloaded tar v0.4.41
+  Downloaded sized-chunks v0.6.5
+  Downloaded tracing-attributes v0.1.27
+  Downloaded ordered-float v2.10.1
+  Downloaded gix-refspec v0.22.0
+  Downloaded gix-object v0.41.0
+  Downloaded sha2 v0.10.8
+  Downloaded primeorder v0.13.6
+  Downloaded powerfmt v0.2.0
+  Downloaded pkg-config v0.3.30
+  Downloaded pkcs8 v0.10.2
+  Downloaded cbindgen v0.26.0
+  Downloaded ppv-lite86 v0.2.17
+  Downloaded gix-packetline-blocking v0.17.4
+  Downloaded version_check v0.9.4
+  Downloaded typeid v1.0.0
+  Downloaded toml_datetime v0.6.6
+  Downloaded serde-untagged v0.1.6
+  Downloaded percent-encoding v2.3.1
+  Downloaded gix-revwalk v0.12.0
+  Downloaded gix-path v0.10.7
+  Downloaded zeroize v1.8.1
+  Downloaded utf8parse v0.2.2
+  Downloaded unicode-xid v0.2.4
+  Downloaded unicase v2.7.0
+  Downloaded tracing-log v0.2.0
+  Downloaded thiserror v1.0.61
+  Downloaded supports-hyperlinks v3.0.0
+  Downloaded sha1 v0.10.6
+  Downloaded gix-pathspec v0.6.0
+  Downloaded gix-glob v0.16.3
+  Downloaded log v0.4.21
+  Downloaded gix-submodule v0.8.0
+  Downloaded serde_spanned v0.6.6
+  Downloaded gix-negotiate v0.12.0
+  Downloaded matchers v0.1.0
+  Downloaded gix-sec v0.10.6
+  Downloaded unicode-bidi v0.3.15
+  Downloaded bstr v1.9.1
+  Downloaded indexmap v1.9.3
+  Downloaded gix-trace v0.1.9
+  Downloaded tracing-chrome v0.7.2
+  Downloaded spki v0.7.3
+  Downloaded gix-config v0.34.0
+  Downloaded crossbeam-channel v0.5.13
+  Downloaded time-core v0.1.2
+  Downloaded gix-hash v0.14.2
+  Downloaded gix-ignore v0.11.2
+  Downloaded clap v4.5.6
+  Downloaded globset v0.4.14
+  Downloaded gix-fs v0.10.2
+  Downloaded gix-filter v0.9.0
+  Downloaded gix-date v0.8.6
+  Downloaded gix-command v0.3.7
+  Downloaded gix-chunk v0.4.8
+  Downloaded gix-url v0.27.3
+  Downloaded gix-revision v0.26.0
+  Downloaded unicode-bom v2.0.3
+  Downloaded tinyvec v1.6.0
+  Downloaded supports-unicode v2.1.0
+  Downloaded shell-words v1.1.0
+  Downloaded shell-escape v0.1.5
+  Downloaded sha1_smol v1.0.0
+  Downloaded sec1 v0.7.3
+  Downloaded libgit2-sys v0.16.2+1.7.2
+  Downloaded gix-discover v0.29.0
+  Downloaded gix-credentials v0.24.2
+  Downloaded elliptic-curve v0.13.8
+  Downloaded gix-commitgraph v0.24.2
+  Downloaded fastrand v2.1.0
+  Downloaded linux-raw-sys v0.4.14
+  Downloaded crypto-bigint v0.5.5
+  Downloaded gix-features v0.38.2
+  Downloaded getrandom v0.2.15
+  Downloaded generic-array v0.14.7
+  Downloaded ed25519-compact v2.1.1
+  Downloaded sharded-slab v0.1.7
+  Downloaded same-file v1.0.6
+  Downloaded rustfix v0.8.2
+  Downloaded gix-lock v13.1.1
+  Downloaded gix-attributes v0.22.2
+  Downloaded foreign-types v0.3.2
+  Downloaded errno v0.3.9
+  Downloaded deranged v0.3.11
+  Downloaded const-oid v0.9.6
+  Downloaded cargo-util-schemas v0.3.0
+  Downloaded crypto-common v0.1.6
+  Downloaded base64 v0.21.7
+  Downloaded curl v0.4.46
+  Downloaded crossbeam-deque v0.8.5
+  Downloaded clap_derive v4.5.5
+  Downloaded gix-diff v0.40.0
+  Downloaded cargo v0.79.0
+  Downloaded gix-actor v0.30.0
+  Downloaded color-print v0.3.6
+  Downloaded gix-bitmap v0.2.11
+  Downloaded clap_lex v0.7.1
+  Downloaded cargo-platform v0.1.8
+  Downloaded cargo-credential-libsecret v0.4.4
+  Downloaded bytesize v1.3.0
+  Downloaded typenum v1.17.0
+  Downloaded thread_local v1.1.8
+  Downloaded smallvec v1.13.2
+  Downloaded serde-value v0.7.0
+  Downloaded scopeguard v1.2.0
+  Downloaded ryu v1.0.18
+  Downloaded rand_xoshiro v0.6.0
+  Downloaded filetime v0.2.23
+  Downloaded fallible-iterator v0.3.0
+  Downloaded equivalent v1.0.1
+  Downloaded ct-codecs v1.1.1
+  Downloaded colorchoice v1.0.1
+  Downloaded cfg-if v1.0.0
+  Downloaded base16ct v0.2.0
+  Downloaded digest v0.10.7
+  Downloaded cargo-util v0.2.11
+  Downloaded form_urlencoded v1.2.1
+  Downloaded foreign-types-shared v0.1.1
+  Downloaded flate2 v1.0.30
+  Downloaded crc32fast v1.4.2
+  Downloaded cpufeatures v0.2.12
+  Downloaded color-print-proc-macro v0.3.6
+  Downloaded block-buffer v0.10.4
+  Downloaded curl-sys v0.4.72+curl-8.6.0
+  Downloaded ff v0.13.0
+  Downloaded ecdsa v0.16.9
+  Downloaded either v1.12.0
+  Downloaded crates-io v0.40.1
+  Downloaded clru v0.6.2
+  Downloaded cargo-credential v0.4.4
+  Downloaded bytes v1.6.0
+  Downloaded btoi v0.4.3
+  Downloaded bitmaps v2.1.0
+  Downloaded base64ct v1.6.0
+  Downloaded autocfg v1.3.0
+  Downloaded anyhow v1.0.86
+  Downloaded fallible-streaming-iterator v0.1.9
+  Downloaded libsqlite3-sys v0.28.0
+  Downloaded openssl-src v300.3.1+3.3.1
+   Compiling libc v0.2.155
+   Compiling proc-macro2 v1.0.85
+   Compiling unicode-ident v1.0.12
+   Compiling cfg-if v1.0.0
+   Compiling once_cell v1.19.0
+   Compiling pkg-config v0.3.30
+   Compiling vcpkg v0.2.15
+   Compiling memchr v2.7.2
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x75bfb7840fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x75bfb4850ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x5f807b45ca9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x5f807b455427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x75bfb31f0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x75bfb31f114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x75bfb31f109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x75bfb9b74d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x75bfb97c112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x75bfb97bdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x75bfb97bd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x75bfb98f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x75bfb95fcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x75bfb993eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x75bfb993e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x75bfbab35145]
+/usr/lib/libc.so.6(+0x92ded)[0x75bfb48a6ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x75bfb492a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x74e171e40fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x74e174f6fae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x63e60e27da9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x63e60e276427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x74e16d9f0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x74e16d9f114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x74e16d9f109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x74e174174d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x74e173dc112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x74e173dbdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x74e173dbd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x74e173ef0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x74e173bfcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x74e173f3eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x74e173f3e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x74e1751fc145]
+/usr/lib/libc.so.6(+0x92ded)[0x74e174fc5ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x74e1750490dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x7de2a4c40fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x7de2a1c50ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x646001e97a9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x646001e90427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x7de2a05f0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x7de2a05f114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x7de2a05f109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x7de2a6f74d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x7de2a6bc112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x7de2a6bbdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x7de2a6bbd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x7de2a6cf0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x7de2a69fcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x7de2a6d3eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x7de2a6d3e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x7de2a7e8e145]
+/usr/lib/libc.so.6(+0x92ded)[0x7de2a1ca6ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x7de2a1d2a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x7fd0aa640fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x7fd0ad730ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x5a78eba6da9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x5a78eba66427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x7fd0a61f0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x7fd0a61f114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x7fd0a61f109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x7fd0ac974d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x7fd0ac5c112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x7fd0ac5bdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x7fd0ac5bd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x7fd0ac6f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x7fd0ac3fcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x7fd0ac73eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x7fd0ac73e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x7fd0ad9bd145]
+/usr/lib/libc.so.6(+0x92ded)[0x7fd0ad786ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x7fd0ad80a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x77237e040fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x77237b050ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x5ca7138a0a9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x5ca713899427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x7723799f0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x7723799f114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x7723799f109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x772380374d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x77237ffc112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x77237ffbdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x77237ffbd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x7723800f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x77237fdfcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x77238013eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x77238013e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x77238128b145]
+/usr/lib/libc.so.6(+0x92ded)[0x77237b0a6ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x77237b12a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x76f322640fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x76f31f650ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x5b1d299b9a9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x5b1d299b2427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x76f31dff0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x76f31dff114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x76f31dff109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x76f324974d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x76f3245c112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x76f3245bdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x76f3245bd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x76f3246f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x76f3243fcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x76f32473eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x76f32473e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x76f3258b4145]
+/usr/lib/libc.so.6(+0x92ded)[0x76f31f6a6ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x76f31f72a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x7d9bde440fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x7d9bdb450ae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x577421075a9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x57742106e427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x7d9bd9df0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x7d9bd9df114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x7d9bd9df109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x7d9be0774d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x7d9be03c112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x7d9be03bdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x7d9be03bd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x7d9be04f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x7d9be01fcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x7d9be053eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x7d9be053e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x7d9be1707145]
+/usr/lib/libc.so.6(+0x92ded)[0x7d9bdb4a6ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x7d9bdb52a0dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x2e40fd3)[0x7a8f91240fd3]
+/usr/lib/libc.so.6(+0x3cae0)[0x7a8f9435bae0]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x23a9e)[0x587dc7728a9e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc(+0x1c427)[0x587dc7721427]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys22DontRemoveFileOnSignalENS_9StringRefE+0x1b2)[0x7a8f8cdf0a0e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm3sys2fs8TempFile4keepERKNS_5TwineE+0x4c)[0x7a8f8cdf114c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libLLVM.so.18.1-rust-1.78.0-stable(_ZN4llvm12writeArchiveENS_9StringRefENS_8ArrayRefINS_16NewArchiveMemberEEENS_17SymtabWritingModeENS_6object7Archive4KindEbbSt10unique_ptrINS_12MemoryBufferESt14default_deleteIS9_EEb+0x21b)[0x7a8f8cdf109b]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x5174d8c)[0x7a8f93574d8c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs_NtNtCskFMTEvEfYcy_18rustc_codegen_llvm4back7archiveNtB4_18LlvmArchiveBuilderNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back7archive14ArchiveBuilder5build+0x32c)[0x7a8f931c112c]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvNtNtCskzQGxkPzHAl_17rustc_codegen_ssa4back4link11link_binary+0x9b7)[0x7a8f931bdc05]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvXs5_CskFMTEvEfYcy_18rustc_codegen_llvmNtB5_18LlvmCodegenBackendNtNtNtCskzQGxkPzHAl_17rustc_codegen_ssa6traits7backend14CodegenBackend4link+0x24)[0x7a8f931bd224]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(_RNvMs4_NtCsfYYydOQbPZl_15rustc_interface7queriesNtB5_6Linker4link+0x307)[0x7a8f932f0d97]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4bfcd63)[0x7a8f92ffcd63]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3eb6e)[0x7a8f9333eb6e]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/librustc_driver-d6f66a8619a171d6.so(+0x4f3e9ca)[0x7a8f9333e9ca]
+/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/libstd-d2ef02247056996e.so(rust_metadata_std_e4dfbc2c3f4b09f1+0xc1145)[0x7a8f945e8145]
+/usr/lib/libc.so.6(+0x92ded)[0x7a8f943b1ded]
+/usr/lib/libc.so.6(+0x1160dc)[0x7a8f944350dc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust
+error: could not compile `unicode-ident` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name unicode_ident --edition=2018 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-ident-1.0.12/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off -C metadata=a052471f1f750c0c -C extra-filename=-a052471f1f750c0c --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `cfg-if` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name cfg_if --edition=2018 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cfg-if-1.0.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C embed-bitcode=no -C metadata=83e48ef0aaaac526 -C extra-filename=-83e48ef0aaaac526 --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `once_cell` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name once_cell --edition=2021 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/once_cell-1.19.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off --cfg 'feature="alloc"' --cfg 'feature="default"' --cfg 'feature="race"' --cfg 'feature="std"' -C metadata=ffae05b36d4ee9bb -C extra-filename=-ffae05b36d4ee9bb --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `vcpkg` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name vcpkg --edition=2015 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vcpkg-0.2.15/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off -C metadata=5449df7a567cca89 -C extra-filename=-5449df7a567cca89 --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `pkg-config` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name pkg_config --edition=2015 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pkg-config-0.3.30/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off -C metadata=bec4e679f3850c0f -C extra-filename=-bec4e679f3850c0f --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `proc-macro2` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name proc_macro2 --edition=2021 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/proc-macro2-1.0.85/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off --cfg 'feature="default"' --cfg 'feature="proc-macro"' -C metadata=158865123ce25012 -C extra-filename=-158865123ce25012 --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --extern unicode_ident=/tmp/cargo-installyILcT9/release-strip/deps/libunicode_ident-a052471f1f750c0c.rmeta --cap-lints allow --cfg no_literal_byte_character --cfg no_literal_c_string --cfg wrap_proc_macro` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `libc` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name libc --edition=2015 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/libc-0.2.155/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C embed-bitcode=no --cfg 'feature="default"' --cfg 'feature="std"' -C metadata=0db0e2c2db56e70c -C extra-filename=-0db0e2c2db56e70c --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow --cfg freebsd11 --cfg libc_priv_mod_use --cfg libc_union --cfg libc_const_size_of --cfg libc_align --cfg libc_int128 --cfg libc_core_cvoid --cfg libc_packedN --cfg libc_cfg_target_vendor --cfg libc_non_exhaustive --cfg libc_long_array --cfg libc_ptr_addr_of --cfg libc_underscore_const_names --cfg libc_const_extern_fn` (signal: 11, SIGSEGV: invalid memory reference)
+error: could not compile `memchr` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/cm/mpv-winbuild-cmake/install_rustup/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name memchr --edition=2021 /home/cm/mpv-winbuild-cmake/install_rustup/.cargo/registry/src/index.crates.io-6f17d22bba15001f/memchr-2.7.2/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C panic=abort -C embed-bitcode=no --cfg 'feature="alloc"' --cfg 'feature="default"' --cfg 'feature="std"' -C metadata=a1fb748276285c32 -C extra-filename=-a1fb748276285c32 --out-dir /tmp/cargo-installyILcT9/release-strip/deps -C strip=symbols -L dependency=/tmp/cargo-installyILcT9/release-strip/deps --cap-lints allow` (signal: 11, SIGSEGV: invalid memory reference)
+error: failed to compile `cargo-c v0.9.32+cargo-0.79.0`, intermediate artifacts can be found at `/tmp/cargo-installyILcT9`.
+To reuse those artifacts with a future compilation, set the environment variable `CARGO_TARGET_DIR` to that path.
