@@ -2,7 +2,9 @@
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
 
-clear && echo $0 $@
+[[ $1 == "" ]] && clear
+
+echo_info $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
@@ -26,6 +28,7 @@ append_option ffmpeg -pkg-config-flags=--static --enable-filter=yadif
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=yadif_cuda
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=bwdif
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=bwdif_cuda
+append_option ffmpeg -pkg-config-flags=--static --enable-filter=framesync
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale_cuda
 append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale_npp

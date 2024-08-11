@@ -1,11 +1,9 @@
 #!/bin/bash
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
 BUILD_DIR="mpv-winbuild-cmake/"
 
-clear && echo $0 $@
-
-lsb_release -a &> /dev/null
-if [ $? -eq 127 ]; then
+if [[ "$(cat /etc/os-release)" == *"Arch Linux"* ]]; then
   # warning: XXX is up to date -- skipping curl
   # flex automake autoconf pkg-config patch gcc-multilib subversion
   # clang is required by ffmpeg/cuda-llvmc
@@ -13,7 +11,7 @@ if [ $? -eq 127 ]; then
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
 		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
       python-mako python-j2cli python-jsonschema mold \
-      lld libc++ libc++abi less
+      lld libc++ libc++abi less wget
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -35,6 +33,8 @@ git config --global pull.rebase true
 git config --global fetch.prune true
 git config --global --add safe.directory $PWD
 
+echo_info $0 $@
+
 cd
 
 if [ -d "$BUILD_DIR" ]; then
@@ -45,21 +45,31 @@ if [ -d "$BUILD_DIR" ]; then
 else
    set -x #echo on
 
-   #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
-   #exit
    git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
 
    cd $BUILD_DIR
 
+   # use mbedtls
    #git checkout -b cm a9e1712af0eb3cc1d5e926e0ea11d41ec6131ad0
 
 	#git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
 
+if ! [[ $1 == "gcc" || $2 == "gcc" ]]; then
+   git am --3way $SCRIPT_DIR/Patch/toolchain_misc.patch
+   git am --3way $SCRIPT_DIR/Patch/gnullvm.patch
+fi
+
+git am --3way $SCRIPT_DIR/Patch/ffmpeg-hardcoded-tables.patch
+git am --3way $SCRIPT_DIR/Patch/unity.patch
+git am --3way $SCRIPT_DIR/Patch/luajit-malloc.patch
+
 # used to apply customized patches
 cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
 
+#git am --3way $SCRIPT_DIR/Patch/package_misc.patch
 git log -n 3 --oneline
 
 #export CFLAGS=-fuse-ld=mold

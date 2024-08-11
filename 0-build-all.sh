@@ -6,23 +6,28 @@ echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
 [[ $1 == "1" || $2 == "1" ]] && exit
 
-./2-disable-ffmpeg-encoder.sh
+./2-disable-ffmpeg-encoder.sh "all"
 
 [[ $1 == "2" || $2 == "2" ]] && exit
 
 if ! [[ $1 == "jxl" || $2 == "jxl" ]]; then
-   ./disable-ffmpeg-jxl.sh
+   ./disable-ffmpeg-jxl.sh "all"
 fi
 
 if ! [[ $1 == "js" || $2 == "js" ]]; then
    ./toggleJS.sh "off"
 fi
 
-./3-disable-vapoursynth.sh
-./4-use-old-version.sh
-./5-disable-OpenGL.sh
-./6-disable-libbs2b.sh
-./7-new-toolchain.sh
+./3-disable-vapoursynth.sh "all"
+./4-use-old-version.sh $1 "all"
+
+[[ $1 == "4" || $2 == "4" ]] && exit
+
+./5-disable-OpenGL.sh  "all"
+./6-disable-libbs2b.sh "all"
+./7-new-toolchain.sh "all"
+
+[[ $1 == "7" || $2 == "7" ]] && exit
 
 if [[ $1 == "gcc" ]]; then
    ./8g-gcc.sh

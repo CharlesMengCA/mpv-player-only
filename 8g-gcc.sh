@@ -1,9 +1,14 @@
 #!/bin/bash
-clear && echo $0 $@
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+source $SCRIPT_DIR/functions.sh
+
+echo_info $0 $@
 cd ~/mpv-winbuild-cmake/
 
 echo 'gcc start: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
 set -x #echo on
+
+#replace_option mpv "-Dc_args='-Wno-error=int-conversion'" "-Dc_args='-Wno-error=int-conversion,-Wno-stringop-overflow'"
 
 #mkdir -p cmake/
 #tar -xf ~/mpv/Others/modules.tar.gz -C cmake/

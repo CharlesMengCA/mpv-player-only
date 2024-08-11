@@ -1,7 +1,8 @@
 #!/bin/bash
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
-clear && echo $0 $@
+#clear && echo_info $0 $@
+echo_info $0 $@
 
 BUILD64=~/mpv-winbuild-cmake/build64
 cd $BUILD64
@@ -10,7 +11,9 @@ StartTime=$(date '+%H:%M:%S')
 #set -x #echo on
 #{ set +x; } 2>/dev/null # echo off
 
-echo-build vulkan
+echo_build luajit
+
+echo_build vulkan
 
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/vulkan.pc
 #if [ ! -f "$FILE" ]; then
@@ -22,10 +25,11 @@ echo-build vulkan
 #		ninja vulkan
 #fi
 
-echo "+ ninja libssh"
-ninja libssh -j 1
+#echo_info "+ ninja libssh"
+#ninja libssh -j 1
+echo_build libssh -j 1
 
-echo-build shaderc
+echo_build shaderc
 
 #FILE=$BUILD64/install/x86_64-w64-mingw32/lib/pkgconfig/shaderc.pc
 
@@ -33,13 +37,13 @@ echo-build shaderc
 #	cp $BUILD64/packages/shaderc-prefix/src/shaderc-build/shaderc.pc $FILE
 #fi
 
-#echo-build spirv-cross
-echo-build libplacebo
+#echo_build spirv-cross
+echo_build libplacebo
 
 #rm $FILE
 
-echo-build libarchive
-echo-build libass
+echo_build libarchive
+echo_build libass
 
 lsb_release -a &> /dev/null
 if [ $? -ne 127 ]; then
@@ -73,7 +77,7 @@ if [ $? -ne 127 ]; then
 	rm -rf packages/fontconfig-prefix/src/fontconfig/
 fi
 
-echo-build mpv
+echo_build mpv
 
 cd mpv-x86_64* && ls -g -o --time-style=iso *.exe
 cd ../mpv-dev-x86_64-* && ls -g -o --time-style=iso *.dll

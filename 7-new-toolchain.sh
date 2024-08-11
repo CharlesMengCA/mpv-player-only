@@ -4,7 +4,8 @@ source $SCRIPT_DIR/functions.sh
 
 # try out new toolchain
 
-clear && echo $0 $@
+echo_info $0 $@
+
 cd ~/mpv-winbuild-cmake/
 
 #set -x #echo on
@@ -12,19 +13,18 @@ cd ~/mpv-winbuild-cmake/
 #replace_option mingw-w64 "mirror" "mingw-w64"
 #append_option mingw-w64 "GIT_REPOSITORY https:\/\/github.com\/mirror\/mingw-w64.git" "GIT_TAG origin/v11.x"
 
-#replace_option gcc "snapshots\/13-20230610\/gcc-13-20230610" "releases\/gcc-13.2.0\/gcc-13.2.0"
-#replace_option gcc "6f62981040894fdc98fff57295608092b917fe909cd67477c9ffc81197e5780ebabe1fbb4113e792ea441e0adb79fec5f802cda807632945c36ea295d623f19f" \
-#						 "d99e4826a70db04504467e349e9fbaedaa5870766cda7c5cab50cdebedc4be755ebca5b789e1232a34a20be1a0b60097de9280efe47bdb71c73251e30b0862a2"
+replace_option gcc "14-20240615" "14-20240803"
+replace_option gcc "d8d757cfbedb7342443ce8de4439653537c46d25e552d88cea0ba9f7aa43ad14fb2b42a32a1dce5ae4eb2ac3849024f6b4e700f2c39330a00a65caa3f5fe29e7" \
+						 "e9013bbbef39f67fcc63c9394513be43038f2fc5eebd098be3e5b90eb43bf8f2baf3ce72df1fe72ef2c327dffa103a4e1588c3c137944f7d602fb09498851328"
 
-replace_option gcc/gcc "13-20240309" "13-20230429"
-replace_option gcc/gcc "2d1e0374ebdee526f0549319fc9c364968c52a0d4aaa16759f00453cb083fe58d8f463c47d97f3bb74a0a92e251989eb75a50ee5800b4569978c72d25446b44e" \
-                       "48095ff181f7389bda249dcd67c3c0369dd8fbe4741a8ab00833c0f5d569be165db28c369f65960650812a6011dda21692cca806f4c3261773b28d702e9f0c53"
+#replace_option llvm "GIT_TAG release\/18.x" "GIT_TAG release\/19.x"
+
+
+#replace_option gcc/gcc "14-20240615" "14-20240615"
+#replace_option gcc/gcc "d8d757cfbedb7342443ce8de4439653537c46d25e552d88cea0ba9f7aa43ad14fb2b42a32a1dce5ae4eb2ac3849024f6b4e700f2c39330a00a65caa3f5fe29e7" \
+#						 "d8d757cfbedb7342443ce8de4439653537c46d25e552d88cea0ba9f7aa43ad14fb2b42a32a1dce5ae4eb2ac3849024f6b4e700f2c39330a00a65caa3f5fe29e7"
 
 #comment_line gcc "PATCH_COMMAND "
-
-#replace_option gcc/gcc "13-20240309" "13-20231021"
-#replace_option gcc/gcc "2d1e0374ebdee526f0549319fc9c364968c52a0d4aaa16759f00453cb083fe58d8f463c47d97f3bb74a0a92e251989eb75a50ee5800b4569978c72d25446b44e" \
-#						 "f713492b0a92d3cd61e0f4d1ed8cdd70e5be7fb77df1ade54e760e800f213a7e6004cc7bdb338dffbd0b768f4c39a88d6b45e86b957f3ff689f2abf5c39686b1"
 
 #add_option gcc "CONFIGURE_COMMAND " "PATCH_COMMAND \$\{EXEC\} curl -sL https://salsa.debian.org/mingw-w64-team/gcc-mingw-w64/-/raw/5e7d749d80e47d08e34a17971479d06cd423611e/debian/patches/vmov-alignment.patch | patch -p2"
 

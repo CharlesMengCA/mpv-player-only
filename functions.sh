@@ -1,6 +1,6 @@
 #!/bin/bash
 
-get_filename () {
+get_filename2 () {
 	if [[ $1 == *CMakeLists.txt ]]; then
 		if [ $1 == "CMakeLists.txt" ]; then
 			echo "packages/CMakeLists.txt"
@@ -26,6 +26,21 @@ get_filename () {
 		fi
 	fi 
 }
+
+get_filename () {
+	if [[ $1 == *CMakeLists.txt ]]; then
+		if [ $1 == "CMakeLists.txt" ]; then
+			echo "packages/CMakeLists.txt"
+		else
+			echo $1
+		fi
+	else
+      path=$(find -name "$1.cmake")
+      echo ${path:2}
+	fi 
+}
+
+
 
 replace_option () {
 	echo "replace_option $1 $2 $3"
@@ -81,12 +96,24 @@ replace_patch () {
 	sed -i "s/$2/$3/g" packages/$1.patch
 }
 
-echo-build () {
-   echo "+ ninja $1"
-   ninja $1
+echo_info () {
+   echo -e '\e[1;38;5;120m'$1'\e[0m' 
+}
+
+echo_warn () {
+   echo -e '\e[1;38;5;166m'$1'\e[0m' 
+}
+
+echo_error () {
+   echo -e '\e[1;38;5;196m'$1'\e[0m' 
+}
+
+echo_build () {
+   echo_info "+ ninja $@"
+   ninja $@
    
    if [ $? -ne 0 ]; then
-      echo "Error in building $1" 
+      echo_error "Error in building $1" 
       exit
    fi
 }

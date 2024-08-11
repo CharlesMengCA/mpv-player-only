@@ -2,7 +2,8 @@
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
 
-clear && echo $0 $@
+[[ $1 == "" ]] && clear
+echo_info $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
@@ -10,12 +11,11 @@ cd ~/mpv-winbuild-cmake/
 #comment_line CMakeLists.txt "libepoxy"
 #comment_line libplacebo "libepoxy"
 
-append_option libplacebo "DEPENDS" "spirv-cross"
-append_option libplacebo "-Ddemos=false" "-Dd3d11=enabled"
-
 # gl
 append_option libplacebo "-Ddemos=false" "-Dopengl=disabled"
 comment_line ffmpeg "--enable-opengl"
 append_option mpv "-Dvulkan=enabled" "-Dgl=disabled"
 
 replace_option mpv "-Degl-angle=enabled" "-Degl-angle=disabled"
+
+comment_line mpv "-Dc_args='-Wno-error=int-conversion'"
