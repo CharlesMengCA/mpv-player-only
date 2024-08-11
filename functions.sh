@@ -1,32 +1,5 @@
 #!/bin/bash
 
-get_filename2 () {
-	if [[ $1 == *CMakeLists.txt ]]; then
-		if [ $1 == "CMakeLists.txt" ]; then
-			echo "packages/CMakeLists.txt"
-		else
-			echo $1
-		fi
-	else
-		local make_file="packages/$1.cmake"
-		if [ -f "$make_file" ]; then
-			echo $make_file
-		else
-         local make_file="toolchain/$1.cmake"
-         if [ -f "$make_file" ]; then
-            echo $make_file
-         else
-            local make_file="toolchain/llvm/$1.cmake"
-            if [ -f "$make_file" ]; then
-               echo $make_file
-            else
-               echo "toolchain/gcc/$1.cmake"
-            fi
-         fi
-		fi
-	fi 
-}
-
 get_filename () {
 	if [[ $1 == *CMakeLists.txt ]]; then
 		if [ $1 == "CMakeLists.txt" ]; then
@@ -39,8 +12,6 @@ get_filename () {
       echo ${path:2}
 	fi 
 }
-
-
 
 replace_option () {
 	echo "replace_option $1 $2 $3"
