@@ -1,0 +1,44 @@
+From a12b03611202e73915003c51ecf099836126ae9d Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Thu, 1 Jan 1970 00:00:00 +0000
+Subject: [PATCH] ffmpeg: re-enable hardcoded tables
+
+The culprit that broke hardcoded tables build was aac_fixed, and since current x86 baseline requires SSE2, we don't need slow fixed-point decoder, disable it will fix hardcoded tables build
+---
+ cmake/packages_check.cmake | 1 +
+ packages/ffmpeg.cmake      | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/cmake/packages_check.cmake b/cmake/packages_check.cmake
+index e90ecfd9d..6f55c4660 100644
+--- a/cmake/packages_check.cmake
++++ b/cmake/packages_check.cmake
+@@ -17,6 +17,7 @@ elseif(COMPILER_TOOLCHAIN STREQUAL "clang")
+     set(vapoursynth_manual_install_copy_lib COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VSScript.lib ${MINGW_INSTALL_PREFIX}/lib/VSScript.lib
+                                             COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VapourSynth.lib ${MINGW_INSTALL_PREFIX}/lib/VapourSynth.lib)
+     set(ffmpeg_extra_libs "-lc++")
++    set(ffmpeg_hardcoded_tables "--enable-hardcoded-tables")
+     set(mpv_lto_mode "-Db_lto_mode=thin")
+     set(mpv_copy_debug COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.pdb ${CMAKE_CURRENT_BINARY_DIR}/mpv-debug/mpv.pdb)
+     set(rust_target "gnullvm")
+diff --git a/packages/ffmpeg.cmake b/packages/ffmpeg.cmake
+index c3afe92c3..575b4472f 100644
+--- a/packages/ffmpeg.cmake
++++ b/packages/ffmpeg.cmake
+@@ -59,6 +59,7 @@ ExternalProject_Add(ffmpeg
+         --pkg-config-flags=--static
+         --enable-cross-compile
+         --enable-runtime-cpudetect
++        ${ffmpeg_hardcoded_tables}
+         --enable-gpl
+         --enable-version3
+         --enable-postproc
+@@ -117,7 +118,7 @@ ExternalProject_Add(ffmpeg
+         --enable-vaapi
+         --disable-vdpau
+         --disable-videotoolbox
+-        --disable-decoder=libaom_av1
++        --disable-decoder=libaom_av1,aac_fixed,ac3_fixed
+         ${ffmpeg_lto}
+         --extra-cflags='-Wno-error=int-conversion'
+         "--extra-libs='${ffmpeg_extra_libs}'" # -lstdc++ / -lc++ needs by libjxl and shaderc

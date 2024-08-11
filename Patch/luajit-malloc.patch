@@ -1,0 +1,23 @@
+From 139c69c9148ebf229c7ffed94eb57593c12112f2 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Thu, 1 Jan 1970 00:00:00 +0000
+Subject: [PATCH] luajit: use system malloc
+
+fixes #695
+---
+ packages/luajit.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/luajit.cmake b/packages/luajit.cmake
+index 4499eb6a9..e4d147c92 100644
+--- a/packages/luajit.cmake
++++ b/packages/luajit.cmake
+@@ -19,7 +19,7 @@ set(EXPORT
+     BUILDMODE=static
+     FILE_T=luajit.exe
+     CFLAGS='-DUNICODE'
+-    XCFLAGS='-DLUAJIT_ENABLE_LUA52COMPAT ${DISABLE_JIT}'
++    XCFLAGS='-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_USE_SYSMALLOC ${DISABLE_JIT}'
+     PREFIX=${MINGW_INSTALL_PREFIX} Q="
+ )
+ 

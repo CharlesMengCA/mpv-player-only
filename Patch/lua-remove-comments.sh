@@ -4,7 +4,13 @@ ${0%/*}/cm-patch.sh
 
 echo $0 $@
 
-#git reset --soft HEAD~1
+COMMITS=$(git describe | sed 's/[^-]*-\([^-]*\)-.*/\1/')
+
+if [[ ${COMMITS: -1} == "4" ]]; then
+   git reset --soft HEAD~1
+fi
+
+
 
 MIN=$(date '+%M')
 MIN=${MIN:1:1}
@@ -12,11 +18,10 @@ MIN=${MIN:1:1}
 if [[ $MIN == "3" ]] || [[ $MIN == "4" ]]; then
    while [[ $MIN -ne "5" ]]
    do
-      sleep 0.2 && >&2 echo -n .
+      sleep 0.1
       MIN=$(date '+%M')
       MIN=${MIN:1:1}
    done
-   >&2 echo .
 fi
 
 mpv_version=$(git describe | sed 's/v//g' | sed 's/4$/8/g')
@@ -25,7 +30,7 @@ sed -i -e 's/@VERSION@/'$mpv_version'/g' common/version.h.in
 sed -i -e 's/__DATE__ " " __TIME__/"'$build_date'"/g' common/version.h.in
 sed -i -e 's/###/ /g' common/version.h.in
 
-sed -i -e "s#set_quoted('FULLCONFIG', feature_str)#set_quoted('FULLCONFIG', feature_str.replace('win32 win32-desktop win32-executable win32-threads ','').replace('build-date ',''))#g" meson.build
+sed -i -e "s#set_quoted('FULLCONFIG', feature_str)#set_quoted('FULLCONFIG', feature_str.replace('win32 win32-desktop win32-executable win32-smtc win32-threads ','').replace('build-date ',''))#g" meson.build
 sed -i -e "s#set_quoted('CONFIGURATION', configuration)#set_quoted('CONFIGURATION', configuration.replace('-Dpdf-build=disabled -Dmanpage-build=disabled ','').replace('-Dprefix=/home/cm/mpv-winbuild-cmake/build64/install/x86_64-w64-mingw32 -Dlibdir=/home/cm/mpv-winbuild-cmake/build64/install/x86_64-w64-mingw32/lib ','').replace('-Dprefix=/home/cm/mpv-winbuild-cmake/clang_root/x86_64-w64-mingw32 -Dlibdir=/home/cm/mpv-winbuild-cmake/clang_root/x86_64-w64-mingw32/lib ','').replace(' --cross-file=/home/cm/mpv-winbuild-cmake/build64/meson_cross.txt',''))#g" meson.build
 
 #sed -i '/extern const struct vo_driver video_out_tct/d' video/out/vo.c
@@ -39,6 +44,10 @@ sed -i '/vo_kitty/d' meson.build
 
 
 cd player/lua
+
+mkdir $HOME/mpv-lua/ 
+cp -R --preserve=timestamps *.lua $HOME/mpv-lua/
+
 sed -i -e '/^--\[\[/,/\]\]/{d}' *.lua
 sed -i -e '/--\[\[/,/--\]\]/{d}' *.lua
 sed -i -e '/^\s*--/{d}' *.lua
@@ -46,6 +55,9 @@ sed -i -e 's/\s\+--.*$//' *.lua
 sed -i -e 's/\-\- bar, line, slider, inverted or none//' *.lua
 sed -i '/user-data\/osc\/margins/d' osc.lua
 sed -i -e "s/plot_tonemapping_lut = true/plot_tonemapping_lut = false/g" stats.lua
+
+mkdir $HOME/mpv-lua-mod/ 
+cp -R --preserve=timestamps *.lua $HOME/mpv-lua-mod/
 
 git_revision=$(git describe)
 #git_revision=${git_revision/35.0-/35.1-}
