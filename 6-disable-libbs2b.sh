@@ -19,13 +19,13 @@ comment_line ffmpeg --enable-libspeex
 
 # davs2
 comment_line CMakeLists.txt davs2
-comment_line ffmpeg davs2
-comment_line ffmpeg --enable-libdavs2
+comment_line ffmpeg "\${ffmpeg_davs2}"
+comment_line ffmpeg "\${ffmpeg_davs2_cmd}"
 
 # uavs3d
 comment_line CMakeLists.txt uavs3d
-comment_line ffmpeg uavs3d
-comment_line ffmpeg --enable-libuavs3d
+comment_line ffmpeg "\${ffmpeg_uavs3d}"
+comment_line ffmpeg "\${ffmpeg_uavs3d_cmd}"
 
 # libzvbi - teletext based subtitles
 comment_line CMakeLists.txt libzvbi

@@ -2,7 +2,6 @@
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
 
-
 echo_info $0 $@
 cd ~/mpv-winbuild-cmake/
 
@@ -27,20 +26,20 @@ cd build64
 #   sleep 0.5
 #done
 
-until [ -f $HOME/mpv-winbuild-cmake/src_packages/zstd-host/Makefile ]
-do
-  echo_build zstd-host
-done
+#until [ -f $HOME/mpv-winbuild-cmake/src_packages/zstd-host/Makefile ]
+#do
+#  echo_build zstd-host
+#done
 
-until [ -f $HOME/mpv-winbuild-cmake/src_packages/zlib-host/configure ]
-do
-  echo_build zlib-host
-done
+#until [ -f $HOME/mpv-winbuild-cmake/src_packages/zlib-host/configure ]
+#do
+#  echo_build zlib-host
+#done
 
-until [ -f $HOME/mpv-winbuild-cmake/src_packages/mimalloc/CMakeLists.txt ]
-do
-  echo_build mimalloc
-done
+#until [ -f $HOME/mpv-winbuild-cmake/src_packages/mimalloc/CMakeLists.txt ]
+#do
+#  echo_build mimalloc
+#done
 
 echo_build llvm
 echo_build llvm-clang

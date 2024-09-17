@@ -37,3 +37,8 @@ append_option ffmpeg -pkg-config-flags=--static --enable-filter=scale2ref_npp
 append_option ffmpeg -pkg-config-flags=--static --disable-filters
 append_option ffmpeg -pkg-config-flags=--static --disable-ptx-compression
 append_option ffmpeg -pkg-config-flags=--static "--nvccflags='-O3'"
+
+#ffmpeg: re-enable hardcoded tables
+#The culprit that broke hardcoded tables build was aac_fixed, and since current x86 baseline requires SSE2, we don't need slow fixed-point decoder, disable it will fix hardcoded tables build
+append_option ffmpeg "--enable-runtime-cpudetect" "--enable-hardcoded-tables"
+replace_option ffmpeg "--disable-decoder=libaom_av1" "--disable-decoder=libaom_av1,aac_fixed,ac3_fixed"

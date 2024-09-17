@@ -1,6 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 source $SCRIPT_DIR/functions.sh
+
 BUILD_DIR="mpv-winbuild-cmake/"
 
 if [[ "$(cat /etc/os-release)" == *"Arch Linux"* ]]; then
@@ -32,6 +33,7 @@ git config --global http.lowSpeedTime 120
 git config --global pull.rebase true
 git config --global fetch.prune true
 git config --global --add safe.directory $PWD
+git config --global http.postBuffer 157286400
 
 echo_info $0 $@
 
@@ -57,12 +59,10 @@ else
 	#git checkout 78767174caf931dbfc1efc12c492caff87d7ab19 packages/freetype2.cmake packages/ft2exec.in
 fi
 
-if ! [[ $1 == "gcc" || $2 == "gcc" ]]; then
-   git am --3way $SCRIPT_DIR/Patch/toolchain_misc.patch
-   git am --3way $SCRIPT_DIR/Patch/gnullvm.patch
-fi
+#if ! [[ $1 == "gcc" || $2 == "gcc" ]]; then
+   #git am --3way $SCRIPT_DIR/Patch/toolchain_misc.patch
+#fi
 
-git am --3way $SCRIPT_DIR/Patch/ffmpeg-hardcoded-tables.patch
 git am --3way $SCRIPT_DIR/Patch/unity.patch
 git am --3way $SCRIPT_DIR/Patch/luajit-malloc.patch
 
