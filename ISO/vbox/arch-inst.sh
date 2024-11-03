@@ -37,6 +37,7 @@ set -x #echo on
 
 timedatectl
 
+pacman -Sy --noconfirm --needed archlinux-keyring
 pacman -Syy
 
 # start install

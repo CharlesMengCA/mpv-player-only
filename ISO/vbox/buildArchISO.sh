@@ -1,13 +1,25 @@
 #!/bin/bash
-clear && echo $0 $@
-set -x #echo on
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+USER_DIR=$(eval echo ~$USER)
+
+source $(find $USER_DIR -name functions.sh -print -quit)
+
+clear && echo_info $0 $@
 
 pacman -S --needed --noconfirm archiso
 
-cd ..
+set -x #echo on
+
+cd /tmp
 
 rm -r livecd
-mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
+mkdir livecd
+
+chown :alpm /tmp/livecd
+chmod g+rx /tmp/livecd
+
+cp -r /usr/share/archiso/configs/releng/* livecd
+cd livecd
 #sed -i -e 's#/usr/share/licenses/amd-ucode/LICENSE#/usr/share/licenses/amd-ucode/LICENSE.amd-ucode#g' build.sh
 
 #https://github.com/archlinux/archiso/blob/master/configs/releng/packages.x86_64
@@ -15,8 +27,8 @@ cat <<EOF > packages.x86_64
 dialog
 
 #alsa-utils
+#amd-ucode
 
-amd-ucode
 arch-install-scripts
 
 #archinstall
@@ -24,7 +36,9 @@ arch-install-scripts
 
 base
 
+#bcachefs-tools
 #bind
+#bolt
 #brltty
 #broadcom-wl
 #btrfs-progs
@@ -50,6 +64,7 @@ diffutils
 #exfatprogs
 #f2fs-tools
 #fatresize
+#foot-terminfo
 #fsarchiver
 #gnu-netcat
 #gpart
@@ -61,16 +76,13 @@ grml-zsh-config
 #grub
 #hdparm
 #hyperv
-
-intel-ucode
-
-#ipw2100-fw
-#ipw2200-fw
+#intel-ucode
 #irssi
 #iw
 #iwd
 #jfsutils
 #kitty-terminfo
+#ldns
 #less
 #lftp
 #libfido2
@@ -90,6 +102,7 @@ linux
 #mc
 #mdadm
 #memtest86+
+#memtest86+-efi
 
 mkinitcpio
 mkinitcpio-archiso
@@ -108,6 +121,7 @@ mkinitcpio-archiso
 #open-iscsi
 #open-vm-tools
 #openconnect
+#openpgp-card-tools
 #openssh
 #openvpn
 #partclone
@@ -128,6 +142,7 @@ reflector
 #rxvt-unicode-terminfo
 #screen
 #sdparm
+#sequoia-sq
 #sg3_utils
 #smartmontools
 #sof-firmware
@@ -141,6 +156,7 @@ syslinux
 #terminus-font
 #testdisk
 #tmux
+#tpm2-tools
 #tpm2-tss
 #udftools
 #usb_modeswitch
@@ -149,6 +165,7 @@ syslinux
 #vim
 #virtualbox-guest-utils-nox
 #vpnc
+#wezterm-terminfo
 #wireless-regdb
 #wireless_tools
 #wpa_supplicant
@@ -164,12 +181,15 @@ EOF
 
 END
 
-cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/.automated_script.sh
-cp ../mpv/arch-inst-part2.sh airootfs/root/
+cp -af --no-preserve=ownership,mode -- $SCRIPT_DIR/arch-inst.sh airootfs/root/.automated_script.sh
+cp $SCRIPT_DIR/arch-inst-part2.sh airootfs/root/
 
 #cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/arch-inst.sh
 sed -i "/--ipv4/d" airootfs/etc/xdg/reflector/reflector.conf
 sed -i "/--ipv6/d" airootfs/etc/xdg/reflector/reflector.conf
 
+mkarchiso -v -o $SCRIPT_DIR ./
 
-mkarchiso -v -o ~/mpv/ISO ./
+source=$(find $SCRIPT_DIR -name *.iso)
+target=$(echo $source | sed 's/\(.*\)\//\1-/')
+mv $source $target

@@ -20,5 +20,3 @@ else
    replace_option mpv "-Djavascript=enabled" "-Djavascript=disabled"
    echo "javascript: disabled" >> $HOME/build_time.txt
 fi
-
-rm -r build64/packages/mpv-prefix/

@@ -5,12 +5,9 @@ ${0%/*}/cm-patch.sh
 echo $0 $@
 
 COMMITS=$(git describe | sed 's/[^-]*-\([^-]*\)-.*/\1/')
-
 if [[ ${COMMITS: -1} == "4" ]]; then
    git reset --soft HEAD~1
 fi
-
-
 
 MIN=$(date '+%M')
 MIN=${MIN:1:1}
@@ -42,22 +39,27 @@ sed -i '/video_out_kitty/d' video/out/vo.c
 sed -i '/vo_tct/d' meson.build
 sed -i '/vo_kitty/d' meson.build
 
+BACKUP_FOLDER=$(pwd | sed -r 's#^(.*/)src_packages.*#\1#')
 
 cd player/lua
 
-mkdir $HOME/mpv-lua/ 
-cp -R --preserve=timestamps *.lua $HOME/mpv-lua/
+
+mkdir $BACKUP_FOLDER/mpv-lua/ 
+cp -R --preserve=timestamps *.lua $BACKUP_FOLDER/mpv-lua/
 
 sed -i -e '/^--\[\[/,/\]\]/{d}' *.lua
 sed -i -e '/--\[\[/,/--\]\]/{d}' *.lua
 sed -i -e '/^\s*--/{d}' *.lua
 sed -i -e 's/\s\+--.*$//' *.lua
 sed -i -e 's/\-\- bar, line, slider, inverted or none//' *.lua
-sed -i '/user-data\/osc\/margins/d' osc.lua
-sed -i -e "s/plot_tonemapping_lut = true/plot_tonemapping_lut = false/g" stats.lua
 
-mkdir $HOME/mpv-lua-mod/ 
-cp -R --preserve=timestamps *.lua $HOME/mpv-lua-mod/
+sed -i '/user-data\/osc\/margins/d' osc.lua
+#sed -i -e "s/plot_tonemapping_lut = true/plot_tonemapping_lut = false/g" stats.lua
+sed -i -e "s/try_ytdl_first = false/try_ytdl_first = true/g" ytdl_hook.lua
+#sed -i -e "/font_size = o\.font_size \* scale/d" stats.lua
+
+mkdir $BACKUP_FOLDER/mpv-lua-mod/ 
+cp -R --preserve=timestamps *.lua $BACKUP_FOLDER/mpv-lua-mod/
 
 git_revision=$(git describe)
 #git_revision=${git_revision/35.0-/35.1-}
@@ -65,7 +67,5 @@ git_revision=$(git describe)
 if [ "${git_revision: -1}" == "4" ]; then
   git_revision=${git_revision::-1}8
 fi
-
 #sed -i -e 's/Drop files or URLs to play here./'${git_revision}' Drop files or URLs to play here./g' osc.lua
-
 #git commit -a -m 'remove lua comments'

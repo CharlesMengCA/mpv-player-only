@@ -13,9 +13,9 @@ cd ~/mpv-winbuild-cmake/
 #replace_option mingw-w64 "mirror" "mingw-w64"
 #append_option mingw-w64 "GIT_REPOSITORY https:\/\/github.com\/mirror\/mingw-w64.git" "GIT_TAG origin/v11.x"
 
-#replace_option gcc "14-20240914" "14-20240810"
-#replace_option gcc "9f63ebf77a1fc18fe71681e1f97d667c077c87342bbf892510796cb6c0988c4cc2d99a5f6cbb46a10d4280012cc519604e1331648e2bba9449b6d5be580a1bf8" \
-#						 "2b1fde696c9e97a15e9b3550145c74d031d6ad667ac62b51c11bc9e111caf229c6fc4530a18d876d31ab7554fc51263944b8c0182533b1e9275132ec6ce87887"
+replace_option gcc "14-20240914" "14-20241026"
+replace_option gcc "9f63ebf77a1fc18fe71681e1f97d667c077c87342bbf892510796cb6c0988c4cc2d99a5f6cbb46a10d4280012cc519604e1331648e2bba9449b6d5be580a1bf8" \
+						 "18ff215b02e18ea7d49fad5437a7e65166278ea78b35499d4402569c18790d334df9c0b54664460182f74bffa92b7faaa71728956e1d5e1c7be57f8a1045fb7f"
 
 #replace_option llvm "GIT_TAG release\/18.x" "GIT_TAG release\/19.x"
 

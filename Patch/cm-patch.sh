@@ -16,5 +16,5 @@ echo "git apply $PATCH_PATTERN"
 
 git apply $PATCH_PATTERN
 
-git status -s
+git status -s > "../../Patch_"$PKG_NAME".log"
 #git log -n 1 --oneline

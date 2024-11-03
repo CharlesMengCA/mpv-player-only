@@ -7,6 +7,8 @@ echo_info $0 $@
 BUILD64=~/mpv-winbuild-cmake/build64
 cd $BUILD64
 
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/opus_data-735117b.tar.gz ../src_packages/opus-dnn/
+
 StartTime=$(date '+%H:%M:%S')
 #set -x #echo on
 #{ set +x; } 2>/dev/null # echo off

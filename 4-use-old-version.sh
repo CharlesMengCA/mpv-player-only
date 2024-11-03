@@ -60,6 +60,11 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 replace_option luajit "CFLAGS='-DUNICODE'" "CFLAGS='-D_WIN32_WINNT=0x0602 -DUNICODE'"
 #append_option mingw-w64 "GIT_CLONE_FLAGS " "GIT_RESET 5ccc975a43c4f839063b4cd5be7fe9f081378b93"
 
+replace_option llvm-compiler-rt "-DLLVM_CONFIG_PATH=\"\"" "-DLLVM_CONFIG_PATH=''"
+replace_option llvm-compiler-rt-builtin "-DLLVM_CONFIG_PATH=\"\"" "-DLLVM_CONFIG_PATH=''"
+replace_option llvm-libcxx "-DLIBCXX_LIBDIR_SUFFIX=\"\"" "-DLIBCXX_LIBDIR_SUFFIX=''"
+replace_option llvm-libcxx "-DLIBCXXABI_LIBDIR_SUFFIX=\"\"" "-DLIBCXXABI_LIBDIR_SUFFIX=''"
+
 #append_option llvm "GIT_TAG release\/18.x" "GIT_RESET c13b7485b87909fcf739f62cfa382b55407433c0"
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/fontconfig-*.patch ./packages
@@ -75,7 +80,9 @@ replace_option luajit "CFLAGS='-DUNICODE'" "CFLAGS='-D_WIN32_WINNT=0x0602 -DUNIC
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
 #append_option ffmpeg "GIT_SHALLOW 1" "PATCH_COMMAND \$\{EXEC\} git apply \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
 
-#append_option spirv-headers "GIT_TAG main" "GIT_RESET fbf2402"
+#append_option spirv-headers "GIT_TAG main" "GIT_RESET 252dc2d"
+#append_option spirv-tools "GIT_TAG main" "GIT_RESET 298055b"
+
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/openssl-*.patch ./packages
 #add_option openssl "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
@@ -105,7 +112,7 @@ cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git am --3way \$\{CMAKE_CURRENT_SOURCE_DIR\}\/glslang*.patch"
 
 #comment_line vulkan-header "GIT_SHALLOW 1"
-#add_option vulkan-header "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} git checkout 18963a6cc03fe15e3785d353dea6a1ff95115a5e"
+#append_option vulkan-header "GIT_CLONE_FLAGS " "GIT_RESET 14345dab231912ee9601136e96ca67a6e1f632e7"
 append_option vulkan-header "-DBUILD_SHARED_LIBS=OFF" "-DVULKAN_HEADERS_ENABLE_MODULE=OFF"
 
 #https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include

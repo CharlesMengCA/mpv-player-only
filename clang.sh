@@ -1,8 +1,9 @@
-clear
+#!/bin/bash
+#clear
 target_folder=$(pwd)
-gcc_version=$($HOME/mpv-winbuild-cmake/build64/toolchain/llvm-prefix/src/llvm-build/bin/llvm-config --version)
+clang_version=$($HOME/mpv-winbuild-cmake/clang_root/bin/llvm-config --version)
 cd ~/mpv-winbuild-cmake/src_packages/mpv/
-target_folder="$target_folder/Mod/mpv-x86_64-v3-$(date '+%Y%m%d')-git-$(git rev-parse --short=7 HEAD)-clang_$gcc_version"
+target_folder="$target_folder/Mod/mpv-x86_64-v3-$(date '+%Y%m%d')-git-$(git rev-parse --short=7 HEAD)-clang_$clang_version"
 mingw_lib=$(find $HOME/mpv-winbuild-cmake/clang_root -name libmingwex.a)
 #mingw_lib=$(echo $mingw_lib | sed -e "s#/#\\\\/#g")
 
@@ -15,6 +16,12 @@ $(echo $build_exe | sed -e "s#"$mingw_lib"#-s#g")
 echo "build libmpv-2.dll ..."
 build_dll=$(sed -n '/-o libmpv-2.dll/p' ../mpv-stamp/mpv-build-out.log)
 $(echo $build_dll | sed -e "s#"$mingw_lib"#-s#g")
+
+mpv_exe=$(find ~/mpv-winbuild-cmake/build64 -name mpv.exe)
+
+if [[ $mpv_exe == "" ]]; then
+   exit
+fi
 
 mkdir $target_folder
 strip -s mpv.exe

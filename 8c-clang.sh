@@ -12,11 +12,14 @@ echo 'Clang start: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
 #tar -xf ~/mpv/Others/modules.tar.gz -C cmake/
 #cp -v ~/mpv/Others/modules.tar.gz .
 
+# https://github.com/shinchiro/mpv-winbuild-cmake/blob/master/.github/workflows/llvm_clang.yml
+
 cmake -DCOMPILER_TOOLCHAIN=clang -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DGCC_ARCH=x86-64-v3 \
+      -DMINGW_INSTALL_PREFIX=$PWD/build64/x86_64_v3-w64-mingw32 \
       -DCMAKE_INSTALL_PREFIX=$PWD/clang_root \
       -DSINGLE_SOURCE_LOCATION=$PWD/src_packages \
-      -DRUSTUP_LOCATION=$PWD/install_rustup \
+      -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup \
       -G Ninja -Bbuild64 -H.
 
 cd build64
@@ -54,12 +57,13 @@ cd ..
 
 cmake -DCOMPILER_TOOLCHAIN=clang -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DGCC_ARCH=x86-64-v3 \
+      -DMINGW_INSTALL_PREFIX=$PWD/build64/x86_64_v3-w64-mingw32 \
       -DCMAKE_INSTALL_PREFIX=$PWD/clang_root \
       -DSINGLE_SOURCE_LOCATION=$PWD/src_packages \
-      -DRUSTUP_LOCATION=$PWD/install_rustup \
+      -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup \
       -DCLANG_FLAGS="-fdata-sections -ffunction-sections" \
       -DLLD_FLAGS="-O3 --gc-sections -Xlink=-opt:safeicf" \
-      -G Ninja -Bbuild64 -H.
+      -G Ninja -B build64 -H.
 
 if [[ $1 == "backup" ]]; then
    cd

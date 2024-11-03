@@ -13,6 +13,7 @@ do
 done 
 
 clear
+sudo pacman -Sy --needed archlinux-keyring
 sudo pacman -Syu
 
 #sudo pacman -S --noconfirm --needed reflector rsync

@@ -48,6 +48,7 @@ else
    set -x #echo on
 
    git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
+   #git clone https://github.com/Andarwinux/mpv-winbuild-cmake.git --depth=1
    #git clone https://github.com/CharlesMengCA/mpv-winbuild-cmake.git --depth=1
    #git clone -b clang https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
 
@@ -65,6 +66,7 @@ fi
 
 git am --3way $SCRIPT_DIR/Patch/unity.patch
 git am --3way $SCRIPT_DIR/Patch/luajit-malloc.patch
+git am --3way $SCRIPT_DIR/Patch/drop_expat.patch
 
 # used to apply customized patches
 cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages

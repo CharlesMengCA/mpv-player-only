@@ -37,10 +37,12 @@ git status
 
 set -x #echo on
 #sed -i "s/--branch='\\\$GIT_BRANCH'/--branch='n5.1.2'/g" build.sh
+echo 'Start: ' $(date '+%H:%M:%S') > ../build_time.txt
 
-./makeimage.sh win64 gpl-shared 7.0
-./build.sh win64 gpl-shared 7.0
+./makeimage.sh win64 gpl-shared 7.1
+./build.sh win64 gpl-shared 7.1
 
+echo 'Done: ' $(date '+%H:%M:%S') >> ../build_time.txt
 #./makeimage.sh win64 gpl-shared
 #./build.sh win64 gpl-shared
 

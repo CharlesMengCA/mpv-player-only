@@ -1,7 +1,9 @@
 #!/bin/bash
 source $(pwd)/functions.sh
 
-clear && echo $0 $@
+[[ $1 == "" ]] && clear
+
+echo $0 $@
 
 cd ~/mpv-winbuild-cmake/
 
