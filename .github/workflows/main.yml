@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CM-mpv
+defaults:
+  run:
+    shell: bash
+    
+# Controls when the workflow will run
+on:
+  create:
+      tags:
+        - v*
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a set of commands using the runners shell
+      - name: build without jxl encoder
+        run: |
+          chmod +x *.sh
+          ./0-build-all.sh
+          ./9z-zip-build.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: CM-Test
+          path: ./*.7z

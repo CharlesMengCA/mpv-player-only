@@ -3,11 +3,22 @@ source $(pwd)/functions.sh
 
 cd ~/mpv-winbuild-cmake/
 
-if grep -A1 "enable-javascript" packages/mpv.cmake >/dev/null
-then
-	 comment_line mpv "mujs" 
-    replace_option mpv "--enable-javascript" "--disable-javascript" 
+if [[ $1 == "on" || $1 == "off" ]]; then
+   js=$1
+elif grep -A0 "Djavascript=enabled" packages/mpv.cmake >/dev/null; then
+   js="off"
 else
-	 uncomment_line mpv "mujs" 
-    replace_option mpv "--disable-javascript" "--enable-javascript"
+   js="on"
 fi
+
+if [[ $js == "on" ]]; then
+   uncomment_line mpv "mujs"
+   replace_option mpv "-Djavascript=disabled" "-Djavascript=enabled"
+   echo "javascript: enabled" >> $HOME/build_time.txt
+else
+   comment_line mpv "mujs"
+   replace_option mpv "-Djavascript=enabled" "-Djavascript=disabled"
+   echo "javascript: disabled" >> $HOME/build_time.txt
+fi
+
+rm -r build64/packages/mpv-prefix/

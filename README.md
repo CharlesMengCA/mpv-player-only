@@ -3,7 +3,7 @@ Cloned from https://github.com/shinchiro/mpv-winbuild-cmake with encoders disabl
 
 Big thanks to shinchiro to make the great player available to Windows users
 
-Download and Install VirtualBox v6.1.30
+Download and Install VirtualBox v6.1.32
 
 https://www.virtualbox.org/wiki/Downloads
 
@@ -13,12 +13,7 @@ Create D:\LinuxFolder
 
 start VM with an Arch Linux ISO
 
-curl -LOJ https://github.com/CharlesMengCA/mpv-player-only/raw/master/arch-inst.sh
-
-or
-curl -LOJ https://tiny.cc/archinst
-
-nano archinst
+curl -LOJ https://git.io/archinst
 
 chmod +x archinst
 

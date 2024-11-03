@@ -1,41 +1,48 @@
 #!/bin/bash
-clear
-echo $0 $@
+clear && echo $0 $@
 set -x #echo on
 
 pacman -S --needed --noconfirm archiso
 
-cd
+cd ..
 
 rm -r livecd
-
 mkdir livecd && cp -r /usr/share/archiso/configs/releng/* livecd && cd livecd
 #sed -i -e 's#/usr/share/licenses/amd-ucode/LICENSE#/usr/share/licenses/amd-ucode/LICENSE.amd-ucode#g' build.sh
 
-#exit
-
+#https://github.com/archlinux/archiso/blob/master/configs/releng/packages.x86_64
 cat <<EOF > packages.x86_64
+dialog
+
 #alsa-utils
+
 amd-ucode
 arch-install-scripts
+
+#archinstall
 #b43-fwcutter
+
 base
-#bind-tools
+
+#bind
 #brltty
 #broadcom-wl
 #btrfs-progs
 #clonezilla
 #cloud-init
-#crda
 #cryptsetup
 #darkhttpd
 #ddrescue
 #dhclient
+
 dhcpcd
 diffutils
+
+#dmidecode
 #dmraid
 #dnsmasq
 #dosfstools
+#e2fsprogs
 #edk2-shell
 #efibootmgr
 #espeakup
@@ -48,13 +55,19 @@ diffutils
 #gpart
 #gpm
 #gptfdisk
+
 grml-zsh-config
+
 #grub
 #hdparm
+#hyperv
+
 intel-ucode
+
 #ipw2100-fw
 #ipw2200-fw
 #irssi
+#iw
 #iwd
 #jfsutils
 #kitty-terminfo
@@ -62,9 +75,12 @@ intel-ucode
 #lftp
 #libfido2
 #libusb-compat
+
 linux
+
 #linux-atm
 #linux-firmware
+#linux-firmware-marvell
 #livecd-sounds
 #lsscsi
 #lvm2
@@ -74,12 +90,14 @@ linux
 #mc
 #mdadm
 #memtest86+
+
 mkinitcpio
 mkinitcpio-archiso
+
 #mkinitcpio-nfs-utils
 #modemmanager
 #mtools
-nano
+#nano
 #nbd
 #ndisc6
 #nfs-utils
@@ -87,8 +105,10 @@ nano
 #nmap
 #ntfs-3g
 #nvme-cli
+#open-iscsi
+#open-vm-tools
 #openconnect
-openssh
+#openssh
 #openvpn
 #partclone
 #parted
@@ -99,7 +119,9 @@ openssh
 #pv
 #qemu-guest-agent
 #refind
+
 reflector
+
 #reiserfsprogs
 #rp-pppoe
 #rsync
@@ -111,14 +133,18 @@ reflector
 #sof-firmware
 #squashfs-tools
 #sudo
+
 syslinux
+
 #systemd-resolvconf
 #tcpdump
 #terminus-font
 #testdisk
 #tmux
+#tpm2-tss
 #udftools
 #usb_modeswitch
+#usbmuxd
 #usbutils
 #vim
 #virtualbox-guest-utils-nox
@@ -129,6 +155,7 @@ syslinux
 #wvdial
 #xfsprogs
 #xl2tpd
+
 zsh
 
 EOF
@@ -137,4 +164,12 @@ EOF
 
 END
 
-mkarchiso -v -o ~/mpv/ISO ~/livecd/
+cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/.automated_script.sh
+cp ../mpv/arch-inst-part2.sh airootfs/root/
+
+#cp -af --no-preserve=ownership,mode -- ../mpv/arch-inst.sh airootfs/root/arch-inst.sh
+sed -i "/--ipv4/d" airootfs/etc/xdg/reflector/reflector.conf
+sed -i "/--ipv6/d" airootfs/etc/xdg/reflector/reflector.conf
+
+
+mkarchiso -v -o ~/mpv/ISO ./

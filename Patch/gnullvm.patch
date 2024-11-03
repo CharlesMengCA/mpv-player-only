@@ -1,0 +1,79 @@
+From 61c1d72bb2057eb63da5ddde59b8607764c6b3de Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Thu, 1 Jan 1970 00:00:00 +0000
+Subject: [PATCH] rust: use gnullvm for clang
+
+---
+ cargo_config.in            | 9 +++++++--
+ cmake/packages_check.cmake | 2 ++
+ packages/libdovi.cmake     | 2 +-
+ toolchain/rustup.cmake     | 2 +-
+ 4 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/cargo_config.in b/cargo_config.in
+index 1511fc9d9..a15515d34 100644
+--- a/cargo_config.in
++++ b/cargo_config.in
+@@ -2,9 +2,14 @@
+ git-fetch-with-cli = true
+ 
+ [target.@TARGET_CPU@-pc-windows-gnu]
+-linker = "@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-gcc"
++linker = "@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-g++"
+ ar = "@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-ar"
+-rustflags = ["-C", "target-cpu=@GCC_ARCH@"]
++rustflags = ["-Ctarget-cpu=@GCC_ARCH@", "-Cforce-frame-pointers=no"]
++
++[target.@TARGET_CPU@-pc-windows-gnullvm]
++linker = "@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-clang++"
++ar = "@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-ar"
++rustflags = ["-Ctarget-cpu=@GCC_ARCH@", "-Cforce-frame-pointers=no"]
+ 
+ [profile.release]
+ panic = "abort"
+diff --git a/cmake/packages_check.cmake b/cmake/packages_check.cmake
+index e90ecfd9d..aa351880c 100644
+--- a/cmake/packages_check.cmake
++++ b/cmake/packages_check.cmake
+@@ -11,6 +11,7 @@ if(COMPILER_TOOLCHAIN STREQUAL "gcc")
+                           COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --add-gnu-debuglink=<BINARY_DIR>/mpv.debug <BINARY_DIR>/mpv.exe
+                           COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/mpv.com
+                           COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/libmpv-2.dll)
++    set(rust_target "gnu")
+ elseif(COMPILER_TOOLCHAIN STREQUAL "clang")
+     set(vapoursynth_pkgconfig_libs "-lVapourSynth -Wl,-delayload=VapourSynth.dll")
+     set(vapoursynth_script_pkgconfig_libs "-lVSScript -Wl,-delayload=VSScript.dll")
+@@ -19,6 +20,7 @@ elseif(COMPILER_TOOLCHAIN STREQUAL "clang")
+     set(ffmpeg_extra_libs "-lc++")
+     set(mpv_lto_mode "-Db_lto_mode=thin")
+     set(mpv_copy_debug COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.pdb ${CMAKE_CURRENT_BINARY_DIR}/mpv-debug/mpv.pdb)
++    set(rust_target "gnullvm")
+     if(CLANG_PACKAGES_LTO)
+         set(cargo_lto_rustflags "CARGO_PROFILE_RELEASE_LTO=thin
+                                  RUSTFLAGS='-C linker-plugin-lto -C embed-bitcode -C lto=thin'")
+diff --git a/packages/libdovi.cmake b/packages/libdovi.cmake
+index 5d057c907..0b275c8d9 100644
+--- a/packages/libdovi.cmake
++++ b/packages/libdovi.cmake
+@@ -16,7 +16,7 @@ ExternalProject_Add(libdovi
+         cargo cinstall
+         --manifest-path <SOURCE_DIR>/dolby_vision/Cargo.toml
+         --prefix ${MINGW_INSTALL_PREFIX}
+-        --target ${TARGET_CPU}-pc-windows-gnu
++        --target ${TARGET_CPU}-pc-windows-${rust_target}
+         --release
+         --library-type staticlib
+     INSTALL_COMMAND ""
+diff --git a/toolchain/rustup.cmake b/toolchain/rustup.cmake
+index 5f58863be..dc095125b 100644
+--- a/toolchain/rustup.cmake
++++ b/toolchain/rustup.cmake
+@@ -4,7 +4,7 @@ ExternalProject_Add(rustup
+     SOURCE_DIR rustup-prefix/src
+     CONFIGURE_COMMAND ${EXEC} CONF=1
+         curl -sSf https://sh.rustup.rs |
+-        sh -s -- -y --default-toolchain stable --target x86_64-pc-windows-gnu,i686-pc-windows-gnu --no-modify-path --profile minimal
++        sh -s -- -y --default-toolchain stable --target x86_64-pc-windows-gnu,i686-pc-windows-gnu,x86_64-pc-windows-gnullvm,i686-pc-windows-gnullvm --no-modify-path --profile minimal
+     BUILD_COMMAND ${EXEC} rustup update
+     INSTALL_COMMAND ${EXEC} LD_PRELOAD= cargo install cargo-c --profile=release-strip --features=vendored-openssl
+     LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

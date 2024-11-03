@@ -1,0 +1,45 @@
+From 3d8bb0a016c43134f28a529c4b1d930810399a45 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Thu, 1 Jan 1970 00:00:00 +0000
+Subject: [PATCH] bzip2,harfbuzz: enable unity build
+
+---
+ packages/bzip2.cmake    | 3 +++
+ packages/harfbuzz.cmake | 6 ++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/packages/bzip2.cmake b/packages/bzip2.cmake
+index 529759496..24d75f5de 100644
+--- a/packages/bzip2.cmake
++++ b/packages/bzip2.cmake
+@@ -14,6 +14,9 @@ ExternalProject_Add(bzip2
+         -DENABLE_SHARED_LIB=OFF
+         -DENABLE_STATIC_LIB=ON
+         -DENABLE_TESTS=OFF
++        -DCMAKE_UNITY_BUILD=ON
++        -DUNITY_BUILD_BATCH_SIZE=0
++        -DCMAKE_UNITY_BUILD_BATCH_SIZE=0
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
+             COMMAND bash -c "mv ${MINGW_INSTALL_PREFIX}/lib/libbz2_static.a ${MINGW_INSTALL_PREFIX}/lib/libbz2.a"
+diff --git a/packages/harfbuzz.cmake b/packages/harfbuzz.cmake
+index 5248f2558..107428529 100644
+--- a/packages/harfbuzz.cmake
++++ b/packages/harfbuzz.cmake
+@@ -15,10 +15,16 @@ ExternalProject_Add(harfbuzz
+         --cross-file=${MESON_CROSS}
+         --buildtype=release
+         --default-library=static
++        -Dunity=on
++        -Dunity_size=1024
++        -Dfreetype=enabled
++        -Dgdi=enabled
++        -Ddirectwrite=enabled
+         -Dicu=disabled
+         -Dglib=disabled
+         -Dgobject=disabled
+         -Dtests=disabled
++        -Dutilities=disabled
+         -Ddocs=disabled
+         -Dbenchmark=disabled
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>

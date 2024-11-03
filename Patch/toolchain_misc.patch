@@ -1,0 +1,833 @@
+From 1c35d1d6d6af9899d58cb80d46583030a6dd8f0d Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Fri, 19 Apr 2024 00:00:00 +0000
+Subject: [PATCH 01/13] llvm: add more sparse exclude dir
+
+---
+ toolchain/llvm/llvm.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/toolchain/llvm/llvm.cmake b/toolchain/llvm/llvm.cmake
+index 7e71e77..aa15d07 100644
+--- a/toolchain/llvm/llvm.cmake
++++ b/toolchain/llvm/llvm.cmake
+@@ -3,7 +3,7 @@ ExternalProject_Add(llvm
+     GIT_REPOSITORY https://github.com/llvm/llvm-project.git
+     SOURCE_DIR ${SOURCE_LOCATION}
+     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
+-    GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !*/test"
++    GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !*/test !/lldb !/mlir !/clang-tools-extra !/mlir !/polly !/libc !/flang"
+     UPDATE_COMMAND ""
+     GIT_REMOTE_NAME origin
+     GIT_TAG release/18.x
+
+From 08188c4ad6ccb06cc96f2f72109b20e043b93548 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Fri, 19 Apr 2024 00:00:00 +0000
+Subject: [PATCH 02/13] llvm: use normalized target triple by default
+
+also enable LLVM_ENABLE_PER_TARGET_RUNTIME_DIR for compiler-rt
+
+match clang target with rust windows-gnu target to suppress linker target mismatch warnings
+---
+ toolchain/llvm/llvm-compiler-rt-builtin.cmake | 5 +++--
+ toolchain/llvm/llvm-compiler-rt.cmake         | 8 +++++---
+ toolchain/llvm/llvm-compiler.in               | 4 ++--
+ toolchain/llvm/llvm-libcxx.cmake              | 2 +-
+ toolchain/llvm/llvm.cmake                     | 1 +
+ 5 files changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/toolchain/llvm/llvm-compiler-rt-builtin.cmake b/toolchain/llvm/llvm-compiler-rt-builtin.cmake
+index 998c4e7..5b601a7 100644
+--- a/toolchain/llvm/llvm-compiler-rt-builtin.cmake
++++ b/toolchain/llvm/llvm-compiler-rt-builtin.cmake
+@@ -17,7 +17,8 @@ ExternalProject_Add(llvm-compiler-rt-builtin
+         -DCMAKE_RANLIB=${CMAKE_INSTALL_PREFIX}/bin/llvm-ranlib
+         -DCMAKE_C_COMPILER_WORKS=1
+         -DCMAKE_CXX_COMPILER_WORKS=1
+-        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-w64-windows-gnu
++        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-pc-windows-gnu
++        -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
+         -DCOMPILER_RT_DEFAULT_TARGET_ONLY=TRUE
+         -DCOMPILER_RT_USE_BUILTINS_LIBRARY=TRUE
+         -DCOMPILER_RT_BUILD_BUILTINS=TRUE
+@@ -29,7 +30,7 @@ ExternalProject_Add(llvm-compiler-rt-builtin
+         -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY
+         -DSANITIZER_CXX_ABI=libc++
+     BUILD_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR>
+-          COMMAND bash -c "cp <BINARY_DIR>/lib/windows/libclang* ${MINGW_INSTALL_PREFIX}/lib"
++          COMMAND bash -c "cp <BINARY_DIR>/lib/${TARGET_CPU}-pc-windows-gnu/libclang* ${MINGW_INSTALL_PREFIX}/lib"
+     INSTALL_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR> install
+     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+ )
+diff --git a/toolchain/llvm/llvm-compiler-rt.cmake b/toolchain/llvm/llvm-compiler-rt.cmake
+index 1ddaf86..8c37bbd 100644
+--- a/toolchain/llvm/llvm-compiler-rt.cmake
++++ b/toolchain/llvm/llvm-compiler-rt.cmake
+@@ -1,4 +1,6 @@
+ ExternalProject_Add(llvm-compiler-rt
++    DEPENDS
++        llvm-libcxx
+     DOWNLOAD_COMMAND ""
+     UPDATE_COMMAND ""
+     SOURCE_DIR ${LLVM_SRC}
+@@ -14,7 +16,8 @@ ExternalProject_Add(llvm-compiler-rt
+         -DCMAKE_RANLIB=${CMAKE_INSTALL_PREFIX}/bin/llvm-ranlib
+         -DCMAKE_C_COMPILER_WORKS=1
+         -DCMAKE_CXX_COMPILER_WORKS=1
+-        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-w64-windows-gnu
++        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-pc-windows-gnu
++        -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
+         -DCOMPILER_RT_DEFAULT_TARGET_ONLY=TRUE
+         -DCOMPILER_RT_USE_BUILTINS_LIBRARY=TRUE
+         -DCOMPILER_RT_BUILD_BUILTINS=FALSE
+@@ -24,9 +27,8 @@ ExternalProject_Add(llvm-compiler-rt
+         -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
+         -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY
+         -DSANITIZER_CXX_ABI=libc++
+-        -DCMAKE_CXX_FLAGS='-std=c++11'
+-        -DCMAKE_EXE_LINKER_FLAGS_INIT='-lc++abi'
+     BUILD_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR>
++          COMMAND bash -c "cp <BINARY_DIR>/lib/${TARGET_CPU}-pc-windows-gnu/libclang* ${MINGW_INSTALL_PREFIX}/lib"
+     INSTALL_COMMAND ${EXEC} LTO=0 ninja -C <BINARY_DIR> install
+     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+ )
+diff --git a/toolchain/llvm/llvm-compiler.in b/toolchain/llvm/llvm-compiler.in
+index a78290a..c52ff4e 100644
+--- a/toolchain/llvm/llvm-compiler.in
++++ b/toolchain/llvm/llvm-compiler.in
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ PROG=@CMAKE_INSTALL_PREFIX@/bin/@clang_compiler@
+-TARGET=@TARGET_ARCH@
+-FLAGS="$FLAGS -target $TARGET -march=@GCC_ARCH@ -mtune=@M_TUNE@"
++TARGET=@TARGET_CPU@
++FLAGS="$FLAGS -target $TARGET-pc-windows-gnu -march=@GCC_ARCH@ -mtune=@M_TUNE@"
+ FLAGS="$FLAGS @driver_mode@ --sysroot @MINGW_INSTALL_PREFIX@"
+ FLAGS="$FLAGS -fuse-ld=lld --ld-path=@TARGET_ARCH@-ld"
+ FLAGS="$FLAGS -Wno-unused-command-line-argument"
+diff --git a/toolchain/llvm/llvm-libcxx.cmake b/toolchain/llvm/llvm-libcxx.cmake
+index 222ceba..da96c4e 100644
+--- a/toolchain/llvm/llvm-libcxx.cmake
++++ b/toolchain/llvm/llvm-libcxx.cmake
+@@ -16,7 +16,7 @@ ExternalProject_Add(llvm-libcxx
+         -DCMAKE_RANLIB=${CMAKE_INSTALL_PREFIX}/bin/llvm-ranlib
+         -DCMAKE_C_COMPILER_WORKS=1
+         -DCMAKE_CXX_COMPILER_WORKS=1
+-        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-w64-windows-gnu
++        -DCMAKE_C_COMPILER_TARGET=${TARGET_CPU}-pc-windows-gnu
+         -DLLVM_ENABLE_RUNTIMES='libunwind,libcxxabi,libcxx'
+         -DLLVM_PATH=${LLVM_SRC}/llvm
+         -DLIBUNWIND_USE_COMPILER_RT=TRUE
+diff --git a/toolchain/llvm/llvm.cmake b/toolchain/llvm/llvm.cmake
+index aa15d07..88b43e7 100644
+--- a/toolchain/llvm/llvm.cmake
++++ b/toolchain/llvm/llvm.cmake
+@@ -14,6 +14,7 @@ ExternalProject_Add(llvm
+         -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+         -DCMAKE_C_COMPILER=clang
+         -DCMAKE_CXX_COMPILER=clang++
++        -DLLVM_DEFAULT_TARGET_TRIPLE=${TARGET_CPU}-pc-windows-gnu
+         ${llvm_ccache}
+         -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+         -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON
+
+From 2ddd68f510be5d2bdecede3ebd1e6517608d1042 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Fri, 19 Apr 2024 00:00:00 +0000
+Subject: [PATCH 03/13] llvm: also enable WPD for FullLTO
+
+---
+ cmake/toolchain_check.cmake | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/cmake/toolchain_check.cmake b/cmake/toolchain_check.cmake
+index 3230a58..6a9eb64 100644
+--- a/cmake/toolchain_check.cmake
++++ b/cmake/toolchain_check.cmake
+@@ -13,6 +13,8 @@ elseif(COMPILER_TOOLCHAIN STREQUAL "clang")
+     endif()
+     if(LLVM_ENABLE_LTO STREQUAL "Thin")
+         set(llvm_lto "-flto=thin -fwhole-program-vtables -fsplit-lto-unit")
++    elseif(LLVM_ENABLE_LTO STREQUAL "Full")
++        set(llvm_lto "-flto=full -fwhole-program-vtables -fsplit-lto-unit")
+     endif()
+     if(LLVM_ENABLE_PGO STREQUAL "GEN")
+         set(llvm_pgo "-fprofile-generate=${LLVM_PROFILE_DATA_DIR} -fprofile-update=atomic")
+
+From 2de4226cf798468ee755e01cb5903197d34a8f93 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 20 Apr 2024 00:00:00 +0000
+Subject: [PATCH 04/13] llvm-{libcxx,compiler-rt}: clean build dir after
+ install
+
+---
+ toolchain/CMakeLists.txt                      | 9 +++++++++
+ toolchain/llvm/llvm-compiler-rt-builtin.cmake | 1 +
+ toolchain/llvm/llvm-compiler-rt.cmake         | 1 +
+ toolchain/llvm/llvm-libcxx.cmake              | 1 +
+ 4 files changed, 12 insertions(+)
+
+diff --git a/toolchain/CMakeLists.txt b/toolchain/CMakeLists.txt
+index 61a861c..f4f7770 100644
+--- a/toolchain/CMakeLists.txt
++++ b/toolchain/CMakeLists.txt
+@@ -20,6 +20,15 @@ list(APPEND ep
+     winpthreads
+     llvm-clang
+ )
++function(tc_delete_dir)
++    foreach(arg IN LISTS ARGV)
++        ExternalProject_Add_Step(${arg} tc_delete-dir
++            DEPENDEES install
++            COMMAND bash -c "find <BINARY_DIR> -mindepth 1 -delete && git -C <SOURCE_DIR> clean -df"
++            COMMENT "Delete build directory"
++        )
++    endforeach()
++endfunction()
+ foreach(package IN LISTS ep)
+     if(NOT ${SINGLE_SOURCE_LOCATION} STREQUAL "")
+         set(SOURCE_LOCATION "${SINGLE_SOURCE_LOCATION}/${package}")
+diff --git a/toolchain/llvm/llvm-compiler-rt-builtin.cmake b/toolchain/llvm/llvm-compiler-rt-builtin.cmake
+index 5b601a7..d319720 100644
+--- a/toolchain/llvm/llvm-compiler-rt-builtin.cmake
++++ b/toolchain/llvm/llvm-compiler-rt-builtin.cmake
+@@ -36,3 +36,4 @@ ExternalProject_Add(llvm-compiler-rt-builtin
+ )
+ 
+ cleanup(llvm-compiler-rt-builtin install)
++tc_delete_dir(llvm-compiler-rt-builtin)
+diff --git a/toolchain/llvm/llvm-compiler-rt.cmake b/toolchain/llvm/llvm-compiler-rt.cmake
+index 8c37bbd..33390ba 100644
+--- a/toolchain/llvm/llvm-compiler-rt.cmake
++++ b/toolchain/llvm/llvm-compiler-rt.cmake
+@@ -33,3 +33,4 @@ ExternalProject_Add(llvm-compiler-rt
+     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+ )
+ cleanup(llvm-compiler-rt install)
++tc_delete_dir(llvm-compiler-rt)
+diff --git a/toolchain/llvm/llvm-libcxx.cmake b/toolchain/llvm/llvm-libcxx.cmake
+index da96c4e..26511a9 100644
+--- a/toolchain/llvm/llvm-libcxx.cmake
++++ b/toolchain/llvm/llvm-libcxx.cmake
+@@ -45,3 +45,4 @@ ExternalProject_Add(llvm-libcxx
+ )
+ 
+ cleanup(llvm-libcxx install)
++tc_delete_dir(llvm-libcxx)
+
+From 86ff7b0d950e567d9563cf33e352c7bab92ad86a Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Fri, 19 Apr 2024 00:00:00 +0000
+Subject: [PATCH 05/13] llvm: statically link to zlib,zstd,mimalloc
+
+remove all regular runtime dependencies
+
+if we use some purpose-built host toolchain such as fuchsia clang, we can also remove dependency on libgcc and statically link to libc++ by default
+
+local-exec static mimalloc can result in a performance improvement of several percentage points compared to dynamic mimalloc
+---
+ toolchain/llvm/llvm.cmake | 118 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 114 insertions(+), 4 deletions(-)
+
+diff --git a/toolchain/llvm/llvm.cmake b/toolchain/llvm/llvm.cmake
+index 88b43e7..83da2ba 100644
+--- a/toolchain/llvm/llvm.cmake
++++ b/toolchain/llvm/llvm.cmake
+@@ -1,5 +1,102 @@
++ExternalProject_Add(zlib-host
++    SOURCE_DIR ${SOURCE_LOCATION}/../zlib-host
++    GIT_REPOSITORY https://github.com/zlib-ng/zlib-ng.git
++    GIT_CLONE_FLAGS "--filter=tree:0"
++    UPDATE_COMMAND ""
++    GIT_REMOTE_NAME origin
++    GIT_TAG develop
++    CONFIGURE_COMMAND ${EXEC} CONF=1 PATH=$O_PATH cmake -H<SOURCE_DIR> -B<BINARY_DIR>
++        -GNinja
++        -DCMAKE_BUILD_TYPE=Release
++        -DBUILD_SHARED_LIBS=OFF
++        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
++        -DCMAKE_C_COMPILER=clang
++        -DCMAKE_CXX_COMPILER=clang++
++        -DSKIP_INSTALL_LIBRARIES=OFF
++        -DZLIB_COMPAT=ON
++        -DZLIB_ENABLE_TESTS=OFF
++        -DZLIBNG_ENABLE_TESTS=OFF
++        -DFNO_LTO_AVAILABLE=OFF
++        "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections ${llvm_lto}'"
++        "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections ${llvm_lto}'"
++        "-DCMAKE_EXE_LINKER_FLAGS='-fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --gc-sections'"
++    BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
++    INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
++    LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
++)
++
++force_rebuild_git(zlib-host)
++cleanup(zlib-host install)
++
++ExternalProject_Add(zstd-host
++    SOURCE_DIR ${SOURCE_LOCATION}/../zstd-host
++    GIT_REPOSITORY https://github.com/facebook/zstd.git
++    GIT_CLONE_FLAGS "--filter=tree:0"
++    UPDATE_COMMAND ""
++    GIT_REMOTE_NAME origin
++    GIT_TAG dev
++    CONFIGURE_COMMAND ${EXEC} CONF=1 PATH=$O_PATH cmake -H<SOURCE_DIR>/build/cmake -B<BINARY_DIR>
++        -GNinja
++        -DCMAKE_BUILD_TYPE=Release
++        -DBUILD_SHARED_LIBS=OFF
++        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
++        -DCMAKE_C_COMPILER=clang
++        -DCMAKE_CXX_COMPILER=clang++
++        -DZSTD_BUILD_CONTRIB=OFF
++        -DZSTD_BUILD_TESTS=OFF
++        -DZSTD_LEGACY_SUPPORT=OFF
++        -DZSTD_BUILD_PROGRAMS=OFF
++        -DZSTD_BUILD_SHARED=OFF
++        -DZSTD_BUILD_STATIC=ON
++        -DZSTD_MULTITHREAD_SUPPORT=ON
++        "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections ${llvm_lto}'"
++        "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections ${llvm_lto}'"
++        "-DCMAKE_EXE_LINKER_FLAGS='-fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --gc-sections'"
++    BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
++    INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
++    LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
++)
++
++force_rebuild_git(zstd-host)
++cleanup(zstd-host install)
++
++ExternalProject_Add(mimalloc
++    SOURCE_DIR ${SOURCE_LOCATION}/../mimalloc
++    GIT_REPOSITORY https://github.com/microsoft/mimalloc.git
++    GIT_CLONE_FLAGS "--filter=tree:0"
++    UPDATE_COMMAND ""
++    GIT_REMOTE_NAME origin
++    GIT_TAG dev-slice
++    CONFIGURE_COMMAND ${EXEC} CONF=1 PATH=$O_PATH cmake -H<SOURCE_DIR> -B<BINARY_DIR>
++        -GNinja
++        -DCMAKE_BUILD_TYPE=Release
++        -DBUILD_SHARED_LIBS=OFF
++        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
++        -DCMAKE_C_COMPILER=clang
++        -DCMAKE_CXX_COMPILER=clang++
++        -DMI_USE_CXX=OFF
++        -DMI_OVERRIDE=ON
++        -DMI_INSTALL_TOPLEVEL=ON
++        -DMI_BUILD_TESTS=OFF
++        -DMI_BUILD_SHARED=OFF
++        -DMI_BUILD_STATIC=OFF
++        "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections -DMI_DEBUG=0 ${llvm_lto}'"
++        "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec -fdata-sections -ffunction-sections -DMI_DEBUG=0 ${llvm_lto}'"
++        "-DCMAKE_EXE_LINKER_FLAGS='-fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --gc-sections'"
++    BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
++    INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
++    LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
++)
++
++force_rebuild_git(mimalloc)
++cleanup(mimalloc install)
++
+ set(clang_version "18")
+ ExternalProject_Add(llvm
++    DEPENDS
++        mimalloc
++        zlib-host
++        zstd-host
+     GIT_REPOSITORY https://github.com/llvm/llvm-project.git
+     SOURCE_DIR ${SOURCE_LOCATION}
+     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
+@@ -87,6 +184,7 @@ ExternalProject_Add(llvm
+         -DLLVM_TOOL_LLVM_CAT_BUILD=OFF
+         -DLLVM_TOOL_LLVM_CFI_VERIFY_BUILD=OFF
+         -DLLVM_TOOL_LLVM_COV_BUILD=OFF
++        -DLLVM_TOOL_LLVM_CONFIG_BUILD=OFF
+         -DLLVM_TOOL_LLVM_CXXDUMP_BUILD=OFF
+         -DLLVM_TOOL_LLVM_CXXFILT_BUILD=OFF
+         -DLLVM_TOOL_LLVM_CXXMAP_BUILD=OFF
+@@ -121,7 +219,11 @@ ExternalProject_Add(llvm
+         -DLLVM_TOOL_LLVM_MODEXTRACT_BUILD=OFF
+         -DLLVM_TOOL_LLVM_MT_BUILD=OFF
+         -DLLVM_TOOL_LLVM_OPT_FUZZER_BUILD=OFF
++        -DLLVM_TOOL_LLVM_OPT_REPORT_BUILD=OFF
++        -DLLVM_TOOL_LTO_BUILD=OFF
++        -DLLVM_TOOL_OPT_BUILD=OFF
+         -DLLVM_TOOL_LLVM_PROFGEN_BUILD=OFF
++        -DLLVM_TOOL_LLVM_PDBUTIL_BUILD=OFF
+         -DLLVM_TOOL_LLVM_READTAPI_BUILD=OFF
+         -DLLVM_TOOL_LLVM_REDUCE_BUILD=OFF
+         -DLLVM_TOOL_LLVM_REMARKUTIL_BUILD=OFF
+@@ -146,11 +248,19 @@ ExternalProject_Add(llvm
+         -DLLVM_TOOL_VERIFY_USELISTORDER_BUILD=OFF
+         -DLLVM_TOOL_VFABI_DEMANGLE_FUZZER_BUILD=OFF
+         -DLLVM_TOOL_XCODE_TOOLCHAIN_BUILD=OFF
++        -DLLVM_TOOL_YAML2OBJ_BUILD=OFF
++        -DLLVM_ENABLE_ZLIB=ON
++        -DZLIB_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib/libz.a
++        -DZLIB_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/include
++        -DLLVM_ENABLE_ZSTD=ON
++        -DLLVM_USE_STATIC_ZSTD=ON
++        -Dzstd_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib/libzstd.a
++        -Dzstd_INCLUDE_DIR=${CMAKE_INSTALL_PREFIX}/include
+         "-DLLVM_THINLTO_CACHE_PATH='${CMAKE_INSTALL_PREFIX}/llvm-thinlto'"
+-        "-DCMAKE_C_FLAGS='-g0 -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+-        "-DCMAKE_CXX_FLAGS='-g0 -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+-        "-DCMAKE_EXE_LINKER_FLAGS='-fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m'"
+-        -DLLVM_TOOLCHAIN_TOOLS='llvm-driver,llvm-ar,llvm-ranlib,llvm-objdump,llvm-rc,llvm-cvtres,llvm-nm,llvm-strings,llvm-readobj,llvm-dlltool,llvm-pdbutil,llvm-objcopy,llvm-strip,llvm-cov,llvm-profdata,llvm-addr2line,llvm-symbolizer,llvm-windres,llvm-ml,llvm-readelf,llvm-size,llvm-config'
++        "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
++        "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
++        "-DCMAKE_EXE_LINKER_FLAGS='${CMAKE_INSTALL_PREFIX}/lib/mimalloc.o -fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m'"
++        -DLLVM_TOOLCHAIN_TOOLS='llvm-driver,llvm-ar,llvm-ranlib,llvm-objdump,llvm-rc,llvm-cvtres,llvm-nm,llvm-strings,llvm-readobj,llvm-dlltool,llvm-objcopy,llvm-strip,llvm-cov,llvm-profdata,llvm-addr2line,llvm-symbolizer,llvm-windres,llvm-ml,llvm-readelf,llvm-size'
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
+     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+
+From c33d10976677a9f9d18cea45180a2dfdf71ec1ab Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sun, 21 Apr 2024 00:00:00 +0000
+Subject: [PATCH 06/13] llvm: add linker flag to be 2MiB-THP friendly
+
+---
+ CMakeLists.txt              | 7 ++++++-
+ cmake/toolchain_check.cmake | 3 +++
+ toolchain/llvm/llvm.cmake   | 2 +-
+ 3 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 31ec70a..ef8b7a9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,7 @@
+ cmake_minimum_required(VERSION 3.19.0)
+-project(mpv-cross C)
++set(CMAKE_C_COMPILER clang)
++set(CMAKE_CXX_COMPILER clang++)
++project(mpv-cross C CXX)
+ include(ProcessorCount)
+ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/download_externalproject.cmake)
+ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/custom_steps.cmake)
+@@ -66,6 +68,9 @@ set(MINGW_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/${TARGET_ARCH} CACHE STRING "Ta
+ set(SINGLE_SOURCE_LOCATION "" CACHE STRING "Repository or tarball stored path")
+ set(RUSTUP_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/install_rustup" CACHE STRING "Rust toolchain path")
+ set(LLVM_ENABLE_LTO "OFF" CACHE STRING "OFF, ON, Thin and Full")
++if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 18.1.0)
++    option(LLVM_ENABLE_2MB_ALIGN "Align LLVM binary to 2MiB" ON)
++endif()
+ set(LLVM_ENABLE_PGO "OFF" CACHE STRING "OFF, GEN, CSGEN, USE")
+ if(LLVM_ENABLE_PGO STREQUAL "GEN" OR LLVM_ENABLE_PGO STREQUAL "CSGEN")
+     set(LLVM_PROFILE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/profiles/" CACHE PATH "Default profile generation directory")
+diff --git a/cmake/toolchain_check.cmake b/cmake/toolchain_check.cmake
+index 6a9eb64..1f88e08 100644
+--- a/cmake/toolchain_check.cmake
++++ b/cmake/toolchain_check.cmake
+@@ -23,6 +23,9 @@ elseif(COMPILER_TOOLCHAIN STREQUAL "clang")
+     elseif(LLVM_ENABLE_PGO STREQUAL "USE")
+         set(llvm_pgo "-fprofile-use=${LLVM_PROFDATA_FILE}")
+     endif()
++    if(LLVM_ENABLE_2MB_ALIGN)
++        set(llvm_linker_flags "-Xlinker -zcommon-page-size=2097152 -Xlinker -zmax-page-size=2097152 -Xlinker -zseparate-loadable-segments")
++    endif()
+ endif()
+ 
+ if(TARGET_CPU STREQUAL "x86_64")
+diff --git a/toolchain/llvm/llvm.cmake b/toolchain/llvm/llvm.cmake
+index 83da2ba..ae3aa1d 100644
+--- a/toolchain/llvm/llvm.cmake
++++ b/toolchain/llvm/llvm.cmake
+@@ -259,7 +259,7 @@ ExternalProject_Add(llvm
+         "-DLLVM_THINLTO_CACHE_PATH='${CMAKE_INSTALL_PREFIX}/llvm-thinlto'"
+         "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+         "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+-        "-DCMAKE_EXE_LINKER_FLAGS='${CMAKE_INSTALL_PREFIX}/lib/mimalloc.o -fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m'"
++        "-DCMAKE_EXE_LINKER_FLAGS='${CMAKE_INSTALL_PREFIX}/lib/mimalloc.o -fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m ${llvm_linker_flags}'"
+         -DLLVM_TOOLCHAIN_TOOLS='llvm-driver,llvm-ar,llvm-ranlib,llvm-objdump,llvm-rc,llvm-cvtres,llvm-nm,llvm-strings,llvm-readobj,llvm-dlltool,llvm-objcopy,llvm-strip,llvm-cov,llvm-profdata,llvm-addr2line,llvm-symbolizer,llvm-windres,llvm-ml,llvm-readelf,llvm-size'
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
+
+From f7c1b5fd6a5186a232feb6c2bd2469588d25b074 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sun, 21 Apr 2024 00:00:00 +0000
+Subject: [PATCH 07/13] exec: request mimalloc enable large page mode
+
+---
+ exec.in | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/exec.in b/exec.in
+index ff1eb8b..37e504a 100755
+--- a/exec.in
++++ b/exec.in
+@@ -6,6 +6,8 @@ export PKG_CONFIG_LIBDIR="@MINGW_INSTALL_PREFIX@/lib/pkgconfig"
+ export RUSTUP_HOME="@RUSTUP_LOCATION@/.rustup"
+ export CARGO_HOME="@RUSTUP_LOCATION@/.cargo"
+ export LD_PRELOAD="@MALLOC@"
++export MIMALLOC_LARGE_OS_PAGES=1
++export MIMALLOC_ALLOW_LARGE_OS_PAGES=1
+ export CCACHE_DIR="@MINGW_INSTALL_PREFIX@/ccache"
+ export LLVM_PROFILE_FILE="/dev/null"
+ # disable profraw output by default, ensure that only clang and lld can explicitly enable profraw output by wrapper
+
+From cea52b501baba01df87ef108cee0af9c5f2a955b Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 20 Apr 2024 00:00:00 +0000
+Subject: [PATCH 08/13] clang/lld: enable CET for x86_64-v3
+
+can suppress WD anti-malware false positives
+---
+ cmake/toolchain_check.cmake     | 6 ++++--
+ toolchain/llvm/llvm-compiler.in | 2 +-
+ toolchain/llvm/llvm-ld.in       | 2 +-
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/cmake/toolchain_check.cmake b/cmake/toolchain_check.cmake
+index 1f88e08..b181297 100644
+--- a/cmake/toolchain_check.cmake
++++ b/cmake/toolchain_check.cmake
+@@ -32,10 +32,12 @@ if(TARGET_CPU STREQUAL "x86_64")
+     set(crt_lib "--disable-lib32 --enable-lib64")
+     set(LIBOMP_ASMFLAGS_M64 "-DLIBOMP_ASMFLAGS=-m64")
+     set(M_TUNE "generic")
+-    set(cfi "-mguard=cf")
++    set(clang_cfi "-mguard=cf -fcf-protection=full")
++    set(lld_cfi "-Xlink=-cetcompat")
+     if (GCC_ARCH STREQUAL "x86-64")
+-        unset(cfi)
+         unset(opt)
++        unset(clang_cfi)
++        unset(lld_cfi)
+     endif()
+ elseif(TARGET_CPU STREQUAL "i686")
+     set(crt_lib "--enable-lib32 --disable-lib64")
+diff --git a/toolchain/llvm/llvm-compiler.in b/toolchain/llvm/llvm-compiler.in
+index c52ff4e..d47b33b 100644
+--- a/toolchain/llvm/llvm-compiler.in
++++ b/toolchain/llvm/llvm-compiler.in
+@@ -9,7 +9,7 @@ FLAGS="$FLAGS -Wno-unused-command-line-argument"
+ if [ "$CONF" == "1" ]; then
+     SKIP_OPT="-g0 -O0 -fno-lto -fno-data-sections -fno-function-sections"
+ else
+-    FLAGS="$FLAGS -gcodeview @cfi@ @opt@"
++    FLAGS="$FLAGS -gcodeview @clang_cfi@ @opt@"
+     if [ "@ENABLE_CCACHE@" == "ON" ]; then
+         CCACHE="ccache"
+     fi
+diff --git a/toolchain/llvm/llvm-ld.in b/toolchain/llvm/llvm-ld.in
+index e5d1608..436e766 100644
+--- a/toolchain/llvm/llvm-ld.in
++++ b/toolchain/llvm/llvm-ld.in
+@@ -8,7 +8,7 @@ FLAGS="$FLAGS --thinlto-cache-dir=@MINGW_INSTALL_PREFIX@/thinlto --thinlto-cache
+ if [ "$CONF" == "1" ]; then
+     SKIP_OPT="-O0 --lto-O0 --lto-CGO0 --no-gc-sections --no-guard-cf --build-id=none"
+ else
+-    FLAGS="$FLAGS -O3 --lto-O3 --lto-CGO3 -s -Xlink=-release"
++    FLAGS="$FLAGS -O3 --lto-O3 --lto-CGO3 -s -Xlink=-release @lld_cfi@"
+     if [ "$GC" != "0" ]; then
+         LLD_GC="--gc-sections --icf=safe"
+     fi
+
+From 4d7759d864b3df06a60e7bdc53a5f03367f20a63 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 20 Apr 2024 00:00:00 +0000
+Subject: [PATCH 09/13] mingw-w64: move to toolchain/mingw-w64/
+
+---
+ toolchain/CMakeLists.txt                           |  7 ++++---
+ toolchain/gcc/gcc.cmake                            |  4 ++--
+ toolchain/llvm/llvm-clang.cmake                    |  4 ++--
+ toolchain/{ => mingw-w64}/mingw-w64-crt.cmake      |  0
+ .../mingw-w64-gendef.cmake}                        |  6 +++---
+ toolchain/{ => mingw-w64}/mingw-w64-headers.cmake  |  0
+ .../mingw-w64-winpthreads.cmake}                   |  4 ++--
+ toolchain/{ => mingw-w64}/mingw-w64.cmake          |  0
+ toolchain/widl.cmake                               | 14 --------------
+ 9 files changed, 13 insertions(+), 26 deletions(-)
+ rename toolchain/{ => mingw-w64}/mingw-w64-crt.cmake (100%)
+ rename toolchain/{gendef.cmake => mingw-w64/mingw-w64-gendef.cmake} (61%)
+ rename toolchain/{ => mingw-w64}/mingw-w64-headers.cmake (100%)
+ rename toolchain/{winpthreads.cmake => mingw-w64/mingw-w64-winpthreads.cmake} (85%)
+ rename toolchain/{ => mingw-w64}/mingw-w64.cmake (100%)
+ delete mode 100644 toolchain/widl.cmake
+
+diff --git a/toolchain/CMakeLists.txt b/toolchain/CMakeLists.txt
+index f4f7770..8bc1390 100644
+--- a/toolchain/CMakeLists.txt
++++ b/toolchain/CMakeLists.txt
+@@ -9,15 +9,14 @@ list(APPEND ep
+     cppwinrt
+     gcc
+     mingw-w64-crt
+-    gendef
+-    widl
++    mingw-w64-gendef
+     rustup
+     llvm
+     llvm-compiler-rt-builtin
+     llvm-libcxx
+     llvm-compiler-rt
+     llvm-openmp
+-    winpthreads
++    mingw-w64-winpthreads
+     llvm-clang
+ )
+ function(tc_delete_dir)
+@@ -37,6 +36,8 @@ foreach(package IN LISTS ep)
+         include(${CMAKE_CURRENT_SOURCE_DIR}/llvm/${package}.cmake)
+     elseif(package MATCHES "gcc")
+         include(${CMAKE_CURRENT_SOURCE_DIR}/gcc/${package}.cmake)
++    elseif(package MATCHES "mingw-w64")
++        include(${CMAKE_CURRENT_SOURCE_DIR}/mingw-w64/${package}.cmake)
+     else()
+         include(${CMAKE_CURRENT_SOURCE_DIR}/${package}.cmake)
+     endif()
+diff --git a/toolchain/gcc/gcc.cmake b/toolchain/gcc/gcc.cmake
+index b061f4f..e383da0 100644
+--- a/toolchain/gcc/gcc.cmake
++++ b/toolchain/gcc/gcc.cmake
+@@ -32,8 +32,8 @@ ExternalProject_Add(gcc
+ ExternalProject_Add_Step(gcc final
+     DEPENDS
+         mingw-w64-crt
+-        winpthreads
+-        gendef
++        mingw-w64-winpthreads
++        mingw-w64-gendef
+         rustup
+         cppwinrt
+     COMMAND ${MAKE}
+diff --git a/toolchain/llvm/llvm-clang.cmake b/toolchain/llvm/llvm-clang.cmake
+index 6c4a08b..f70333a 100644
+--- a/toolchain/llvm/llvm-clang.cmake
++++ b/toolchain/llvm/llvm-clang.cmake
+@@ -3,8 +3,8 @@
+ ExternalProject_Add(llvm-clang
+     DEPENDS
+         llvm-libcxx
+-        winpthreads
+-        gendef
++        mingw-w64-winpthreads
++        mingw-w64-gendef
+         cppwinrt
+     DOWNLOAD_COMMAND ""
+     SOURCE_DIR ${SOURCE_LOCATION}
+diff --git a/toolchain/mingw-w64-crt.cmake b/toolchain/mingw-w64/mingw-w64-crt.cmake
+similarity index 100%
+rename from toolchain/mingw-w64-crt.cmake
+rename to toolchain/mingw-w64/mingw-w64-crt.cmake
+diff --git a/toolchain/gendef.cmake b/toolchain/mingw-w64/mingw-w64-gendef.cmake
+similarity index 61%
+rename from toolchain/gendef.cmake
+rename to toolchain/mingw-w64/mingw-w64-gendef.cmake
+index 8670d46..d881de4 100644
+--- a/toolchain/gendef.cmake
++++ b/toolchain/mingw-w64/mingw-w64-gendef.cmake
+@@ -1,14 +1,14 @@
+-ExternalProject_Add(gendef
++ExternalProject_Add(mingw-w64-gendef
+     DEPENDS
+         mingw-w64
+     DOWNLOAD_COMMAND ""
+     UPDATE_COMMAND ""
+     SOURCE_DIR ${MINGW_SRC}
+-    CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/mingw-w64-tools/gendef/configure
++    CONFIGURE_COMMAND ${EXEC} CONF=1 PATH=$O_PATH <SOURCE_DIR>/mingw-w64-tools/gendef/configure
+         --prefix=${CMAKE_INSTALL_PREFIX}
+     BUILD_COMMAND ${MAKE}
+     INSTALL_COMMAND ${MAKE} install-strip
+     LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+ )
+ 
+-cleanup(gendef install)
++cleanup(mingw-w64-gendef install)
+diff --git a/toolchain/mingw-w64-headers.cmake b/toolchain/mingw-w64/mingw-w64-headers.cmake
+similarity index 100%
+rename from toolchain/mingw-w64-headers.cmake
+rename to toolchain/mingw-w64/mingw-w64-headers.cmake
+diff --git a/toolchain/winpthreads.cmake b/toolchain/mingw-w64/mingw-w64-winpthreads.cmake
+similarity index 85%
+rename from toolchain/winpthreads.cmake
+rename to toolchain/mingw-w64/mingw-w64-winpthreads.cmake
+index 5ba415d..f82995a 100644
+--- a/toolchain/winpthreads.cmake
++++ b/toolchain/mingw-w64/mingw-w64-winpthreads.cmake
+@@ -1,4 +1,4 @@
+-ExternalProject_Add(winpthreads
++ExternalProject_Add(mingw-w64-winpthreads
+     DEPENDS
+         mingw-w64-crt
+     DOWNLOAD_COMMAND ""
+@@ -14,4 +14,4 @@ ExternalProject_Add(winpthreads
+     LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+ )
+ 
+-cleanup(winpthreads install)
++cleanup(mingw-w64-winpthreads install)
+diff --git a/toolchain/mingw-w64.cmake b/toolchain/mingw-w64/mingw-w64.cmake
+similarity index 100%
+rename from toolchain/mingw-w64.cmake
+rename to toolchain/mingw-w64/mingw-w64.cmake
+diff --git a/toolchain/widl.cmake b/toolchain/widl.cmake
+deleted file mode 100644
+index 370364c..0000000
+--- a/toolchain/widl.cmake
++++ /dev/null
+@@ -1,14 +0,0 @@
+-ExternalProject_Add(widl
+-    DEPENDS
+-        mingw-w64
+-    PREFIX mingw-w64-prefix
+-    SOURCE_DIR mingw-w64-prefix/src
+-    CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/mingw-w64/mingw-w64-tools/widl/configure
+-        --prefix=${CMAKE_INSTALL_PREFIX}
+-        --target=${TARGET_ARCH}
+-    BUILD_COMMAND ${MAKE}
+-    INSTALL_COMMAND ${MAKE} install-strip
+-    LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+-)
+-
+-cleanup(widl install)
+
+From 1ca479a99bab08dc7c14305392035c0869ea557f Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Wed, 24 Apr 2024 00:00:00 +0000
+Subject: [PATCH 10/13] mingw-w64-crt: enable wildcard
+
+---
+ toolchain/mingw-w64/mingw-w64-crt.cmake | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/toolchain/mingw-w64/mingw-w64-crt.cmake b/toolchain/mingw-w64/mingw-w64-crt.cmake
+index bae129b..5e7043d 100644
+--- a/toolchain/mingw-w64/mingw-w64-crt.cmake
++++ b/toolchain/mingw-w64/mingw-w64-crt.cmake
+@@ -13,6 +13,7 @@ ExternalProject_Add(mingw-w64-crt
+         --prefix=${MINGW_INSTALL_PREFIX}
+         --with-sysroot=${CMAKE_INSTALL_PREFIX}
+         --with-default-msvcrt=ucrt
++        --enable-wildcard
+         ${crt_lib}
+         ${cfguard}
+     BUILD_COMMAND ${MAKE} LTO=0 GC=0
+
+From ff72382faf9f6df3caba8d3497f431a7e4aef4ed Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 20 Apr 2024 00:00:00 +0000
+Subject: [PATCH 11/13] mingw-w64: clean build dir after install
+
+---
+ toolchain/mingw-w64/mingw-w64-crt.cmake         | 1 +
+ toolchain/mingw-w64/mingw-w64-gendef.cmake      | 1 +
+ toolchain/mingw-w64/mingw-w64-headers.cmake     | 1 +
+ toolchain/mingw-w64/mingw-w64-winpthreads.cmake | 1 +
+ 4 files changed, 4 insertions(+)
+
+diff --git a/toolchain/mingw-w64/mingw-w64-crt.cmake b/toolchain/mingw-w64/mingw-w64-crt.cmake
+index 5e7043d..78f4612 100644
+--- a/toolchain/mingw-w64/mingw-w64-crt.cmake
++++ b/toolchain/mingw-w64/mingw-w64-crt.cmake
+@@ -30,3 +30,4 @@ ExternalProject_Add_Step(mingw-w64-crt autoreconf
+ )
+ 
+ cleanup(mingw-w64-crt install)
++tc_delete_dir(mingw-w64-crt)
+diff --git a/toolchain/mingw-w64/mingw-w64-gendef.cmake b/toolchain/mingw-w64/mingw-w64-gendef.cmake
+index d881de4..800e165 100644
+--- a/toolchain/mingw-w64/mingw-w64-gendef.cmake
++++ b/toolchain/mingw-w64/mingw-w64-gendef.cmake
+@@ -12,3 +12,4 @@ ExternalProject_Add(mingw-w64-gendef
+ )
+ 
+ cleanup(mingw-w64-gendef install)
++tc_delete_dir(mingw-w64-gendef)
+diff --git a/toolchain/mingw-w64/mingw-w64-headers.cmake b/toolchain/mingw-w64/mingw-w64-headers.cmake
+index f7882be..170e545 100644
+--- a/toolchain/mingw-w64/mingw-w64-headers.cmake
++++ b/toolchain/mingw-w64/mingw-w64-headers.cmake
+@@ -17,3 +17,4 @@ ExternalProject_Add(mingw-w64-headers
+ )
+ 
+ cleanup(mingw-w64-headers install)
++tc_delete_dir(mingw-w64-headers)
+diff --git a/toolchain/mingw-w64/mingw-w64-winpthreads.cmake b/toolchain/mingw-w64/mingw-w64-winpthreads.cmake
+index f82995a..f594162 100644
+--- a/toolchain/mingw-w64/mingw-w64-winpthreads.cmake
++++ b/toolchain/mingw-w64/mingw-w64-winpthreads.cmake
+@@ -15,3 +15,4 @@ ExternalProject_Add(mingw-w64-winpthreads
+ )
+ 
+ cleanup(mingw-w64-winpthreads install)
++tc_delete_dir(mingw-w64-winpthreads)
+
+From e48198fd3c9afdd638ed283bcfd10b8788dea498 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 20 Apr 2024 00:00:00 +0000
+Subject: [PATCH 12/13] gcc: don't bundle rustup
+
+the installation of rust toolchain is not dependent on c toolchain, so it can be separated
+
+this allows us to speed up CI toolchain builds with GHA parallel workflows, which will be implemented in the future
+---
+ .github/workflows/mpv_gcc.yml | 2 +-
+ README.md                     | 1 +
+ toolchain/gcc/gcc.cmake       | 1 -
+ 3 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/.github/workflows/mpv_gcc.yml b/.github/workflows/mpv_gcc.yml
+index 6c4bed9..5c5ef4f 100644
+--- a/.github/workflows/mpv_gcc.yml
++++ b/.github/workflows/mpv_gcc.yml
+@@ -103,7 +103,7 @@ jobs:
+ 
+       - name: Building toolchain
+         run: |
+-          if [[ ! -f "build_$BIT/install/bin/cross-gcc" ]]; then ninja -C build_$BIT gcc && rm -rf build_$BIT/toolchain; fi
++          if [[ ! -f "build_$BIT/install/bin/cross-gcc" ]]; then ninja -C build_$BIT gcc && ninja -C build_$BIT rustup && rm -rf build_$BIT/toolchain; fi
+ 
+       - name: Building mpv
+         id: build_mpv_step
+diff --git a/README.md b/README.md
+index 102e54e..bfb98b4 100644
+--- a/README.md
++++ b/README.md
+@@ -81,6 +81,7 @@ Enter `build64` folder and build toolchain once. By default, it will be installe
+ 
+     ninja download # download all packages at once (optional)
+     ninja gcc      # build gcc only once (take around ~20 minutes)
++    ninja rustup   # build rust toolchain
+     ninja mpv      # build mpv and all its dependencies
+ 
+ On **WSL2**, you might see it stuck with 100% disk usage and never finished. See [below](#wsl-workaround).
+diff --git a/toolchain/gcc/gcc.cmake b/toolchain/gcc/gcc.cmake
+index e383da0..7382b67 100644
+--- a/toolchain/gcc/gcc.cmake
++++ b/toolchain/gcc/gcc.cmake
+@@ -34,7 +34,6 @@ ExternalProject_Add_Step(gcc final
+         mingw-w64-crt
+         mingw-w64-winpthreads
+         mingw-w64-gendef
+-        rustup
+         cppwinrt
+     COMMAND ${MAKE}
+     COMMAND ${MAKE} install-strip
+
+From 076337b447dbd296d889f14ae3cfd7710f6d93a9 Mon Sep 17 00:00:00 2001
+From: Andarwinux <Andarwinux@users.noreply.github.com>
+Date: Sat, 27 Apr 2024 00:00:00 +0000
+Subject: [PATCH 13/13] llvm: enable ELF DT_RELR
+
+---
+ toolchain/llvm/llvm.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/toolchain/llvm/llvm.cmake b/toolchain/llvm/llvm.cmake
+index ae3aa1d..2ac124b 100644
+--- a/toolchain/llvm/llvm.cmake
++++ b/toolchain/llvm/llvm.cmake
+@@ -259,7 +259,7 @@ ExternalProject_Add(llvm
+         "-DLLVM_THINLTO_CACHE_PATH='${CMAKE_INSTALL_PREFIX}/llvm-thinlto'"
+         "-DCMAKE_C_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+         "-DCMAKE_CXX_FLAGS='-O3 -ffp-contract=fast -ftls-model=local-exec ${llvm_lto} ${llvm_pgo}'"
+-        "-DCMAKE_EXE_LINKER_FLAGS='${CMAKE_INSTALL_PREFIX}/lib/mimalloc.o -fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m ${llvm_linker_flags}'"
++        "-DCMAKE_EXE_LINKER_FLAGS='${CMAKE_INSTALL_PREFIX}/lib/mimalloc.o -fuse-ld=lld -Xlinker -s -Xlinker --icf=all -Xlinker -zpack-relative-relocs -Xlinker --thinlto-cache-policy=cache_size_bytes=1g:prune_interval=1m ${llvm_linker_flags}'"
+         -DLLVM_TOOLCHAIN_TOOLS='llvm-driver,llvm-ar,llvm-ranlib,llvm-objdump,llvm-rc,llvm-cvtres,llvm-nm,llvm-strings,llvm-readobj,llvm-dlltool,llvm-objcopy,llvm-strip,llvm-cov,llvm-profdata,llvm-addr2line,llvm-symbolizer,llvm-windres,llvm-ml,llvm-readelf,llvm-size'
+     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
