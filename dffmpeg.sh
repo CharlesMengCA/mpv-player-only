@@ -11,11 +11,21 @@ sudo systemctl start docker.service
 cd ..
 git config --global user.email "CharlesMeng@outlook.com"
 git config --global user.name "CharlesMengCA"
+#git config --global init.defaultBranch master
 
 git clone https://github.com/BtbN/FFmpeg-Builds.git
 #git clone https://github.com/CharlesMengCA/FFmpeg-Builds.git
 
 cd FFmpeg-Builds
+
+#mkdir -p .cache/downloads
+#cp -v $SCRIPT_DIR/Patch/50-xvid_71fdbd375fd4dc6730046ee5ef8892d278115f362302c99911232e5db4bc8105.tar.xz .cache/downloads
+#cd .cache/downloads
+#ln -s 50-xvid_71fdbd375fd4dc6730046ee5ef8892d278115f362302c99911232e5db4bc8105.tar.xz 50-xvid.tar.xz
+#cd ../.. 
+
+sed -i "\#/configure#i \    sed -i 's/FFMPEG_CONFIGURATION=\"/[ -z \"\\\\\${l}\" ] \\\&\\\& FFMPEG_CONFIGURATION=\"/g' configure" build.sh
+sed -i "s/rm -rf ffbuild/#rm -rf ffbuild/g" build.sh
 
 #git am $SCRIPT_DIR/ffmpeg/0001-Disable-linux-related.patch
 

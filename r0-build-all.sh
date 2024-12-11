@@ -9,6 +9,13 @@ echo -e '\nRestoring pre-built llvm...'
 7z x -so Patch/llvm.tar.7z | tar xf - -C ~
 
 ./1-download-mpv-winbuild-cmake.sh $1
+
+if [[ $1 == "ffmpeg" || $2 == "ffmpeg" ]]; then
+   ./ffmpeg.sh
+   exit
+fi
+
+
 ./2-disable-ffmpeg-encoder.sh "all"
 
 [[ $1 == "2" || $2 == "2" ]] && exit

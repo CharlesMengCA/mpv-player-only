@@ -20,7 +20,7 @@ cmake -DCOMPILER_TOOLCHAIN=clang -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DCMAKE_INSTALL_PREFIX=$PWD/clang_root \
       -DSINGLE_SOURCE_LOCATION=$PWD/src_packages \
       -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup \
-      -G Ninja -Bbuild64 -H.
+      -G Ninja -Bbuild64 -H. -Wno-dev 
 
 cd build64
 
@@ -63,7 +63,7 @@ cmake -DCOMPILER_TOOLCHAIN=clang -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DRUSTUP_LOCATION=$PWD/clang_root/install_rustup \
       -DCLANG_FLAGS="-fdata-sections -ffunction-sections" \
       -DLLD_FLAGS="-O3 --gc-sections -Xlink=-opt:safeicf" \
-      -G Ninja -B build64 -H.
+      -G Ninja -B build64 -H. -Wno-dev 
 
 if [[ $1 == "backup" ]]; then
    cd

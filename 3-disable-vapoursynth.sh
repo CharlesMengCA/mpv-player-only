@@ -38,7 +38,7 @@ comment_line ffmpeg libmodplug
 comment_line ffmpeg --enable-libmodplug
 
 # OpenAL
-comment_line CMakeLists.txt openal-soft
+comment_line CMakeLists.txt "openal-soft"
 comment_line ffmpeg "openal-soft"
 comment_line ffmpeg "--enable-openal"
 comment_line mpv openal-soft

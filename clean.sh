@@ -2,7 +2,7 @@
 source $(pwd)/functions.sh
 
 StartTime=$(date '+%H:%M:%S')
-clear && echo $0 $@
+clear && echo_info $0 $@
 
 cd ~/mpv-winbuild-cmake/
 rm -r mpv-lua
