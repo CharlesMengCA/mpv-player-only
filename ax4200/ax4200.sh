@@ -89,7 +89,7 @@ if [[ $1 == "" ]] || [[ $1 == "kernel" ]] || [[ $1 == "config" ]]; then
    #./scripts/diffconfig.sh > ~/mpv/ax4200/diffconfig.4266
 fi
 
-git clone https://github.com/flytosky-f/openwrt-vlmcsd.git package/openwrt-vlmcsd
+git clone https://github.com/CharlesMengCA/openwrt-vlmcsd.git package/openwrt-vlmcsd
 
 cp $SCRIPT_DIR/diffconfig.66 .config
 
