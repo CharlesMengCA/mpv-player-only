@@ -1,7 +1,7 @@
 #!/bin/bash
 
 bootstrapper_dialog() {
- DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation" --no-shadow "$@" 2>/dev/null)
+ DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation (VirtualBox) - $(uname -r)" --no-shadow "$@" 2>/dev/null)
 }
 
 wait_for_reflector() {
@@ -59,15 +59,22 @@ chmod +x /mnt/root/part2.sh
 arch-chroot /mnt /root/part2.sh $root_password
 rm /mnt/root/part2.sh
 
-xml ed --inplace -u "//property[@name='panel-1']/property[@name='position']/@value" \
-			-v "p=8;x=0;y=0" \
-			/mnt/etc/xdg/xfce4/panel/default.xml
+xml ed -L -u "//property[@name='panel-1']/property[@name='position']/@value" \
+          -v "p=8;x=0;y=0" \
+          /mnt/etc/xdg/xfce4/panel/default.xml
 
-xml ed --inplace -u "//property[@name='plugin-2']/property[@name='grouping']/@value" \
-			-v "0" \
-			/mnt/etc/xdg/xfce4/panel/default.xml
+xml ed -L -u "//property[@name='plugin-2']/property[@name='grouping']/@value" \
+          -v "0" \
+          /mnt/etc/xdg/xfce4/panel/default.xml
 
-xml ed --inplace -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
-xml ed --inplace -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
+xml ed -L -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
+xml ed -L -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
+
+#xml ed -L -s "//property[@name='general']" \
+#          -t elem -n "property" -v "" \
+#          -i "//property[@name='general']/property[not(@name)]" -t attr -n "name" -v "SaveOnExit" \
+#          -i "//property[@name='general']/property[@name='SaveOnExit']" -t attr -n "type" -v "bool" \
+#          -i "//property[@name='general']/property[@name='SaveOnExit']" -t attr -n "type" -v "true" \
+#          /mnt/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
 
 umount -R /mnt

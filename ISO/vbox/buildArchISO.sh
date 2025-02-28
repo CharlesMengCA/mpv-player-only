@@ -1,22 +1,24 @@
 #!/bin/bash
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-USER_DIR=$(eval echo ~$USER)
+dirs=(${SCRIPT_DIR////$'\n'})
 
-source $(find $USER_DIR -name functions.sh -print -quit)
+SHARED_DIR="/${dirs[0]}/${dirs[1]}/${dirs[2]}"
+
+source $(find $SHARED_DIR -name functions.sh -print -quit)
 
 clear && echo_info $0 $@
 
 pacman -S --needed --noconfirm archiso
 
-set -x #echo on
+#set -x #echo on
 
 cd /tmp
 
 rm -r livecd
 mkdir livecd
 
-chown :alpm /tmp/livecd
-chmod g+rx /tmp/livecd
+#chown :alpm /tmp/livecd
+#chmod g+rx /tmp/livecd
 
 cp -r /usr/share/archiso/configs/releng/* livecd
 cd livecd
@@ -192,4 +194,4 @@ mkarchiso -v -o $SCRIPT_DIR ./
 
 source=$(find $SCRIPT_DIR -name *.iso)
 target=$(echo $source | sed 's/\(.*\)\//\1-/')
-mv $source $target
+mv -v $source $target
