@@ -41,8 +41,8 @@ sed -i '/vo_kitty/d' meson.build
 
 BACKUP_FOLDER=$(pwd | sed -r 's#^(.*/)src_packages.*#\1#')
 
-cd player/lua
 
+cd player/lua
 
 mkdir $BACKUP_FOLDER/mpv-lua/ 
 cp -R --preserve=timestamps *.lua $BACKUP_FOLDER/mpv-lua/
@@ -50,12 +50,14 @@ cp -R --preserve=timestamps *.lua $BACKUP_FOLDER/mpv-lua/
 sed -i -e '/^--\[\[/,/\]\]/{d}' *.lua
 sed -i -e '/--\[\[/,/--\]\]/{d}' *.lua
 sed -i -e '/^\s*--/{d}' *.lua
-sed -i -e 's/\s\+--.*$//' *.lua
+sed -i -e 's/\s\+--\s.*$//' *.lua
+sed -i -e 's/\s\+--.*$//' osc.lua
 sed -i -e 's/\-\- bar, line, slider, inverted or none//' *.lua
 
 sed -i '/user-data\/osc\/margins/d' osc.lua
-#sed -i -e "s/plot_tonemapping_lut = true/plot_tonemapping_lut = false/g" stats.lua
 sed -i -e "s/try_ytdl_first = false/try_ytdl_first = true/g" ytdl_hook.lua
+#-------------
+#sed -i -e "s/plot_tonemapping_lut = true/plot_tonemapping_lut = false/g" stats.lua
 #sed -i -e "/font_size = o\.font_size \* scale/d" stats.lua
 
 mkdir $BACKUP_FOLDER/mpv-lua-mod/ 
