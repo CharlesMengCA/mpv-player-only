@@ -29,7 +29,7 @@ append_option () {
 }
 
 append_option_exact  () {
-	echo "append_option $1 $3"
+	echo "append_option_exact $1 $3"
 	
 	fn=$(get_filename "$1")
 

@@ -10,14 +10,6 @@ cd ~/mpv-winbuild-cmake/
 
 #git am --3way $SCRIPT_DIR/Patch/libmpv.patch
 
-append_option libva "--buildtype=release" "-Db_ndebug=true"
-append_option dav1d "--buildtype=release" "-Db_ndebug=true"
-append_option fribidi "--buildtype=release" "-Db_ndebug=true"
-append_option harfbuzz "--buildtype=release" "-Db_ndebug=true"
-append_option freetype2 "--buildtype=release" "-Db_ndebug=true"
-append_option fontconfig "--buildtype=release" "-Db_ndebug=true"
-append_option rubberband "--buildtype=release" "-Db_ndebug=true"
-
 #replace_option rustup "cargo-c --profile" "cargo-c --path \/home\/cm\/cargo-c --profile"
 
 #set -x #echo on
@@ -47,6 +39,8 @@ fi
 #replace_option libiconv "ftp.gnu.org\/pub\/gnu\/libiconv" "fossies.org\/linux\/misc"
 
 #replace_option fontconfig "gitlab.freedesktop.org\/fontconfig" "gitlab.com\/freedesktop-sdk\/mirrors\/freedesktop\/tagoh"
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/fontconfig-*.patch ./packages
+
 #replace_option libxml2 "gitlab.gnome.org" "github.com"
 
 # just for version info purpose
@@ -58,19 +52,29 @@ add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURR
 #comment_line openssl "PATCH_COMMAND "
 
 replace_option luajit "CFLAGS='-DUNICODE'" "CFLAGS='-D_WIN32_WINNT=0x0602 -DUNICODE'"
-#append_option mingw-w64 "GIT_CLONE_FLAGS " "GIT_RESET 5ccc975a43c4f839063b4cd5be7fe9f081378b93"
+
+#https://github.com/mingw-w64/mingw-w64/commits/master/
+#append_option mingw-w64 "GIT_CLONE_FLAGS " "GIT_RESET 0f94270b0007d892b4cd532d9a8a63db24b52ac0"
+replace_option mingw-w64-crt " install-strip" " install"
+replace_option winpthreads " install-strip" " install"
+
+#append_option harfbuzz "GIT_CLONE_FLAGS " "GIT_RESET a2ea5d28cb5387f4de2049802474b817be15ad5b"
+
+#https://github.com/quietvoid/dovi_tool.git
+#append_option libdovi "GIT_CLONE_FLAGS " "GIT_RESET 46c6430e28ab1266f55841ef45ee72cc5f59e461"
+
+#avisynth_c.h: add missing enums, existing in avisynth.h
+#append_option avisynth-headers "GIT_CLONE_FLAGS " "GIT_RESET 774a4a7"
 
 #append_option llvm "GIT_TAG release\/18.x" "GIT_RESET c13b7485b87909fcf739f62cfa382b55407433c0"
 
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/fontconfig-*.patch ./packages
-
 #comment_line ffmpeg "PATCH_COMMAND "
-#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET 82da76949266cfbbf7890db0c43f833dfebab1b8"
-
-#append_option mpv "GIT_CLONE_FLAGS " "GIT_RESET 1586ccc0c86ab23aad9e3f4b2b5986574ce266a7"
+#replace_option ffmpeg "GIT_SHALLOW 1" "GIT_RESET d68d311bcd76cf2ef4c8e3163170775686784727"
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
-#append_option ffmpeg "GIT_SHALLOW 1" "PATCH_COMMAND \$\{EXEC\} git apply \$\{CMAKE_CURRENT_SOURCE_DIR\}\/ffmpeg-*.patch"
+#add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+
+#append_option mpv "GIT_CLONE_FLAGS " "GIT_RESET 66a73380279be20b195768eb3497f25464150f17"
 
 #cp -v --preserve=timestamps $SCRIPT_DIR/Patch/glslang-*.patch ./packages
 #add_option glslang "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
@@ -91,11 +95,7 @@ replace_option luajit "CFLAGS='-DUNICODE'" "CFLAGS='-D_WIN32_WINNT=0x0602 -DUNIC
 #append_option shaderc "GIT_TAG main" "GIT_RESET e6187c722e96ca87240b515071ea9cb8d180f45d"
 #append_option shaderc "-DENABLE_GLSLANG_BINARIES=OFF" "-DSKIP_GLSLANG_INSTALL=ON"
 
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/vulkan-*.patch ./packages
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/vulkan-*.patch ./packages
-
-#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/ffmpeg-*.patch ./packages
-#add_option ffmpeg "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/cm-patch.sh"
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/new/vulkan-*.patch ./packages
 
 cp -v --preserve=timestamps $SCRIPT_DIR/Patch/mpv-*.patch ./packages
 
@@ -154,8 +154,6 @@ append_option vulkan-header "-DBUILD_SHARED_LIBS=OFF" "-DVULKAN_HEADERS_ENABLE_M
 
 #vk_dir=/usr/share/vulkan/registry
 #mkdir -p "$vk_dir" && cp /root/mpv-winbuild-cmake/build64/vulkan-header-prefix/src/vulkan-header/registry/vk.xml $vk_dir/vk.xml
-
-#sed -i "s/https:\/\/gitlab.freedesktop.org\/fontconfig\/fontconfig.git/https:\/\/github.com\/freedsktop\/fontconfig.git/" fontconfig.cmake
 
 #cp -n /root/mpv-winbuild-cmake/build64/aom-prefix/src/aom/aom/aom_decoder.h /root/mpv-winbuild-cmake/build64/install/x86_64-w64-mingw32/include/aom/
 #cp -n /root/mpv-winbuild-cmake/build64/aom-prefix/src/aom/aom/aomdx.h /root/mpv-winbuild-cmake/build64/install/x86_64-w64-mingw32/include/aom/

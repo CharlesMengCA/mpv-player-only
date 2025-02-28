@@ -1,8 +1,8 @@
 #!/bin/bash
 cd ISO/vbox/
 
-if [[ $1 == "s" || $1 == "stable" ]]; then
-   ./buildArchISO.sh
-else
+if [[ $1 == "l" || $1 == "lts" ]]; then
    ./lts.sh
+else
+   ./buildArchISO.sh
 fi

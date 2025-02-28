@@ -76,3 +76,13 @@ git log -n 3 --oneline
 
 #export CFLAGS=-fuse-ld=mold
 #df -h
+
+{ set +x; } 2>/dev/null # echo off
+
+append_option libva "--buildtype=release" "-Db_ndebug=true"
+append_option dav1d "--buildtype=release" "-Db_ndebug=true"
+append_option fribidi "--buildtype=release" "-Db_ndebug=true"
+append_option harfbuzz "--buildtype=release" "-Db_ndebug=true"
+append_option freetype2 "--buildtype=release" "-Db_ndebug=true"
+append_option fontconfig "--buildtype=release" "-Db_ndebug=true"
+append_option rubberband "--buildtype=release" "-Db_ndebug=true"

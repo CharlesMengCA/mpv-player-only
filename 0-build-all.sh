@@ -23,7 +23,7 @@ fi
 
 [[ $1 == "4" || $2 == "4" ]] && exit
 
-./5-disable-OpenGL.sh  "all"
+./5-disable-OpenGL.sh "all"
 ./6-disable-libbs2b.sh "all"
 ./7-new-toolchain.sh "all"
 
