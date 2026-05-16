@@ -1,19 +1,20 @@
 #!/bin/bash
+reflector -c CA -c US -p https --latest 12 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 
 bootstrapper_dialog() {
  DIALOG_RESULT=$(dialog --clear --stdout --backtitle "Arch Linux Installation (VirtualBox) - $(uname -r)" --no-shadow "$@" 2>/dev/null)
 }
 
 wait_for_reflector() {
-   echo -n Waiting for the latest mirror list from reflector..
-   
+   echo -n Waiting for the latest mirror list from reflector
+
    while pgrep reflector >/dev/null
    do
       echo -n .
-      
+
       sleep 0.5
    done
-   
+
    clear
 }
 
@@ -26,19 +27,22 @@ bootstrapper_dialog --title "Root password" --inputbox "Please enter a strong pa
 root_password="$DIALOG_RESULT"
 clear
 
-wait_for_reflector
-
-#if [[ $(cat /etc/pacman.d/mirrorlist | wc -l) -lt 20 ]]; then
-#   reflector --save /etc/pacman.d/mirrorlist --protocol https --latest 20 --sort rate >/dev/null 2>&1 &
-#   wait_for_reflector
-#fi
-
-set -x #echo on
+#wait_for_reflector
 
 timedatectl
 
 pacman -Sy --noconfirm --needed archlinux-keyring
 pacman -Syy
+
+echo -n Waiting for pacman keyring init to be done
+while ! systemctl show pacman-init.service | grep SubState=exited >/dev/null
+do
+   echo -n .
+   sleep 0.5
+done
+echo .
+
+set -x #echo on
 
 # start install
 echo -e "n\np\n1\n\n\nw" | fdisk /dev/sda
@@ -48,7 +52,9 @@ mkfs.ext4 /dev/sda1
 mount /dev/sda1 /mnt
 
 pacstrap -K /mnt base linux
-#pacstrap -U /mnt https://archive.archlinux.org/repos/2019/03/12/core/os/x86_64/linux-firmware-20190212.28f5f7d-1-any.pkg.tar.xz
+#pacstrap -U /mnt https://archive.archlinux.org/repos/2025/09/17/core/os/x86_64/systemd-257.9-1-x86_64.pkg.tar.zst \
+#                 https://archive.archlinux.org/repos/2025/09/17/core/os/x86_64/systemd-libs-257.9-1-x86_64.pkg.tar.zst \
+#                 https://archive.archlinux.org/repos/2025/09/17/core/os/x86_64/systemd-sysvcompat-257.9-1-x86_64.pkg.tar.zst
 
 pacman -S --noconfirm --needed xmlstarlet &
 
@@ -70,11 +76,12 @@ xml ed -L -u "//property[@name='plugin-2']/property[@name='grouping']/@value" \
 xml ed -L -d "//property[@name='panel-2']" /mnt/etc/xdg/xfce4/panel/default.xml
 xml ed -L -d "//property[@name='panels']/value[@value='2']" /mnt/etc/xdg/xfce4/panel/default.xml
 
-#xml ed -L -s "//property[@name='general']" \
-#          -t elem -n "property" -v "" \
-#          -i "//property[@name='general']/property[not(@name)]" -t attr -n "name" -v "SaveOnExit" \
-#          -i "//property[@name='general']/property[@name='SaveOnExit']" -t attr -n "type" -v "bool" \
-#          -i "//property[@name='general']/property[@name='SaveOnExit']" -t attr -n "type" -v "true" \
-#          /mnt/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+xml ed -L -u "//property[@name='Gtk']/property[@name='FontName']/@value" \
+          -v "Sans 12" \
+          /mnt/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+
+xml ed -L -u "//property[@name='Gtk']/property[@name='MonospaceFontName']/@value" \
+          -v "Monospace 12" \
+          /mnt/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
 umount -R /mnt
