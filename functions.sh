@@ -8,8 +8,13 @@ get_filename () {
 			echo $1
 		fi
 	else
-      path=$(find -name "$1.cmake")
-      echo ${path:2}
+      if [[ $1 == *"."* ]]; then
+         path=$(find -name "$1")
+         echo ${path:2}
+      else
+         path=$(find -name "$1.cmake")
+         echo ${path:2}
+      fi
 	fi 
 }
 
@@ -44,7 +49,7 @@ add_option () {
 	fn=$(get_filename "$1")
 
 	if ! (grep -A1 "$2" $fn | grep -- "$3"); then
-		sed -i "/$2/i \    $3" $fn
+		sed -i "/$2/i \        $3" $fn
 	fi >/dev/null 2>&1
 }
 

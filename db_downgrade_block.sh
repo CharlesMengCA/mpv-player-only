@@ -16,7 +16,8 @@ block-upd(){
 #block-upd systemd 
 #block-upd systemd-libs
 #block-upd systemd-sysvcompat
+block-upd meson
 
-pacman -U --needed --noconfirm https://archive.archlinux.org/repos/2024/09/27/extra/os/x86_64/archiso-79-1-any.pkg.tar.zst
+pacman -U --needed --noconfirm https://archive.archlinux.org/repos/2025/11/21/extra/os/x86_64/meson-1.9.1-2-any.pkg.tar.zst
 
-block-upd archiso
+#block-upd archiso

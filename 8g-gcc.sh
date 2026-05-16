@@ -17,12 +17,14 @@ set -x #echo on
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DGCC_ARCH=x86-64-v3 \
       -DSINGLE_SOURCE_LOCATION=$PWD/src_packages \
-      -DRUSTUP_LOCATION=$PWD/install_rustup \
       -G Ninja -Bbuild64 -H.
+
+#      -DRUSTUP_LOCATION=$PWD/install_rustup \
 
 cd build64
 
-ninja gcc rustup
+ninja gcc
+# rustup
 
 echo 'gcc end: ' $(date '+%H:%M:%S') >> $HOME/build_time.txt
 

@@ -52,18 +52,15 @@ comment_line mpv-release "-Dopenal=enabled"
 #libopenmpt and openal-soft are also depended on libsdl2
 comment_line CMakeLists.txt "libsdl2"
 comment_line mpv "libsdl2"
-replace_option mpv "-Dsdl2=enabled" "-Dsdl2=disabled"
+comment_line mpv "-Dsdl2-gamepad=enabled"
 comment_line mpv-release "libsdl2"
-replace_option mpv-release "-Dsdl2=enabled" "-Dsdl2=disabled"
+comment_line mpv-release "-Dsdl2-gamepad=enabled"
 
 cp -v $SCRIPT_DIR/Patch/lua-remove-comments.sh ./packages
 add_option mpv "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/lua-remove-comments.sh"
 
 cp -v $SCRIPT_DIR/Patch/libass-7-digit-commit-id.sh ./packages
 add_option libass "UPDATE_COMMAND \"\"" "PATCH_COMMAND \${EXEC} \${CMAKE_CURRENT_SOURCE_DIR}/libass-7-digit-commit-id.sh"
-
-#comment_line CMakeLists.txt "libdovi"
-#comment_line libplacebo "libdovi"
 
 comment_line CMakeLists.txt "aom"
 comment_line ffmpeg "aom"
@@ -79,3 +76,11 @@ replace_option mpv "-Ddebug=true" "--buildtype=release"
 
 replace_option libplacebo "-Ddebug=true" "--buildtype=release"
 #delete_line libplacebo "-Db_ndebug=true"
+
+# just for version info purpose
+replace_option libplacebo "GIT_CLONE_FLAGS \"--filter=tree:0\"" "GIT_SHALLOW 1"
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/libplacebo-version.sh ./packages
+add_option libplacebo "UPDATE_COMMAND " "PATCH_COMMAND \$\{EXEC\} \$\{CMAKE_CURRENT_SOURCE_DIR\}\/libplacebo-version.sh"
+
+#comment_line CMakeLists.txt "libdovi"
+#comment_line libplacebo "libdovi"

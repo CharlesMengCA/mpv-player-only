@@ -7,11 +7,12 @@ echo_info $0 $@
 BUILD64=~/mpv-winbuild-cmake/build64
 cd $BUILD64
 
-cp -v --preserve=timestamps $SCRIPT_DIR/Patch/opus_data-735117b.tar.gz ../src_packages/opus-dnn/
+cp -v --preserve=timestamps $SCRIPT_DIR/Patch/opus_data*.tar.gz ../src_packages/opus-dnn/
 
 StartTime=$(date '+%H:%M:%S')
 #set -x #echo on
 #{ set +x; } 2>/dev/null # echo off
+echo_build uchardet
 
 echo_build luajit
 
@@ -40,7 +41,7 @@ echo_build shaderc
 #fi
 
 #echo_build spirv-cross
-echo_build libplacebo
+#echo_build libplacebo
 
 #rm $FILE
 
@@ -78,6 +79,15 @@ if [ $? -ne 127 ]; then
 	rm -rf packages/libiconv-prefix/src/libiconv/
 	rm -rf packages/fontconfig-prefix/src/fontconfig/
 fi
+
+echo_build ffmpeg
+
+get_digit() { date +%M | cut -c$1; }
+
+wait_for_digit_change() { while [[ $(get_digit $1) != $2 ]]; do echo -n .; sleep 0.5; done; echo; }
+
+[[ $(get_digit 1) == 4 ]] && echo "FFmpeg: $(date +%H:%M:%S)" >> $HOME/build_time.txt && wait_for_digit_change 1 5
+[[ $(get_digit 2) == 4 ]] && wait_for_digit_change 2 5
 
 echo_build mpv
 

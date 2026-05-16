@@ -2,7 +2,7 @@
 ./updateSystem.sh
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
 
-./1-download-mpv-winbuild-cmake.sh $1
+./1-download-mpv-winbuild-cmake.sh $1 $2
 
 [[ $1 == "1" || $2 == "1" ]] && exit
 
@@ -32,7 +32,7 @@ fi
 if [[ $1 == "gcc" ]]; then
    ./8g-gcc.sh
 else
-   ./8c-clang.sh $1
+   ./8c-clang.sh $1 $2
 fi
 
 [[ $1 == "8" || $2 == "8" ]] && exit

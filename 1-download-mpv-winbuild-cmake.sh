@@ -10,9 +10,9 @@ if [[ "$(cat /etc/os-release)" == *"Arch Linux"* ]]; then
   # clang is required by ffmpeg/cuda-llvmc
   sudo pacman -S --noconfirm --needed \
 		git gyp mercurial  ninja cmake ragel yasm nasm asciidoc enca \
-		gperf unzip p7zip gcc-multilib python-pip clang meson po4a \
+		gperf unzip p7zip gcc-multilib python-pip clang  po4a \
       python-mako python-j2cli python-jsonschema mold \
-      lld libc++ libc++abi less wget
+      lld libc++ libc++abi less wget meson
 else
   sudo apt-get update
   sudo apt-get install -y \
@@ -21,6 +21,9 @@ else
 		clang libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint \
 		re2c asciidoc python3-pip docbook2x unzip p7zip-full curl meson
 fi
+
+#meson
+#sudo pacman -U --needed --noconfirm https://archive.archlinux.org/repos/2025/11/21/extra/os/x86_64/meson-1.9.1-2-any.pkg.tar.zst
 
 #pip3 install mako
 # --root-user-action=ignore
@@ -64,9 +67,18 @@ fi
    #git am --3way $SCRIPT_DIR/Patch/toolchain_misc.patch
 #fi
 
-git am --3way $SCRIPT_DIR/Patch/unity.patch
-git am --3way $SCRIPT_DIR/Patch/luajit-malloc.patch
-git am --3way $SCRIPT_DIR/Patch/drop_expat.patch
+{ set +x; } 2>/dev/null # echo off
+
+if [[ $1 == "a" || $2 == "a" ]]; then
+   git am --3way $SCRIPT_DIR/Patch/747.patch   
+   replace_option llvm-ld.in " --file-alignment=4096" ""
+else
+   git am --3way $SCRIPT_DIR/Patch/unity.patch
+   git am --3way $SCRIPT_DIR/Patch/drop_expat.patch
+   git am --3way $SCRIPT_DIR/Patch/749.patch
+
+   git am --3way $SCRIPT_DIR/Patch/luajit-malloc.patch
+fi
 
 # used to apply customized patches
 cp -v --preserve=timestamps $SCRIPT_DIR/Patch/cm-patch.sh ./packages
@@ -77,8 +89,6 @@ git log -n 3 --oneline
 #export CFLAGS=-fuse-ld=mold
 #df -h
 
-{ set +x; } 2>/dev/null # echo off
-
 append_option libva "--buildtype=release" "-Db_ndebug=true"
 append_option dav1d "--buildtype=release" "-Db_ndebug=true"
 append_option fribidi "--buildtype=release" "-Db_ndebug=true"
@@ -86,3 +96,43 @@ append_option harfbuzz "--buildtype=release" "-Db_ndebug=true"
 append_option freetype2 "--buildtype=release" "-Db_ndebug=true"
 append_option fontconfig "--buildtype=release" "-Db_ndebug=true"
 append_option rubberband "--buildtype=release" "-Db_ndebug=true"
+
+if [[ $1 == "a" || $2 == "a" ]]; then
+   replace_option mpv "--depth=1 " ""
+   #comment_line mpv "-Dlibmpv=false"
+   #comment_line mpv "-Dcplayer=true"
+   append_option mpv "--prefer-static" "-Doptimization=3"
+   append_option mpv "--prefer-static" "-Db_ndebug=true"
+
+   replace_option libass "--depth=1 --no-single-branch " ""
+   replace_option ffmpeg "<SOURCE_DIR>\/libass\/x86" "<SOURCE_DIR>\/\.\.\/libass\/libass\/x86"
+
+   comment_line CMakeLists.txt "liblc3"
+   comment_line ffmpeg "liblc3"
+   comment_line ffmpeg "--enable-liblc3"
+
+   comment_line CMakeLists.txt "opencl"
+   comment_line ffmpeg "opencl"
+   comment_line ffmpeg "--enable-opencl"
+
+   comment_line CMakeLists.txt "libvidstab"
+   comment_line ffmpeg "libvidstab"
+   comment_line ffmpeg "--enable-libvidstab"
+
+   comment_line CMakeLists.txt "frei0r"
+   comment_line ffmpeg "frei0r"
+   comment_line ffmpeg "--enable-frei0r"
+
+   comment_line CMakeLists.txt "vvenc"
+   comment_line ffmpeg "vvenc"
+   comment_line ffmpeg "--enable-libvvenc"
+
+   comment_line CMakeLists.txt "codec2"
+   comment_line ffmpeg "codec2"
+   comment_line ffmpeg "--enable-libcodec2"
+else
+   #ffmpeg: re-enable hardcoded tables
+   #The culprit that broke hardcoded tables build was aac_fixed, and since current x86 baseline requires SSE2, we don't need slow fixed-point decoder, disable it will fix hardcoded tables build
+   append_option ffmpeg "--enable-runtime-cpudetect" "--enable-hardcoded-tables"
+   replace_option ffmpeg "--disable-decoder=libaom_av1" "--disable-decoder=libaom_av1,aac_fixed,ac3_fixed"
+fi

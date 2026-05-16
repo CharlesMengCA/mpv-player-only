@@ -4,9 +4,12 @@ source $SCRIPT_DIR/functions.sh
 
 echo_info  $0 $@
 
-toolchain="gcc-"$(find ~/mpv-winbuild-cmake/src_packages/gcc -maxdepth 1 -name *.xz  -printf "%f\n" | sed 's/gcc-\(.*\)\..*\..*/\1/')
-#[[ $toolchain == "gcc-" ]] && toolchain="clang-"$($HOME/mpv-winbuild-cmake/clang_root/bin/llvm-ar --version | sed -n 's/.*version \(.*\)/\1/p')
-[[ $toolchain == "gcc-" ]] && toolchain="clang-"$(cd ~/mpv-winbuild-cmake/src_packages/llvm && git describe | sed 's/[^-]*-\([^-]*\)/\1/' | sed 's/\([^-]*\)-.*/\1/')
+if [ -d ~/mpv-winbuild-cmake/src_packages/gcc ]; then
+  toolchain="gcc-"$(find ~/mpv-winbuild-cmake/src_packages/gcc -maxdepth 1 -name *.xz  -printf "%f\n" | sed 's/gcc-\(.*\)\..*\..*/\1/')
+fi
+
+#[[ $toolchain == "" ]] && toolchain="clang-"$(cd ~/mpv-winbuild-cmake/src_packages/llvm && git describe | sed 's/[^-]*-\([^-]*\)/\1/' | sed 's/\([^-]*\)-.*/\1/')
+[[ $toolchain == "" || $toolchain == "gcc-" ]] && toolchain="clang-"$($HOME/mpv-winbuild-cmake/clang_root/bin/clang --version | sed -n 's/.*version \(.*\) (.*/\1/p')
 
 mpv_build=$(find ~/mpv-winbuild-cmake/build64 -maxdepth 1 -type d -name mpv-x86_64-*-git*)
 

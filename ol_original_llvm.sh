@@ -23,7 +23,10 @@ rm -rf mpv-winbuild-cmake/
 
 if [[ $1 == "a" || $1 == "all" ]]; then
    git clone https://github.com/shinchiro/mpv-winbuild-cmake.git --depth=1
-   cd mpv-winbuild-cmake   
+   cd mpv-winbuild-cmake
+   git am $SCRIPT_DIR/Patch/0001-llvm-update-to-release-22.x-branch.patch
+   git am $SCRIPT_DIR/Patch/0002-llvm-port-some-options-from-andarwinux.patch
+   git am $SCRIPT_DIR/Patch/0003-xvidcore-fix-build.patch
 else
    echo -e '\nRestoring pre-built llvm...'
    7z x -so mpv/Patch/llvm.tar.7z | tar xf - -C ~
@@ -37,6 +40,17 @@ fi
 replace_option mpv "-Dpdf-build=enabled" "-Dpdf-build=disabled"
 delete_line mpv "manual.pdf"
 append_option mpv "-Dpdf-build=disabled" "-Dmanpage-build=disabled"
+
+# OpenAL
+#comment_line CMakeLists.txt "openal-soft"
+#comment_line ffmpeg "openal-soft"
+#comment_line ffmpeg "--enable-openal"
+#comment_line mpv openal-soft
+#comment_line mpv "-Dopenal=enabled"
+#comment_line mpv-release openal-soft
+#comment_line mpv-release "-Dopenal=enabled"
+
+#cp -v --preserve=timestamps $SCRIPT_DIR/Patch/xvidcore-2-win64.patch ./packages
 
 cmake -DCOMPILER_TOOLCHAIN=clang -DTARGET_ARCH=x86_64-w64-mingw32 \
       -DGCC_ARCH=x86-64-v3 \
@@ -53,4 +67,5 @@ if [[ $1 == "a" || $1 == "all" ]]; then
    ninja llvm-clang 
 fi
 
+#ninja openal-soft
 ninja mpv

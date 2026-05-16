@@ -3,18 +3,22 @@ rm -rf $HOME/mpv-winbuild-cmake/
 
 ./updateSystem.sh
 echo 'Start: ' $(date '+%H:%M:%S') > $HOME/build_time.txt
+
 sudo pacman -S --noconfirm --needed p7zip
 
 echo -e '\nRestoring pre-built llvm...'
-7z x -so Patch/llvm.tar.7z | tar xf - -C ~
+if [[ $1 == "a" || $2 == "a" ]]; then
+   7z x -so Patch/llvm_a.tar.7z | tar xf - -C ~
+else
+   7z x -so Patch/llvm.tar.7z | tar xf - -C ~
+fi
 
-./1-download-mpv-winbuild-cmake.sh $1
+./1-download-mpv-winbuild-cmake.sh $1 $2
 
 if [[ $1 == "ffmpeg" || $2 == "ffmpeg" ]]; then
    ./ffmpeg.sh
    exit
 fi
-
 
 ./2-disable-ffmpeg-encoder.sh "all"
 
